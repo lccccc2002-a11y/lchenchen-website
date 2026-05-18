@@ -8,78 +8,35 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+SC:wght@200;300;400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
 <style>
 /* ============================================================
-   lchenchen.com — 干净现代风格 (Lain-Ego 模板)
+   lchenchen.com — Brittany Chiang 风左右分栏 (浅色版)
    ============================================================ */
 :root {
   --bg: #f7f9fc;
-  --bg-grad-1: #eef4ff;
-  --bg-grad-2: #f7f9fc;
+  --bg-2: #eef4ff;
   --card: #ffffff;
-  --card-hover: #fbfcff;
+  --card-hover: rgba(107, 155, 247, 0.06);
   --ink: #1a1f36;
-  --ink-soft: #4b5563;
-  --ink-faint: #6b7280;
-  --ink-mute: #9ca3af;
-  --line: #e5e7eb;
-  --line-soft: #f0f2f5;
-  --brand: #2563eb;
-  --brand-soft: #dbeafe;
-  --brand-hover: #1d4ed8;
-  --accent: #3b82f6;
+  --ink-soft: #475569;
+  --ink-faint: #64748b;
+  --ink-mute: #94a3b8;
+  --line: #e2e8f0;
+  --line-soft: #f1f5f9;
+  --brand: #6b9bf7;
+  --brand-strong: #4f7ce6;
+  --brand-soft: #dbe7ff;
+  --brand-glow: rgba(139, 92, 246, 0.5);
+  --accent: #8b5cf6;
   --tag-bg: #eff6ff;
   --tag-ink: #2563eb;
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.10);
-  --shadow-fab: 0 8px 24px rgba(37, 99, 235, 0.45);
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --font: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --max-w: 1080px;
-  --pad-x: clamp(20px, 5vw, 48px);
-  --theme-tx: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-/* ===== 深色模式 (英文版自动切换) ===== */
-[data-theme="dark"] {
-  --bg: #0a0e1a;
-  --bg-grad-1: #131933;
-  --bg-grad-2: #0a0e1a;
-  --card: #141a2e;
-  --card-hover: #1a2138;
-  --ink: #e6e8f0;
-  --ink-soft: #a8b0c4;
-  --ink-faint: #7a8299;
-  --ink-mute: #555c75;
-  --line: #252b40;
-  --line-soft: #1a2038;
-  --brand: #6b9bf7;
-  --brand-soft: #1d2745;
-  --brand-hover: #8db5fa;
-  --accent: #8b5cf6;
-  --tag-bg: #1d2745;
-  --tag-ink: #93b4f5;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
-  --shadow-fab: 0 8px 24px rgba(107, 155, 247, 0.45);
-}
-[data-theme="dark"] .topbar { background: rgba(10, 14, 26, 0.75); }
-[data-theme="dark"] .topbar.is-scrolled { background: rgba(20, 26, 46, 0.92); }
-[data-theme="dark"] .card-thumb { background: linear-gradient(135deg, #1a2138 0%, #2a1f3a 100%); }
-[data-theme="dark"] .chat-bubble.is-error { background: #3a1818; color: #fca5a5; border-color: #5a2828; }
-[data-theme="dark"] .footer { background: rgba(20, 26, 46, 0.5); }
-[data-theme="dark"] .hero-avatar::after { border-color: var(--bg); }
-[data-theme="dark"] .dock-fab-badge { border-color: var(--bg); }
-
-html, body, .card, .stack-item, .topbar, .lang-toggle, .icon-btn, .dock-panel, .dock-fab,
-.contact-circle, .articles-group, .dock-panel-input, .footer, .hero-avatar-inner, .card-thumb {
-  transition: background var(--theme-tx), color var(--theme-tx), border-color var(--theme-tx), box-shadow var(--theme-tx);
+  --max-w: 1200px;
+  --pad-x: clamp(24px, 5vw, 48px);
+  --tx: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -87,505 +44,518 @@ html { scroll-behavior: smooth; }
 html, body {
   background: var(--bg);
   background-image:
-    radial-gradient(ellipse 80% 50% at 50% 0%, var(--bg-grad-1) 0%, transparent 70%),
-    linear-gradient(180deg, var(--bg-grad-2) 0%, var(--bg) 100%);
+    radial-gradient(ellipse 50% 30% at 20% 0%, var(--bg-2) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 25% at 90% 60%, rgba(167, 139, 250, 0.08) 0%, transparent 60%);
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font);
-  font-weight: 400; font-size: 15px; line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
-body { min-height: 100vh; overflow-x: hidden; }
+body { min-height: 100vh; overflow-x: hidden; position: relative; }
+
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
 img, svg { display: block; max-width: 100%; }
+ol, ul { list-style: none; }
 
 /* ============================================================
-   顶部导航
+   主布局: 左固定 + 右滚动
    ============================================================ */
-.topbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-  background: rgba(247, 249, 252, 0.7);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease, background 0.3s ease;
+.layout {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+  display: grid;
+  grid-template-columns: 42% 1fr;
+  gap: 64px;
+  position: relative;
+  z-index: 2;
 }
-.topbar.is-scrolled {
-  background: rgba(255, 255, 255, 0.92);
-  border-bottom-color: var(--line);
+
+.left-pane {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 96px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 100vh;
+  overflow-y: auto;
 }
-.topbar-inner {
-  max-width: var(--max-w); margin: 0 auto;
-  padding: 14px var(--pad-x);
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px;
+.left-pane::-webkit-scrollbar { display: none; }
+.left-pane { scrollbar-width: none; }
+
+.right-pane {
+  padding: 96px 0 120px;
+  max-width: 600px;
+}
+
+/* ============================================================
+   左侧顶部: 头像 + 姓名 + 角色 + 简介
+   ============================================================ */
+.brand-block {
+  margin-bottom: 28px;
 }
 .brand {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-weight: 700; font-size: 15px; color: var(--ink);
-  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 22px;
+  transition: transform var(--tx);
 }
-.brand-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-  animation: brand-pulse 2.4s ease-in-out infinite;
-}
-@keyframes brand-pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
-  50% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.05); }
-}
-
-.nav {
-  display: flex; gap: 28px;
-  font-size: 14px; color: var(--ink-soft);
-}
-.nav a {
-  position: relative; padding: 4px 0;
-  font-weight: 500; transition: color 0.2s ease;
-}
-.nav a:hover { color: var(--brand); }
-.nav a::after {
-  content: ''; position: absolute; left: 0; bottom: -2px;
-  width: 0; height: 2px; background: var(--brand);
-  transition: width 0.3s ease;
-}
-.nav a:hover::after, .nav a.is-active::after { width: 100%; }
-
-.topbar-tools {
-  display: inline-flex; align-items: center; gap: 10px;
-}
-.lang-toggle {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; background: var(--card);
-  border: 1px solid var(--line); border-radius: 999px;
-  font-size: 12.5px; font-weight: 600; color: var(--ink-soft);
-  transition: all 0.2s ease;
-  letter-spacing: 0.04em;
-}
-.lang-toggle:hover { color: var(--brand); border-color: var(--brand); }
-.lang-toggle svg { width: 14px; height: 14px; }
-.icon-btn {
-  width: 32px; height: 32px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--card); border: 1px solid var(--line); border-radius: 50%;
-  color: var(--ink-soft); transition: all 0.2s ease;
-}
-.icon-btn:hover { color: var(--brand); border-color: var(--brand); transform: rotate(45deg); }
-
-/* ============================================================
-   Hero
-   ============================================================ */
-.hero {
-  padding: 140px var(--pad-x) 80px;
-  max-width: var(--max-w); margin: 0 auto;
-  text-align: center;
-}
-.hero-avatar {
-  width: 132px; height: 132px;
-  margin: 0 auto 32px;
-  position: relative;
+.brand:hover { transform: translateY(-2px); }
+.brand-avatar {
+  width: 60px; height: 60px;
   border-radius: 50%;
-  background:
-    conic-gradient(from 180deg at 50% 50%,
-      #f4e2b0 0deg,
-      #c8a468 60deg,
-      #8a6a30 130deg,
-      #d4b370 200deg,
-      #f4e2b0 270deg,
-      #9a7a3e 330deg,
-      #f4e2b0 360deg);
-  padding: 2px;
-  box-shadow:
-    0 20px 50px rgba(154, 124, 64, 0.35),
-    0 0 0 1px rgba(244, 226, 176, 0.2),
-    inset 0 0 0 1px rgba(0,0,0,0.1);
-}
-.hero-avatar::before {
-  content: ''; position: absolute;
-  inset: 2px; border-radius: 50%;
-  background: #08050a;
-  z-index: 0;
-}
-.hero-avatar-inner {
-  width: 100%; height: 100%;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 28%, #1f1610 0%, #0a0604 70%, #050302 100%);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-  cursor: pointer;
-  box-shadow: inset 0 0 18px rgba(0,0,0,0.65), inset 0 1px 0 rgba(244,226,176,0.08);
-}
-.hero-avatar-inner.is-dragover {
-  box-shadow: inset 0 0 0 3px var(--brand), inset 0 0 18px rgba(0,0,0,0.65);
-}
-.hero-avatar-inner svg.avatar-svg,
-.hero-avatar-inner img.avatar-img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  display: block;
   object-fit: cover;
   object-position: center 30%;
-  image-rendering: -webkit-optimize-contrast;
+  box-shadow: 0 6px 20px rgba(107, 155, 247, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
-.avatar-upload-hint {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; gap: 4px;
-  align-items: center; justify-content: center;
-  background: rgba(8, 5, 4, 0.7);
-  color: #f4e2b0;
-  font-family: 'Fraunces', 'Iowan Old Style', serif;
-  font-style: italic;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  z-index: 2;
-  border-radius: 50%;
-  pointer-events: none;
-  text-align: center;
+.brand-name h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
 }
-.avatar-upload-hint svg { width: 18px; height: 18px; opacity: 0.9; }
-.hero-avatar:hover .avatar-upload-hint,
-.hero-avatar-inner.is-dragover .avatar-upload-hint { opacity: 1; }
-/* 在线状态绿点已移除 — 避免遮挡头像 */
+.brand-name p {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
 
-.hero-title {
-  font-size: clamp(32px, 5vw, 44px);
-  font-weight: 700; color: var(--ink);
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-  line-height: 1.2;
+.role {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
 }
-.hero-title .brand-text {
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero-role {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 14px;
-  background: var(--brand-soft);
-  border-radius: 999px;
-  font-size: 13px; font-weight: 600;
-  color: var(--brand);
-  margin-bottom: 24px;
-}
-.hero-role-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--brand);
-}
-.hero-desc {
-  font-size: 15px; line-height: 2;
+
+.tagline {
+  font-size: 14px;
   color: var(--ink-soft);
-  max-width: 520px;
-  margin: 0 auto;
-}
-.hero-desc strong { color: var(--ink); font-weight: 600; }
-.hero-email {
-  margin-top: 8px;
-  font-family: 'Inter', monospace;
-  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 380px;
+  margin-bottom: 56px;
 }
 
 /* ============================================================
-   Section 通用
+   侧边导航 (滚动联动)
+   ============================================================ */
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: auto;
+}
+.side-nav a {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 0;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--ink-faint);
+  transition: color var(--tx);
+}
+.side-nav .nav-line {
+  width: 32px;
+  height: 1px;
+  background: var(--ink-mute);
+  transition: width var(--tx), background var(--tx);
+}
+.side-nav a:hover { color: var(--ink); }
+.side-nav a:hover .nav-line { width: 56px; background: var(--ink); }
+.side-nav a.is-active { color: var(--brand-strong); }
+.side-nav a.is-active .nav-line {
+  width: 64px;
+  background: var(--brand-strong);
+}
+
+/* ============================================================
+   左侧底部: 社交 + 手机 + 中英文切换
+   ============================================================ */
+.left-bottom {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.social-icons {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+.social-icons a,
+.social-icons button {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink-faint);
+  transition: color var(--tx), transform var(--tx);
+}
+.social-icons a:hover,
+.social-icons button:hover {
+  color: var(--brand);
+  transform: translateY(-2px);
+}
+.social-icons svg { width: 100%; height: 100%; }
+
+.phone-line {
+  font-size: 13px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+.phone-line a {
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.phone-line a:hover { color: var(--brand); }
+
+.lang-toggle {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-faint);
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 4px 0;
+  letter-spacing: 0.08em;
+  transition: color var(--tx), border-color var(--tx);
+  margin-top: 6px;
+}
+.lang-toggle:hover {
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+/* ============================================================
+   右侧 Section 通用
    ============================================================ */
 .section {
-  max-width: var(--max-w); margin: 0 auto;
-  padding: 60px var(--pad-x) 40px;
+  padding: 80px 0;
+  position: relative;
 }
-.section-head {
-  text-align: center;
-  margin-bottom: 48px;
-}
+.section:first-of-type { padding-top: 0; }
+
 .section-title {
-  display: inline-block; position: relative;
-  font-size: 24px; font-weight: 700;
-  color: var(--ink); letter-spacing: -0.01em;
-  padding-bottom: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--ink);
+  margin-bottom: 28px;
+  position: relative;
+  display: inline-block;
 }
 .section-title::after {
-  content: ''; position: absolute;
-  left: 50%; bottom: 0;
-  transform: translateX(-50%);
-  width: 40px; height: 3px;
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 32px;
+  height: 2px;
   background: var(--brand);
   border-radius: 2px;
 }
 
 /* ============================================================
-   Cards Grid (Projects / Open Source)
+   About 段落
    ============================================================ */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+.about-body p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
 }
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 22px;
-  display: flex; flex-direction: column;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  position: relative;
-  overflow: hidden;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--brand-soft);
-}
-.card-thumb {
-  width: calc(100% + 44px);
-  margin: -22px -22px 18px;
-  height: 160px;
-  background: linear-gradient(135deg, #e9efff 0%, #f3e8ff 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 56px;
-  position: relative;
-}
-.card-thumb::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(255,255,255,0.4) 100%);
-}
-.card-icon {
-  width: 36px; height: 36px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--brand-soft); color: var(--brand);
-  border-radius: 10px; margin-bottom: 14px;
+.about-body p strong {
+  color: var(--ink);
   font-weight: 600;
 }
-.card-row-top {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 14px;
-}
-.card-fork-icon {
-  width: 18px; height: 18px;
-  color: var(--ink-mute);
-}
-.card-title {
-  font-size: 16px; font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
-}
-.card-desc {
-  font-size: 13.5px; line-height: 1.75;
-  color: var(--ink-soft);
-  margin-bottom: 16px;
-  flex: 1;
-}
-.card-tags {
-  list-style: none;
-  display: flex; flex-wrap: wrap; gap: 6px;
-  margin-bottom: 14px;
-}
-.card-tags li {
-  font-size: 11px; font-weight: 500;
-  padding: 3px 9px;
-  background: var(--tag-bg); color: var(--tag-ink);
-  border-radius: 6px;
-}
-.card-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600;
-  color: var(--brand);
-  padding-top: 12px;
-  border-top: 1px solid var(--line-soft);
-  transition: gap 0.2s ease;
-}
-.card-link:hover { gap: 10px; }
+.about-body p:last-child { margin-bottom: 0; }
 
-/* ============================================================
-   Timeline
-   ============================================================ */
-.timeline {
-  max-width: 720px; margin: 0 auto;
-  padding-left: 24px;
+.skills-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 20px;
+  list-style: none;
+}
+.skills-inline li {
+  font-size: 13px;
+  color: var(--ink-faint);
+  padding-left: 16px;
   position: relative;
 }
-.timeline::before {
-  content: ''; position: absolute;
-  left: 5px; top: 8px; bottom: 8px;
-  width: 1px; background: var(--line);
-}
-.timeline-item {
-  position: relative; padding: 0 0 32px 32px;
-}
-.timeline-item::before {
-  content: ''; position: absolute;
-  left: -24px; top: 6px;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--card);
-  border: 2px solid var(--brand);
-  box-shadow: 0 0 0 4px var(--brand-soft);
-}
-.timeline-date {
-  font-size: 12px; font-weight: 600;
+.skills-inline li::before {
+  content: '▹';
+  position: absolute;
+  left: 0;
   color: var(--brand);
-  margin-bottom: 4px;
-  letter-spacing: 0.04em;
-}
-.timeline-title {
-  font-size: 16px; font-weight: 600;
-  color: var(--ink); margin-bottom: 6px;
-}
-.timeline-desc {
-  font-size: 13.5px; line-height: 1.8;
-  color: var(--ink-soft);
+  font-size: 12px;
 }
 
 /* ============================================================
-   Stack (Tech Stack 4 columns)
+   Experience 列表
    ============================================================ */
-.stack-grid {
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.exp-item {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 110px 1fr;
   gap: 24px;
+  padding: 24px;
+  margin: 0 -24px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background var(--tx);
+  position: relative;
 }
-.stack-col {
-  padding-left: 12px;
-  border-left: 3px solid var(--brand);
+.exp-item:hover {
+  background: var(--card-hover);
 }
-.stack-col-title {
-  font-size: 14px; font-weight: 700;
+.exp-item:hover .exp-title { color: var(--brand-strong); }
+.exp-item:hover .exp-arrow { transform: translate(3px, -3px); color: var(--brand); }
+
+.exp-time {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-top: 4px;
+  white-space: nowrap;
+}
+.exp-body { min-width: 0; }
+.exp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.exp-title {
+  font-size: 16px;
+  font-weight: 700;
   color: var(--ink);
+  transition: color var(--tx);
+  letter-spacing: -0.01em;
+}
+.exp-title .at {
+  color: var(--brand-strong);
+  font-weight: 600;
+}
+.exp-arrow {
+  font-size: 13px;
+  color: var(--ink-mute);
+  transition: transform var(--tx), color var(--tx);
+  font-weight: 400;
+}
+.exp-desc {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.exp-tags li {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  background: var(--tag-bg);
+  color: var(--tag-ink);
+  border-radius: 999px;
+}
+
+/* ============================================================
+   Projects 列表
+   ============================================================ */
+.proj-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.proj-card {
+  padding: 24px;
+  margin: 0 -24px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background var(--tx);
+}
+.proj-card:hover {
+  background: var(--card-hover);
+}
+.proj-card:hover .proj-title { color: var(--brand-strong); }
+.proj-card:hover .proj-arrow { transform: translate(3px, -3px); color: var(--brand); }
+
+.proj-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.proj-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  transition: color var(--tx);
+}
+.proj-arrow {
+  font-size: 13px;
+  color: var(--ink-mute);
+  transition: transform var(--tx), color var(--tx);
+}
+.proj-desc {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.75;
   margin-bottom: 14px;
 }
-.stack-list {
-  list-style: none;
-  display: flex; flex-direction: column; gap: 8px;
+.proj-desc strong { color: var(--ink); font-weight: 600; }
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
 }
-.stack-item {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 12px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  font-size: 12.5px; font-weight: 500;
-  color: var(--ink-soft);
-  transition: all 0.2s ease;
-}
-.stack-item:hover {
-  border-color: var(--brand);
-  color: var(--brand);
-  transform: translateX(2px);
-}
-.stack-icon {
-  width: 14px; height: 14px;
-  color: var(--brand);
+.proj-tags li {
+  font-size: 11.5px;
+  color: var(--ink-faint);
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 
 /* ============================================================
-   Articles
+   Writing 文章列表
    ============================================================ */
-.articles-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+.writing-group {
+  margin-bottom: 28px;
 }
-.articles-group {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
-}
-.articles-group-head {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 15px; font-weight: 700;
+.writing-group:last-child { margin-bottom: 0; }
+.writing-group-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--ink);
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line-soft);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
 }
-.articles-group-head .icon {
-  width: 18px; height: 18px; color: var(--brand);
-}
-.article-list { list-style: none; }
-.article-list a {
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+.writing-group-title svg { width: 16px; height: 16px; color: var(--brand); }
+
+.writing-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
   padding: 12px 0;
   border-bottom: 1px dashed var(--line-soft);
-  font-size: 13.5px; color: var(--ink-soft);
-  transition: color 0.2s ease, padding 0.2s ease;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  transition: color var(--tx), padding var(--tx);
 }
-.article-list li:last-child a { border-bottom: none; }
-.article-list a:hover { color: var(--brand); padding-left: 4px; }
-.article-arrow {
+.writing-list li:last-child a { border-bottom: none; }
+.writing-list a:hover {
+  color: var(--brand);
+  padding-left: 6px;
+}
+.writing-arrow {
   color: var(--ink-mute);
-  transition: transform 0.2s ease, color 0.2s ease;
+  font-size: 13px;
+  transition: transform var(--tx), color var(--tx);
 }
-.article-list a:hover .article-arrow {
+.writing-list a:hover .writing-arrow {
   transform: translate(2px, -2px);
   color: var(--brand);
 }
 
 /* ============================================================
-   Contact / 联系我
+   Contact section
    ============================================================ */
-.contact-icons {
-  display: flex; justify-content: center; gap: 36px;
+.contact-body p {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.contact-body strong { color: var(--ink); font-weight: 600; }
+.contact-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
   flex-wrap: wrap;
 }
-.contact-icon-box {
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  text-align: center;
-  transition: transform 0.25s ease;
+.contact-actions a, .contact-actions button {
+  padding: 10px 18px;
+  border: 1px solid var(--brand);
+  background: transparent;
+  color: var(--brand-strong);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background var(--tx), color var(--tx), transform var(--tx);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
-.contact-icon-box:hover { transform: translateY(-4px); }
-.contact-circle {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: var(--card);
-  border: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--brand);
-  font-size: 22px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.25s ease;
-}
-.contact-icon-box:hover .contact-circle {
-  background: var(--brand);
-  color: white;
-  border-color: var(--brand);
-  box-shadow: var(--shadow-md);
-}
-.contact-label {
-  font-size: 13px; font-weight: 600;
-  color: var(--ink);
-}
-.contact-hint {
-  font-size: 11.5px;
-  color: var(--ink-faint);
+.contact-actions a:hover, .contact-actions button:hover {
+  background: var(--brand-soft);
+  transform: translateY(-2px);
 }
 
 /* ============================================================
-   Footer
+   鼠标跟随光斑 (小范围 + 高亮度)
    ============================================================ */
-.footer {
-  padding: 32px var(--pad-x);
-  text-align: center;
-  font-size: 13px; color: var(--ink-faint);
-  border-top: 1px solid var(--line-soft);
-  margin-top: 60px;
-  background: rgba(255, 255, 255, 0.5);
+.cursor-spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.55) 0%,
+    rgba(139, 92, 246, 0.28) 12%,
+    rgba(107, 155, 247, 0.12) 28%,
+    rgba(107, 155, 247, 0.04) 42%,
+    transparent 55%
+  );
+  filter: blur(20px);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  will-change: transform;
 }
-.footer a { color: var(--brand); font-weight: 500; }
-.footer a:hover { text-decoration: underline; }
+.cursor-spotlight.is-visible { opacity: 1; }
 
 /* ============================================================
-   微信二维码模态弹窗
+   Modal (微信 / 公众号 QR)
    ============================================================ */
 .modal {
   position: fixed; inset: 0; z-index: 200;
@@ -596,209 +566,163 @@ img, svg { display: block; max-width: 100%; }
 .modal.is-open { opacity: 1; pointer-events: auto; }
 .modal-overlay {
   position: absolute; inset: 0;
-  background: rgba(8, 12, 24, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .modal-card {
   position: relative;
+  width: min(360px, calc(100vw - 32px));
   background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: 36px 40px 32px;
-  width: min(360px, calc(100vw - 48px));
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
-  transform: scale(0.92) translateY(20px);
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border-radius: 16px;
+  padding: 36px 28px 28px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
   text-align: center;
+  transform: scale(0.94) translateY(20px);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid var(--line);
 }
 .modal.is-open .modal-card { transform: scale(1) translateY(0); }
 .modal-close {
   position: absolute; top: 14px; right: 14px;
   width: 32px; height: 32px;
-  background: var(--bg);
-  border: 1px solid var(--line); border-radius: 50%;
-  color: var(--ink-soft);
   display: inline-flex; align-items: center; justify-content: center;
-  transition: all 0.2s ease;
+  background: var(--line-soft); border: none; border-radius: 50%;
+  color: var(--ink-soft);
+  transition: all var(--tx);
 }
-.modal-close:hover { color: var(--ink); border-color: var(--ink); transform: rotate(90deg); }
-.modal-title {
-  font-size: 17px; font-weight: 700; color: var(--ink);
-  margin-bottom: 4px; letter-spacing: 0.02em;
-}
-.modal-subtitle {
-  font-size: 12.5px; color: var(--ink-faint);
-  margin-bottom: 24px;
-  font-family: 'Fraunces', serif; font-style: italic;
-  letter-spacing: 0.08em;
-}
-.wechat-qr-wrap {
-  width: 220px; height: 220px;
+.modal-close:hover { color: var(--ink); background: var(--line); transform: rotate(90deg); }
+.modal-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
+.modal-subtitle { font-size: 13px; color: var(--ink-faint); margin-bottom: 24px; }
+
+.qr-wrap {
+  width: 200px; height: 200px;
   margin: 0 auto 18px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #07c160 0%, #06ad56 100%);
-  padding: 12px;
+  border-radius: 14px;
+  border: 2px dashed var(--line);
+  background: var(--bg);
   cursor: pointer;
-  position: relative;
-  transition: transform 0.25s ease;
-}
-.wechat-qr-wrap:hover { transform: scale(1.02); }
-.wechat-qr-inner {
-  width: 100%; height: 100%;
-  background: white;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
   overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
   position: relative;
+  transition: border-color var(--tx);
 }
-.wechat-qr-inner img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  display: block;
-}
-.wechat-qr-placeholder {
-  display: flex; flex-direction: column;
+.qr-wrap:hover { border-color: var(--brand); border-style: solid; }
+.qr-wrap.is-dragover { border-color: var(--brand); border-style: solid; background: var(--brand-soft); }
+.qr-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.qr-placeholder {
+  display: flex; flex-direction: column; gap: 12px;
   align-items: center; justify-content: center;
-  gap: 8px;
-  color: #999;
-  text-align: center;
   padding: 16px;
+  color: var(--ink-mute);
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.6;
 }
-.wechat-qr-placeholder svg { width: 64px; height: 64px; color: #07c160; opacity: 0.4; }
-.wechat-qr-placeholder p {
-  font-size: 11.5px; line-height: 1.55;
-  color: #888;
-}
-.wechat-qr-placeholder strong {
-  color: #07c160;
-  font-weight: 600;
-}
-.wechat-tip {
-  font-size: 13px; color: var(--ink-soft);
+.qr-placeholder svg { width: 56px; height: 56px; color: var(--brand); opacity: 0.6; }
+.qr-placeholder strong { color: var(--ink-soft); }
+
+.qr-tip {
+  font-size: 13px;
+  color: var(--ink-soft);
   line-height: 1.7;
 }
-.wechat-tip strong {
-  color: #07c160; font-weight: 600;
-  font-family: 'Inter', monospace;
-  letter-spacing: 0.04em;
+.qr-tip strong {
+  display: block;
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 700;
+  margin: 4px 0;
 }
-.wechat-tip small {
-  display: block; margin-top: 6px;
-  font-size: 11px; color: var(--ink-faint);
+.qr-tip small {
+  display: block;
+  font-size: 11.5px;
+  color: var(--ink-mute);
+  margin-top: 6px;
 }
-
-[data-theme="dark"] .modal-overlay { background: rgba(0, 0, 0, 0.7); }
 
 /* ============================================================
-   AI 客服悬浮按钮 (显眼 + Pulse 动画)
+   AI 客服悬浮按钮 (右下角)
    ============================================================ */
-.dock {
-  position: fixed; right: 28px; bottom: 28px; z-index: 100;
-}
+.dock { position: fixed; right: 28px; bottom: 28px; z-index: 100; }
 .dock-fab {
   position: relative;
-  width: 64px; height: 64px;
+  width: 60px; height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
   border: none;
   color: white;
-  cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-fab);
-  transition: transform 0.25s ease;
+  box-shadow: 0 12px 28px rgba(107, 155, 247, 0.45);
+  transition: transform var(--tx);
 }
 .dock-fab:hover { transform: scale(1.08); }
 .dock-fab::before, .dock-fab::after {
   content: ''; position: absolute; inset: -4px;
   border-radius: 50%;
   border: 2px solid var(--brand);
-  opacity: 0.6;
-  animation: ring-pulse 2.2s ease-out infinite;
+  opacity: 0.5;
+  animation: ring-pulse 2.4s ease-out infinite;
 }
-.dock-fab::after { animation-delay: 1.1s; }
+.dock-fab::after { animation-delay: 1.2s; }
 @keyframes ring-pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.5); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.55); opacity: 0; }
 }
-.dock-fab-icon { width: 28px; height: 28px; }
+.dock-fab svg { width: 26px; height: 26px; }
 .dock-fab-badge {
   position: absolute; top: -2px; right: -2px;
   min-width: 22px; height: 22px; padding: 0 6px;
   background: #ef4444; color: white;
   border-radius: 999px;
-  font-size: 11px; font-weight: 700;
+  font-size: 10.5px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 2px 6px rgba(239, 68, 68, 0.5);
   border: 2px solid var(--bg);
   z-index: 2;
 }
-.dock-fab-tooltip {
-  position: absolute; right: 76px; top: 50%; transform: translateY(-50%);
-  background: var(--ink); color: white;
-  padding: 8px 14px; border-radius: 8px;
-  font-size: 12.5px; font-weight: 500;
-  white-space: nowrap;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.dock-fab-tooltip::after {
-  content: ''; position: absolute;
-  left: 100%; top: 50%; transform: translateY(-50%);
-  border: 6px solid transparent;
-  border-left-color: var(--ink);
-}
-.dock-fab:hover .dock-fab-tooltip {
-  opacity: 1; transform: translateY(-50%) translateX(-4px);
-}
 .dock.is-open .dock-fab::before, .dock.is-open .dock-fab::after { display: none; }
 .dock.is-open .dock-fab-badge { display: none; }
 
-/* Chat Panel */
 .dock-panel {
-  position: absolute; right: 0; bottom: 80px;
+  position: absolute; right: 0; bottom: 78px;
   width: min(380px, calc(100vw - 56px));
   height: min(560px, calc(100vh - 140px));
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 18px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
   display: flex; flex-direction: column;
   opacity: 0; transform: translateY(12px) scale(0.96);
   pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
   overflow: hidden;
 }
-.dock.is-open .dock-panel {
-  opacity: 1; transform: translateY(0) scale(1);
-  pointer-events: auto;
-}
+.dock.is-open .dock-panel { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 .dock-panel-head {
   display: flex; align-items: center; justify-content: space-between;
   padding: 16px 18px;
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
   color: white;
   flex-shrink: 0;
 }
-.dock-panel-title {
-  display: flex; align-items: center; gap: 10px;
-}
+.dock-panel-title { display: flex; align-items: center; gap: 10px; }
 .dock-panel-avatar {
-  width: 32px; height: 32px;
-  border-radius: 50%;
+  width: 32px; height: 32px; border-radius: 50%;
   background: rgba(255,255,255,0.2);
   display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 600;
+  font-size: 13px; font-weight: 700;
+  overflow: hidden;
 }
+.dock-panel-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
 .dock-panel-title strong { display: block; font-size: 14px; font-weight: 600; }
-.dock-panel-title span { font-size: 11.5px; opacity: 0.8; }
+.dock-panel-title span { font-size: 11.5px; opacity: 0.85; }
 .dock-panel-close {
   width: 28px; height: 28px;
-  background: rgba(255,255,255,0.2);
-  border: none; border-radius: 8px;
+  background: rgba(255,255,255,0.2); border: none; border-radius: 8px;
   color: white;
   display: inline-flex; align-items: center; justify-content: center;
-  transition: background 0.2s ease;
+  transition: background var(--tx);
 }
 .dock-panel-close:hover { background: rgba(255,255,255,0.3); }
 
@@ -820,6 +744,7 @@ img, svg { display: block; max-width: 100%; }
   color: var(--ink-soft);
 }
 .chat-greeting strong { color: var(--ink); font-weight: 600; }
+.chat-greeting p:not(:last-child) { margin-bottom: 4px; }
 
 .chat-bubble {
   font-size: 13.5px; line-height: 1.75;
@@ -840,9 +765,7 @@ img, svg { display: block; max-width: 100%; }
   border-bottom-left-radius: 4px;
 }
 .chat-bubble.is-error {
-  background: #fef2f2;
-  color: #b91c1c;
-  border-color: #fecaca;
+  background: #fef2f2; color: #b91c1c; border-color: #fecaca;
 }
 
 .dock-panel-foot {
@@ -860,17 +783,17 @@ img, svg { display: block; max-width: 100%; }
   outline: none;
   font-family: inherit;
   font-size: 13.5px; color: var(--ink);
-  transition: border-color 0.2s ease;
+  transition: border-color var(--tx);
 }
 .dock-panel-input:focus { border-color: var(--brand); }
 .dock-panel-input::placeholder { color: var(--ink-mute); }
 .dock-panel-send {
   width: 36px; height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent) 100%);
   border: none; color: white;
   display: inline-flex; align-items: center; justify-content: center;
-  transition: transform 0.2s ease;
+  transition: transform var(--tx);
 }
 .dock-panel-send:hover { transform: scale(1.08); }
 
@@ -878,412 +801,362 @@ img, svg { display: block; max-width: 100%; }
    入场动画
    ============================================================ */
 .reveal {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 /* ============================================================
-   响应式
+   响应式 (移动端先简单堆叠, 后续再优化)
    ============================================================ */
-@media (max-width: 860px) {
-  .nav { display: none; }
-  .topbar-inner { gap: 12px; }
-  .hero { padding: 110px var(--pad-x) 60px; }
-  .cards-grid { grid-template-columns: 1fr; }
-  .stack-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .articles-grid { grid-template-columns: 1fr; }
-  .contact-icons { gap: 24px; }
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 24px;
+  }
+  .left-pane {
+    position: static;
+    height: auto;
+    max-height: none;
+    overflow: visible;
+    padding: 60px 0 40px;
+  }
+  .right-pane {
+    padding: 40px 0 80px;
+    max-width: 100%;
+  }
+  .tagline { max-width: 100%; margin-bottom: 32px; }
+  .side-nav { margin-bottom: 32px; }
+  .cursor-spotlight { display: none; }
 }
-@media (max-width: 480px) {
-  .hero-avatar { width: 96px; height: 96px; }
-  .hero-avatar-inner { font-size: 36px; }
-  .hero-title { font-size: 28px; }
-  .stack-grid { grid-template-columns: 1fr; }
+@media (max-width: 560px) {
+  .brand-name h1 { font-size: 26px; }
+  .exp-item { grid-template-columns: 1fr; gap: 8px; padding: 18px; margin: 0 -18px; }
+  .proj-card { padding: 18px; margin: 0 -18px; }
   .dock { right: 16px; bottom: 16px; }
-  .dock-fab { width: 56px; height: 56px; }
-  .dock-fab-tooltip { display: none; }
+  .dock-fab { width: 54px; height: 54px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============ 顶部导航 ============ -->
-<header class="topbar" id="topbar">
-  <div class="topbar-inner">
-    <a href="#hero" class="brand">
-      <span class="brand-dot"></span>
-      <span>刘陈晨 · LCC</span>
-    </a>
-    <nav class="nav" aria-label="主导航">
-      <a href="#projects" data-zh="个人项目" data-en="Projects">个人项目</a>
-      <a href="#works" data-zh="作品集" data-en="Works">作品集</a>
-      <a href="#timeline" data-zh="时间轴" data-en="Timeline">时间轴</a>
-      <a href="#stack" data-zh="技术栈" data-en="Stack">技术栈</a>
-      <a href="#articles" data-zh="文章" data-en="Articles">文章</a>
-      <a href="#contact" data-zh="联系我" data-en="Contact">联系我</a>
-    </nav>
-    <div class="topbar-tools">
-      <button class="lang-toggle" id="lang-toggle" type="button" aria-label="切换语言">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+<!-- 鼠标跟随光斑 -->
+<div class="cursor-spotlight" id="cursor-spotlight" aria-hidden="true"></div>
+
+<div class="layout">
+
+  <!-- ============ 左侧固定栏 ============ -->
+  <aside class="left-pane">
+
+    <div>
+      <div class="brand-block">
+        <a href="#about" class="brand">
+          <img class="brand-avatar" src="avatar.jpg" alt="刘陈晨" />
+          <div class="brand-name">
+            <h1>刘陈晨</h1>
+            <p>Liu Chen Chen</p>
+          </div>
+        </a>
+        <p class="role" data-zh="AI 产品经理" data-en="AI Product Manager">AI 产品经理</p>
+        <p class="tagline" data-zh="专注大模型应用与 Agent 架构设计。<br />在「克制」与「炫技」之间寻找平衡。<br />持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。" data-en="Focused on LLM applications and Agent architecture. Finding balance between restraint and showmanship. Writing on 人人都是产品经理 and WeChat 陈晨的 AI 笔记.">
+          专注大模型应用与 Agent 架构设计。<br />在「克制」与「炫技」之间寻找平衡。<br />持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。
+        </p>
+      </div>
+
+      <nav class="side-nav" aria-label="主导航">
+        <a href="#about" data-target="about">
+          <span class="nav-line"></span>
+          <span data-zh="关于" data-en="ABOUT">关于</span>
+        </a>
+        <a href="#experience" data-target="experience">
+          <span class="nav-line"></span>
+          <span data-zh="经历" data-en="EXPERIENCE">经历</span>
+        </a>
+        <a href="#projects" data-target="projects">
+          <span class="nav-line"></span>
+          <span data-zh="项目" data-en="PROJECTS">项目</span>
+        </a>
+        <a href="#writing" data-target="writing">
+          <span class="nav-line"></span>
+          <span data-zh="文章" data-en="WRITING">文章</span>
+        </a>
+        <a href="#contact" data-target="contact">
+          <span class="nav-line"></span>
+          <span data-zh="联系" data-en="CONTACT">联系</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="left-bottom">
+      <div class="social-icons">
+        <a href="https://github.com/lccccc2002-a11y" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        </a>
+        <button type="button" id="wechat-trigger" aria-label="微信" title="微信">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><circle cx="9" cy="11" r="0.6" fill="currentColor"/><circle cx="13" cy="11" r="0.6" fill="currentColor"/><circle cx="17" cy="11" r="0.6" fill="currentColor"/></svg>
+        </button>
+        <button type="button" id="mp-trigger" aria-label="公众号" title="公众号">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h20v14H6l-4 4z"/><circle cx="9" cy="11" r="0.8" fill="currentColor"/><circle cx="13" cy="11" r="0.8" fill="currentColor"/><circle cx="17" cy="11" r="0.8" fill="currentColor"/></svg>
+        </button>
+        <a href="mailto:lccccc2002@gmail.com" aria-label="Email" title="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
+
+      <p class="phone-line">
+        <span data-zh="电话: " data-en="Phone: ">电话: </span>
+        <a href="tel:15336150271">15336150271</a>
+      </p>
+
+      <button class="lang-toggle" id="lang-toggle" type="button">
         <span id="lang-label">English</span>
       </button>
     </div>
-  </div>
-</header>
 
-<main>
+  </aside>
 
-  <!-- ============ Hero ============ -->
-  <section class="hero" id="hero">
-    <div class="hero-avatar" id="hero-avatar">
-      <div class="hero-avatar-inner" id="avatar-container">
-        <img id="avatar-img" class="avatar-img" src="avatar.jpg" alt="刘陈晨头像" />
-        <svg class="avatar-svg" id="avatar-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-label="刘陈晨 · 个人标识" style="display:none;">
-          <defs>
-            <linearGradient id="gold-shine" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#fdebb8"/>
-              <stop offset="35%" stop-color="#e8c882"/>
-              <stop offset="60%" stop-color="#b48a48"/>
-              <stop offset="100%" stop-color="#7a5828"/>
-            </linearGradient>
-            <linearGradient id="gold-soft" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#e8c882" stop-opacity="0.95"/>
-              <stop offset="100%" stop-color="#b48a48" stop-opacity="0.7"/>
-            </linearGradient>
-            <radialGradient id="inner-glow" cx="50%" cy="40%">
-              <stop offset="0%" stop-color="rgba(244, 226, 176, 0.12)"/>
-              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
-            </radialGradient>
-          </defs>
+  <!-- ============ 右侧滚动栏 ============ -->
+  <main class="right-pane">
 
-          <!-- 内部柔光 -->
-          <rect width="240" height="240" fill="url(#inner-glow)"/>
-
-          <!-- 双层装饰圆环 -->
-          <circle cx="120" cy="120" r="106" fill="none" stroke="#9a7a3e" stroke-width="0.6" opacity="0.4"/>
-          <circle cx="120" cy="120" r="100" fill="none" stroke="#9a7a3e" stroke-width="0.3" opacity="0.22"/>
-
-          <!-- 顶部左右装饰线 -->
-          <line x1="78" y1="48" x2="102" y2="48" stroke="#9a7a3e" stroke-width="0.6" opacity="0.7"/>
-          <line x1="138" y1="48" x2="162" y2="48" stroke="#9a7a3e" stroke-width="0.6" opacity="0.7"/>
-
-          <!-- 顶部小标 -->
-          <text x="120" y="52" text-anchor="middle"
-                font-family="'Fraunces', 'Iowan Old Style', Georgia, serif"
-                font-style="italic" font-weight="400" font-size="10"
-                fill="url(#gold-soft)" letter-spacing="0.4em">EST · 2026</text>
-
-          <!-- 主字"陈" (大字, 衬线, 金色渐变) -->
-          <text x="120" y="162" text-anchor="middle"
-                font-family="'Noto Serif SC', 'Songti SC', 'STSong', serif"
-                font-weight="300" font-size="116"
-                fill="url(#gold-shine)" letter-spacing="0">陈</text>
-
-          <!-- 主字微微高光描边 (上半部分) -->
-          <text x="120" y="162" text-anchor="middle"
-                font-family="'Noto Serif SC', 'Songti SC', 'STSong', serif"
-                font-weight="300" font-size="116"
-                fill="none" stroke="rgba(253, 235, 184, 0.25)" stroke-width="0.5">陈</text>
-
-          <!-- 底部装饰线 -->
-          <line x1="95" y1="194" x2="145" y2="194" stroke="#9a7a3e" stroke-width="0.5" opacity="0.55"/>
-
-          <!-- 底部小标 -->
-          <text x="120" y="208" text-anchor="middle"
-                font-family="'Fraunces', 'Iowan Old Style', Georgia, serif"
-                font-style="italic" font-weight="400" font-size="10"
-                fill="url(#gold-soft)" letter-spacing="0.35em">L · C · C</text>
-        </svg>
-        <div class="avatar-upload-hint">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <span data-zh="点击 / 拖拽更换" data-en="Click or drop">点击 / 拖拽更换</span>
-        </div>
-      </div>
-      <input type="file" id="avatar-upload" accept="image/*" style="display:none" />
-    </div>
-    <h1 class="hero-title">
-      <span data-zh="你好，我是" data-en="Hello, I'm">你好，我是</span>
-      <span class="brand-text">刘陈晨</span>
-    </h1>
-    <div class="hero-role">
-      <span class="hero-role-dot"></span>
-      <span data-zh="AI 产品经理" data-en="AI Product Manager">AI 产品经理</span>
-    </div>
-    <p class="hero-desc" data-zh="AI 产品爱好者，5+ 年产品经验，目前专注于<strong>大模型应用</strong>与<strong>Agent 架构</strong>设计。<br />擅长把复杂技术转化为可用产品，在「克制」与「炫技」之间寻找平衡。<br />持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。" data-en="AI Product enthusiast with 5+ years of experience, currently focused on <strong>LLM applications</strong> and <strong>Agent architecture</strong> design.<br />Skilled at turning complex tech into usable products, finding balance between restraint and showmanship.<br />Sharing thoughts on 人人都是产品经理 and WeChat 陈晨的 AI 笔记.">
-      AI 产品爱好者，5+ 年产品经验，目前专注于<strong>大模型应用</strong>与<strong>Agent 架构</strong>设计。<br />
-      擅长把复杂技术转化为可用产品，在「克制」与「炫技」之间寻找平衡。<br />
-      持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。
-    </p>
-    <p class="hero-email" data-zh="电话：15336150271" data-en="Phone: 15336150271">电话：15336150271</p>
-  </section>
-
-  <!-- ============ 个人项目 ============ -->
-  <section class="section" id="projects">
-    <div class="section-head">
-      <h2 class="section-title" data-zh="个人项目" data-en="Projects">个人项目</h2>
-    </div>
-    <div class="cards-grid">
-      <article class="card">
-        <div class="card-thumb">🤖</div>
-        <h3 class="card-title" data-zh="AI Agent 产品架构" data-en="AI Agent Product Architecture">AI Agent 产品架构</h3>
-        <p class="card-desc" data-zh="主导多智能体协作系统的产品设计与上线。负责任务编排、工具集成、用户反馈闭环与 Human-in-the-loop 机制。" data-en="Led the product design and launch of a multi-agent collaboration system. Responsible for task orchestration, tool integration, user feedback loop and HITL mechanism.">主导多智能体协作系统的产品设计与上线。负责任务编排、工具集成、用户反馈闭环与 Human-in-the-loop 机制。</p>
-        <ul class="card-tags">
-          <li>Agent</li><li>Tool Use</li><li>HITL</li><li>Multi-Agent</li>
-        </ul>
-        <a href="#" class="card-link" data-zh="查看详情 →" data-en="View Details →">查看详情 →</a>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb">💬</div>
-        <h3 class="card-title" data-zh="大模型应用平台" data-en="LLM Application Platform">大模型应用平台</h3>
-        <p class="card-desc" data-zh="企业级 LLM 应用 0 到 1 产品规划。Prompt 资产化、知识库、应用编排与多租户权限设计。" data-en="Enterprise-level LLM application 0-to-1 product planning. Prompt-as-asset, knowledge base, application orchestration and multi-tenant permissions.">企业级 LLM 应用 0 到 1 产品规划。Prompt 资产化、知识库、应用编排与多租户权限设计。</p>
-        <ul class="card-tags">
-          <li>LLM</li><li>RAG</li><li>SaaS</li><li>Prompt</li>
-        </ul>
-        <a href="#" class="card-link" data-zh="查看详情 →" data-en="View Details →">查看详情 →</a>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb">✨</div>
-        <h3 class="card-title" data-zh="智能交互体验设计" data-en="Conversational UX Design">智能交互体验设计</h3>
-        <p class="card-desc" data-zh="对话式 UI 与多模态交互范式探索。沉淀出一套可复用的设计原则与组件库，被多个团队复用。" data-en="Explored conversational UI and multimodal interaction paradigms. Built a reusable design system adopted by multiple teams.">对话式 UI 与多模态交互范式探索。沉淀出一套可复用的设计原则与组件库，被多个团队复用。</p>
-        <ul class="card-tags">
-          <li>UX</li><li>Multimodal</li><li>Design System</li>
-        </ul>
-        <a href="#" class="card-link" data-zh="查看详情 →" data-en="View Details →">查看详情 →</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============ 作品集 ============ -->
-  <section class="section" id="works">
-    <div class="section-head">
-      <h2 class="section-title" data-zh="作品集" data-en="Works">作品集</h2>
-    </div>
-    <div class="cards-grid">
-      <article class="card">
-        <div class="card-row-top">
-          <div class="card-icon">01</div>
-          <svg class="card-fork-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6"/><path d="M9 6h6"/></svg>
-        </div>
-        <h3 class="card-title">Agentic Website Builder</h3>
-        <p class="card-desc" data-zh="把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。" data-en="Feed brand description to AI, generate a style-consistent site in 30s. <strong>Plan-first editing</strong>: AI proposes changes first, user confirms, then a <strong>targeted patch</strong> only modifies specified regions — style never drifts. One-click ZIP export.">把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。</p>
-        <ul class="card-tags"><li>React</li><li>Hono</li><li>DeepSeek</li><li>Tool Use</li><li>SSE</li><li>Drizzle</li></ul>
-        <a href="https://github.com/lccccc2002-a11y/agentic-website-builder" target="_blank" rel="noopener" class="card-link" data-zh="代码仓库 →" data-en="Repository →">代码仓库 →</a>
-      </article>
-
-      <article class="card">
-        <div class="card-row-top">
-          <div class="card-icon">02</div>
-          <svg class="card-fork-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6"/><path d="M9 6h6"/></svg>
-        </div>
-        <h3 class="card-title">智记 · Zhiji</h3>
-        <p class="card-desc" data-zh="把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,DeepSeek/Dify 解析,Supabase 多端同步,iOS/Android 添加主屏即装即用。「少点交互、多点结构」。" data-en="Turn a <strong>casual one-liner</strong> into structured schedule with AI — auto-extract time, priority, type. <strong>Single-file HTML</strong>, zero deps. DeepSeek/Dify parsing, Supabase sync, installable as PWA on iOS/Android. <em>«Less interaction, more structure»</em>.">把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,DeepSeek/Dify 解析,Supabase 多端同步,iOS/Android 添加主屏即装即用。「少点交互、多点结构」。</p>
-        <ul class="card-tags"><li>HTML</li><li>DeepSeek</li><li>Dify</li><li>Supabase</li><li>PWA</li><li>Single-file</li></ul>
-        <a href="https://github.com/lccccc2002-a11y/zhiji-public" target="_blank" rel="noopener" class="card-link" data-zh="代码仓库 →" data-en="Repository →">代码仓库 →</a>
-      </article>
-
-      <article class="card">
-        <div class="card-row-top">
-          <div class="card-icon">03</div>
-          <svg class="card-fork-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6"/><path d="M9 6h6"/></svg>
-        </div>
-        <h3 class="card-title">lchenchen.com</h3>
-        <p class="card-desc" data-zh="这个网站本身。基于纯 HTML/CSS/JS 自建,内置 AI 分身与 RSS 新闻聚合。" data-en="This website itself. Built with vanilla HTML/CSS/JS, with AI clone and RSS news aggregation.">这个网站本身。基于纯 HTML/CSS/JS 自建,内置 AI 分身与 RSS 新闻聚合。</p>
-        <ul class="card-tags"><li>HTML</li><li>Express</li><li>DeepSeek</li></ul>
-        <a href="https://github.com/lccccc2002-a11y/lchenchen-website" target="_blank" rel="noopener" class="card-link" data-zh="代码仓库 →" data-en="Repository →">代码仓库 →</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============ 经历时间轴 ============ -->
-  <section class="section" id="timeline">
-    <div class="section-head">
-      <h2 class="section-title" data-zh="经历时间轴" data-en="Timeline">经历时间轴</h2>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-date">2024 — 至今</div>
-        <h4 class="timeline-title" data-zh="主导 AI Agent 产品架构" data-en="Leading AI Agent Product Architecture">主导 AI Agent 产品架构</h4>
-        <p class="timeline-desc" data-zh="负责多智能体协作系统的产品设计与上线,推动 HITL 机制落地。" data-en="Responsible for multi-agent collaboration system product design and launch, driving HITL implementation.">负责多智能体协作系统的产品设计与上线,推动 HITL 机制落地。</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2023 — 2024</div>
-        <h4 class="timeline-title" data-zh="大模型应用平台 0 到 1" data-en="LLM Platform from 0 to 1">大模型应用平台 0 到 1</h4>
-        <p class="timeline-desc" data-zh="企业级 LLM 应用产品规划:Prompt 资产化、知识库、应用编排、多租户权限。" data-en="Enterprise LLM application product planning: prompt-as-asset, knowledge base, orchestration, multi-tenancy.">企业级 LLM 应用产品规划:Prompt 资产化、知识库、应用编排、多租户权限。</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2022 — 2023</div>
-        <h4 class="timeline-title" data-zh="智能交互体验设计" data-en="Conversational UX Exploration">智能交互体验设计</h4>
-        <p class="timeline-desc" data-zh="对话式 UI 与多模态交互范式探索,沉淀出可复用的设计原则与组件库。" data-en="Explored conversational UI and multimodal interaction, built a reusable design system.">对话式 UI 与多模态交互范式探索,沉淀出可复用的设计原则与组件库。</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-date">2020 — 2022</div>
-        <h4 class="timeline-title" data-zh="入行 AI 产品" data-en="Entered AI Product Field">入行 AI 产品</h4>
-        <p class="timeline-desc" data-zh="从传统产品转向 AI 方向,系统学习机器学习基础、Prompt 工程、模型评估。" data-en="Transitioned from traditional product to AI, systematically learning ML basics, prompt engineering, model evaluation.">从传统产品转向 AI 方向,系统学习机器学习基础、Prompt 工程、模型评估。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 技术栈 ============ -->
-  <section class="section" id="stack">
-    <div class="section-head">
-      <h2 class="section-title" data-zh="技术栈" data-en="Tech Stack">技术栈</h2>
-    </div>
-    <div class="stack-grid">
-      <div class="stack-col">
-        <div class="stack-col-title" data-zh="产品规划" data-en="Product">产品规划</div>
-        <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> PRD</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg> 用户研究</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 17V9"/><path d="M12 17V5"/><path d="M17 17v-6"/></svg> 数据驱动</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg> 商业化</li>
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <h2 class="section-title" data-zh="关 于" data-en="ABOUT">关 于</h2>
+      <div class="about-body">
+        <p data-zh="你好,我是<strong>刘陈晨</strong> —— 一名专注 AI 产品的产品经理。" data-en="Hi, I'm <strong>Liu Chen Chen</strong> — a product manager focused on AI products.">
+          你好,我是<strong>刘陈晨</strong> —— 一名专注 AI 产品的产品经理。
+        </p>
+        <p data-zh="过去几年走过<strong>测试 → 开发 → 产品</strong>的完整链路,这条路径让我看 AI 产品时既懂底层实现的边界,也理解用户场景的真实诉求 —— 不会把工程瓶颈包装成功能亮点,也不会把炫技当作产品力。" data-en="My past few years went through <strong>QA → Engineering → Product</strong>. This path gives me both engineering depth and user empathy — I don't mistake engineering bottlenecks for product features, nor showmanship for product power.">
+          过去几年走过<strong>测试 → 开发 → 产品</strong>的完整链路,这条路径让我看 AI 产品时既懂底层实现的边界,也理解用户场景的真实诉求 —— 不会把工程瓶颈包装成功能亮点,也不会把炫技当作产品力。
+        </p>
+        <p data-zh="目前主要在做<strong>大模型应用</strong>与 <strong>Agent 架构</strong>方向,把零散的能力组织成用户能真正用起来的产品。" data-en="Currently focused on <strong>LLM applications</strong> and <strong>Agent architecture</strong> — assembling scattered capabilities into products that users actually use.">
+          目前主要在做<strong>大模型应用</strong>与 <strong>Agent 架构</strong>方向,把零散的能力组织成用户能真正用起来的产品。
+        </p>
+        <p data-zh="一些我常打交道的关键词:" data-en="Some keywords I work with daily:">
+          一些我常打交道的关键词:
+        </p>
+        <ul class="skills-inline">
+          <li>LLM Application</li>
+          <li>Agent · Tool Use</li>
+          <li>RAG · Prompt</li>
+          <li>对话式 UI</li>
+          <li>HITL</li>
+          <li>产品规划</li>
+          <li>数据驱动</li>
+          <li>跨职能协作</li>
         </ul>
       </div>
-      <div class="stack-col">
-        <div class="stack-col-title" data-zh="大模型应用" data-en="LLM">大模型应用</div>
-        <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> LLM</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> RAG</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg> Prompt</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> 评估</li>
-        </ul>
-      </div>
-      <div class="stack-col">
-        <div class="stack-col-title" data-zh="Agent 与交互" data-en="Agent & UX">Agent 与交互</div>
-        <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg> Agent</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Tool Use</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 对话式 UI</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> HITL</li>
-        </ul>
-      </div>
-      <div class="stack-col">
-        <div class="stack-col-title" data-zh="工具与协作" data-en="Tools">工具与协作</div>
-        <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Figma</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Notion</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Cursor</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> Git</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ 文章 ============ -->
-  <section class="section" id="articles">
-    <div class="section-head">
-      <h2 class="section-title" data-zh="文章分享" data-en="Articles">文章分享</h2>
-    </div>
-    <div class="articles-grid">
-      <div class="articles-group">
-        <div class="articles-group-head">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <h2 class="section-title" data-zh="经 历" data-en="EXPERIENCE">经 历</h2>
+      <ol class="exp-list">
+
+        <li class="exp-item">
+          <div class="exp-time" data-zh="2024 — 至今" data-en="2024 — NOW">2024 — 至今</div>
+          <div class="exp-body">
+            <div class="exp-head">
+              <h3 class="exp-title">
+                <span data-zh="AI 产品经理" data-en="AI Product Manager">AI 产品经理</span>
+                <span class="at"> · </span>
+                <span data-zh="某 AI 创业公司" data-en="AI Startup">某 AI 创业公司</span>
+              </h3>
+              <span class="exp-arrow">↗</span>
+            </div>
+            <p class="exp-desc" data-zh="主导多智能体协作系统的产品设计与上线。从用户场景反推 Agent 能力边界,推动 HITL (Human-in-the-loop) 机制落地,负责工具集成、任务编排与反馈闭环。" data-en="Led product design and launch of a multi-agent collaboration system. Defined Agent capability boundaries from user scenarios, implemented HITL mechanisms, owned tool integration, task orchestration and feedback loops.">
+              主导多智能体协作系统的产品设计与上线。从用户场景反推 Agent 能力边界,推动 HITL (Human-in-the-loop) 机制落地,负责工具集成、任务编排与反馈闭环。
+            </p>
+            <ul class="exp-tags">
+              <li>Agent</li><li>LLM</li><li>HITL</li><li>Tool Use</li><li>Product</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="exp-item">
+          <div class="exp-time" data-zh="2022 — 2024" data-en="2022 — 2024">2022 — 2024</div>
+          <div class="exp-body">
+            <div class="exp-head">
+              <h3 class="exp-title">
+                <span data-zh="软件开发工程师" data-en="Software Engineer">软件开发工程师</span>
+                <span class="at"> · </span>
+                <span data-zh="某互联网公司" data-en="Internet Company">某互联网公司</span>
+              </h3>
+              <span class="exp-arrow">↗</span>
+            </div>
+            <p class="exp-desc" data-zh="负责后端服务开发,参与微服务架构设计与核心模块落地。这段经历让我对「产品需求到工程实现」之间的距离有了直观认知,也是后来转产品时最大的优势之一。" data-en="Backend service development, microservice architecture and core module implementation. This experience gave me first-hand understanding of the distance between product requirements and engineering implementation — a key advantage when I later transitioned to product.">
+              负责后端服务开发,参与微服务架构设计与核心模块落地。这段经历让我对「产品需求到工程实现」之间的距离有了直观认知,也是后来转产品时最大的优势之一。
+            </p>
+            <ul class="exp-tags">
+              <li>Java</li><li>Python</li><li>Microservices</li><li>API</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="exp-item">
+          <div class="exp-time" data-zh="2020 — 2022" data-en="2020 — 2022">2020 — 2022</div>
+          <div class="exp-body">
+            <div class="exp-head">
+              <h3 class="exp-title">
+                <span data-zh="软件测试工程师" data-en="QA Engineer">软件测试工程师</span>
+                <span class="at"> · </span>
+                <span data-zh="某科技公司" data-en="Tech Company">某科技公司</span>
+              </h3>
+              <span class="exp-arrow">↗</span>
+            </div>
+            <p class="exp-desc" data-zh="负责 Web / 移动端自动化测试,搭建 CI/CD 流水线与质量看板。养成了「先想边界,再想主流程」的习惯 —— 这个习惯在做 AI 产品的不确定性边界时格外有用。" data-en="Web/mobile automation testing, CI/CD pipelines and quality dashboards. Built the habit of 'think edge cases first, then happy path' — invaluable when designing for AI's uncertainty boundaries.">
+              负责 Web / 移动端自动化测试,搭建 CI/CD 流水线与质量看板。养成了「先想边界,再想主流程」的习惯 —— 这个习惯在做 AI 产品的不确定性边界时格外有用。
+            </p>
+            <ul class="exp-tags">
+              <li>Selenium</li><li>Pytest</li><li>CI/CD</li><li>QA</li>
+            </ul>
+          </div>
+        </li>
+
+      </ol>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <h2 class="section-title" data-zh="项 目" data-en="PROJECTS">项 目</h2>
+      <div class="proj-list">
+
+        <a class="proj-card" href="https://github.com/lccccc2002-a11y/agentic-website-builder" target="_blank" rel="noopener">
+          <div class="proj-head">
+            <h3 class="proj-title">Agentic Website Builder</h3>
+            <span class="proj-arrow">↗</span>
+          </div>
+          <p class="proj-desc" data-zh="把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。" data-en="Feed AI a one-line brand description, generate a style-consistent site in 30s. <strong>Plan-first editing</strong>: AI proposes changes first, user confirms, then a <strong>targeted patch</strong> only modifies specified regions — style never drifts. One-click ZIP export.">
+            把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。
+          </p>
+          <ul class="proj-tags">
+            <li>React</li><li>Hono</li><li>DeepSeek</li><li>Tool Use</li><li>SSE</li>
+          </ul>
+        </a>
+
+        <a class="proj-card" href="https://github.com/lccccc2002-a11y/zhiji-public" target="_blank" rel="noopener">
+          <div class="proj-head">
+            <h3 class="proj-title">智记 · Zhiji</h3>
+            <span class="proj-arrow">↗</span>
+          </div>
+          <p class="proj-desc" data-zh="把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,Supabase 多端同步,iOS/Android 添加主屏即装即用。「少点交互、多点结构」。" data-en="Turn a <strong>casual one-liner</strong> into structured schedule with AI. <strong>Single-file HTML</strong>, zero deps. Supabase sync, installable as PWA. <em>«Less interaction, more structure»</em>.">
+            把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,Supabase 多端同步,iOS/Android 添加主屏即装即用。「少点交互、多点结构」。
+          </p>
+          <ul class="proj-tags">
+            <li>HTML</li><li>DeepSeek</li><li>Supabase</li><li>PWA</li>
+          </ul>
+        </a>
+
+        <a class="proj-card" href="https://github.com/lccccc2002-a11y/lchenchen-website" target="_blank" rel="noopener">
+          <div class="proj-head">
+            <h3 class="proj-title">lchenchen.com</h3>
+            <span class="proj-arrow">↗</span>
+          </div>
+          <p class="proj-desc" data-zh="这个网站本身。基于纯 HTML/CSS/JS 自建,内置 AI 分身、中英双语、鼠标跟随光斑。部署在 Vercel,前置 Cloudflare CDN。" data-en="This website itself. Built with vanilla HTML/CSS/JS, with AI clone, bilingual switch and cursor spotlight. Deployed on Vercel, behind Cloudflare CDN.">
+            这个网站本身。基于纯 HTML/CSS/JS 自建,内置 AI 分身、中英双语、鼠标跟随光斑。部署在 Vercel,前置 Cloudflare CDN。
+          </p>
+          <ul class="proj-tags">
+            <li>HTML</li><li>Vercel</li><li>Cloudflare</li><li>DeepSeek</li>
+          </ul>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section class="section" id="writing">
+      <h2 class="section-title" data-zh="文 章" data-en="WRITING">文 章</h2>
+
+      <div class="writing-group">
+        <div class="writing-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           <span>人人都是产品经理</span>
         </div>
-        <ul class="article-list">
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 文章标题一" data-en="To be added · Article 1">待补充 · 文章标题一</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 文章标题二" data-en="To be added · Article 2">待补充 · 文章标题二</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 文章标题三" data-en="To be added · Article 3">待补充 · 文章标题三</span><span class="article-arrow">↗</span></a></li>
+        <ul class="writing-list">
+          <li><a href="#" target="_blank" rel="noopener">
+            <span data-zh="待补充 · 第一篇文章标题" data-en="Coming · Article 1">待补充 · 第一篇文章标题</span>
+            <span class="writing-arrow">↗</span>
+          </a></li>
+          <li><a href="#" target="_blank" rel="noopener">
+            <span data-zh="待补充 · 第二篇文章标题" data-en="Coming · Article 2">待补充 · 第二篇文章标题</span>
+            <span class="writing-arrow">↗</span>
+          </a></li>
+          <li><a href="#" target="_blank" rel="noopener">
+            <span data-zh="待补充 · 第三篇文章标题" data-en="Coming · Article 3">待补充 · 第三篇文章标题</span>
+            <span class="writing-arrow">↗</span>
+          </a></li>
         </ul>
       </div>
-      <div class="articles-group">
-        <div class="articles-group-head">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+
+      <div class="writing-group">
+        <div class="writing-group-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           <span>公众号「陈晨的 AI 笔记」</span>
         </div>
-        <ul class="article-list">
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 公众号文章一" data-en="To be added · WeChat Post 1">待补充 · 公众号文章一</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 公众号文章二" data-en="To be added · WeChat Post 2">待补充 · 公众号文章二</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 公众号文章三" data-en="To be added · WeChat Post 3">待补充 · 公众号文章三</span><span class="article-arrow">↗</span></a></li>
+        <ul class="writing-list">
+          <li><a href="#" target="_blank" rel="noopener">
+            <span data-zh="待补充 · 公众号文章一" data-en="Coming · Post 1">待补充 · 公众号文章一</span>
+            <span class="writing-arrow">↗</span>
+          </a></li>
+          <li><a href="#" target="_blank" rel="noopener">
+            <span data-zh="待补充 · 公众号文章二" data-en="Coming · Post 2">待补充 · 公众号文章二</span>
+            <span class="writing-arrow">↗</span>
+          </a></li>
         </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ 联系我 ============ -->
-  <section class="section" id="contact">
-    <div class="section-head">
-      <h2 class="section-title" data-zh="联系我" data-en="Contact">联系我</h2>
-    </div>
-    <div class="contact-icons">
-      <button class="contact-icon-box" id="wechat-trigger" type="button" style="background:none;border:none;font:inherit;cursor:pointer;">
-        <div class="contact-circle" style="color:#07c160;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><circle cx="9" cy="11" r="0.5" fill="currentColor"/><circle cx="15" cy="11" r="0.5" fill="currentColor"/></svg>
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <h2 class="section-title" data-zh="联 系" data-en="CONTACT">联 系</h2>
+      <div class="contact-body">
+        <p data-zh="如果你想聊 AI 产品、合作或者只是想认识一下,都欢迎随时找我。" data-en="If you want to talk about AI products, collaborations, or just say hi, I'm always reachable.">
+          如果你想聊 AI 产品、合作或者只是想认识一下,都欢迎随时找我。
+        </p>
+        <p data-zh="最快的方式是<strong>邮件</strong>,微信加我请备注来意。" data-en="Email is the fastest. If adding me on WeChat, please mention your purpose.">
+          最快的方式是<strong>邮件</strong>,微信加我请备注来意。
+        </p>
+        <div class="contact-actions">
+          <a href="mailto:lccccc2002@gmail.com">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>lccccc2002@gmail.com</span>
+          </a>
+          <button type="button" id="wechat-trigger-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span data-zh="加微信" data-en="Add WeChat">加微信</span>
+          </button>
         </div>
-        <span class="contact-label" data-zh="微信" data-en="WeChat">微信</span>
-        <span class="contact-hint" data-zh="点击查看二维码" data-en="Tap for QR">点击查看二维码</span>
-      </button>
-      <button class="contact-icon-box" id="mp-trigger" type="button" style="background:none;border:none;font:inherit;cursor:pointer;">
-        <div class="contact-circle" style="color:#07c160;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="11" r="0.6" fill="currentColor"/><circle cx="13" cy="11" r="0.6" fill="currentColor"/><circle cx="17" cy="11" r="0.6" fill="currentColor"/></svg>
-        </div>
-        <span class="contact-label" data-zh="公众号" data-en="WeChat Official">公众号</span>
-        <span class="contact-hint" data-zh="点击查看二维码" data-en="Tap for QR">点击查看二维码</span>
-      </button>
-      <a class="contact-icon-box" href="https://github.com/lccccc2002-a11y" target="_blank" rel="noopener">
-        <div class="contact-circle" style="color:#1a1a1a;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-        </div>
-        <span class="contact-label">GitHub</span>
-        <span class="contact-hint">@lccccc2002-a11y</span>
-      </a>
-      <a class="contact-icon-box" href="mailto:lccccc2002@gmail.com">
-        <div class="contact-circle" style="color:#ea4335;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <span class="contact-label">Email</span>
-        <span class="contact-hint">lccccc2002@gmail.com</span>
-      </a>
-    </div>
-  </section>
+      </div>
+    </section>
 
-</main>
+  </main>
+</div>
 
-<footer class="footer">
-  <span>© 2026 lchenchen.com · </span>
-  <a href="#hero" data-zh="刘陈晨 · AI 产品经理" data-en="Liu Chen Chen · AI PM">刘陈晨 · AI 产品经理</a>
-</footer>
-
-<!-- ============ 微信二维码模态 ============ -->
+<!-- ============ 微信二维码 Modal ============ -->
 <div class="modal" id="wechat-modal" aria-hidden="true">
   <div class="modal-overlay" data-modal-close></div>
   <div class="modal-card">
     <button class="modal-close" data-modal-close type="button" aria-label="关闭">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
     </button>
-    <h3 class="modal-title" data-zh="扫一扫加我微信" data-en="Scan to add WeChat">扫一扫加我微信</h3>
-    <p class="modal-subtitle" data-zh="Long press · or click to upload" data-en="Long press · or click to upload">Long press · or click to upload</p>
+    <h3 class="modal-title" data-zh="扫一扫加我微信" data-en="Scan to add me on WeChat">扫一扫加我微信</h3>
+    <p class="modal-subtitle" data-zh="长按识别 · 或点击上传" data-en="Long press to recognize · or click to upload">长按识别 · 或点击上传</p>
 
-    <div class="wechat-qr-wrap" id="wechat-qr-trigger">
-      <div class="wechat-qr-inner">
-        <img id="wechat-qr-img" src="wechat-qr.jpg" alt="微信二维码" />
-        <div class="wechat-qr-placeholder" id="wechat-qr-placeholder" style="display:none;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1"/>
-            <rect x="14" y="3" width="7" height="7" rx="1"/>
-            <rect x="3" y="14" width="7" height="7" rx="1"/>
-            <rect x="6" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="17" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="6" y="17" width="1" height="1" fill="currentColor"/>
-            <path d="M14 14h2v2h-2zM18 14h3M14 18h2v3M18 18h3v3" stroke-linecap="round"/>
-          </svg>
-          <p data-zh="<strong>点击上传</strong>你的微信二维码<br/>(本地保存,不上云)" data-en="<strong>Click to upload</strong> your WeChat QR<br/>(stored locally only)"><strong>点击上传</strong>你的微信二维码<br/>(本地保存,不上云)</p>
-        </div>
-      </div>
+    <div class="qr-wrap" id="wechat-qr-trigger">
+      <img id="wechat-qr-img" src="wechat-qr.jpg" alt="微信二维码" />
+      <input type="file" id="wechat-qr-upload" accept="image/*" style="display:none" />
     </div>
-    <input type="file" id="wechat-qr-upload" accept="image/*" style="display:none" />
 
-    <p class="wechat-tip">
-      <span data-zh="微信号:" data-en="WeChat ID:">微信号:</span>
+    <p class="qr-tip">
+      <span data-zh="微信号" data-en="WeChat ID">微信号</span>
       <strong>15336150271</strong>
-      <small data-zh="长按二维码识别添加 · 或保存到相册" data-en="Long press to recognize · or save image">长按二维码识别添加 · 或保存到相册</small>
+      <small data-zh="加我请备注来意,通过更快" data-en="Please mention your purpose">加我请备注来意,通过更快</small>
     </p>
   </div>
 </div>
 
-<!-- ============ 公众号二维码模态 ============ -->
+<!-- ============ 公众号二维码 Modal ============ -->
 <div class="modal" id="mp-modal" aria-hidden="true">
   <div class="modal-overlay" data-modal-close></div>
   <div class="modal-card">
@@ -1291,52 +1164,49 @@ img, svg { display: block; max-width: 100%; }
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
     </button>
     <h3 class="modal-title" data-zh="扫码关注我的公众号" data-en="Scan to follow">扫码关注我的公众号</h3>
-    <p class="modal-subtitle" data-zh="陈晨的 AI 笔记 · 每周 AI 产品观察" data-en="Chen's AI Notes · Weekly AI insights">陈晨的 AI 笔记 · 每周 AI 产品观察</p>
+    <p class="modal-subtitle" data-zh="陈晨的 AI 笔记 · 每周分享" data-en="Chen's AI Notes · Weekly insights">陈晨的 AI 笔记 · 每周分享</p>
 
-    <div class="wechat-qr-wrap" id="mp-qr-trigger">
-      <div class="wechat-qr-inner">
-        <img id="mp-qr-img" alt="公众号二维码" style="display:none;" />
-        <div class="wechat-qr-placeholder" id="mp-qr-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1"/>
-            <rect x="14" y="3" width="7" height="7" rx="1"/>
-            <rect x="3" y="14" width="7" height="7" rx="1"/>
-            <rect x="6" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="17" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="6" y="17" width="1" height="1" fill="currentColor"/>
-            <path d="M14 14h2v2h-2zM18 14h3M14 18h2v3M18 18h3v3" stroke-linecap="round"/>
-          </svg>
-          <p data-zh="<strong>点击上传</strong>公众号二维码<br/>(本地保存,不上云)" data-en="<strong>Click to upload</strong> Official QR<br/>(stored locally only)"><strong>点击上传</strong>公众号二维码<br/>(本地保存,不上云)</p>
-        </div>
+    <div class="qr-wrap" id="mp-qr-trigger">
+      <img id="mp-qr-img" alt="公众号二维码" style="display:none;" />
+      <div class="qr-placeholder" id="mp-qr-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="6" y="6" width="1" height="1" fill="currentColor"/>
+          <rect x="17" y="6" width="1" height="1" fill="currentColor"/>
+          <rect x="6" y="17" width="1" height="1" fill="currentColor"/>
+          <path d="M14 14h2v2h-2zM18 14h3M14 18h2v3M18 18h3v3" stroke-linecap="round"/>
+        </svg>
+        <p data-zh="<strong>点击上传</strong>公众号二维码" data-en="<strong>Click to upload</strong> QR"><strong>点击上传</strong>公众号二维码</p>
       </div>
+      <input type="file" id="mp-qr-upload" accept="image/*" style="display:none" />
     </div>
-    <input type="file" id="mp-qr-upload" accept="image/*" style="display:none" />
 
-    <p class="wechat-tip">
-      <span data-zh="公众号:" data-en="Official Account:">公众号:</span>
+    <p class="qr-tip">
+      <span data-zh="公众号" data-en="Official Account">公众号</span>
       <strong>陈晨的 AI 笔记</strong>
-      <small data-zh="长按二维码识别关注 · 或保存到相册" data-en="Long press to recognize · or save image">长按二维码识别关注 · 或保存到相册</small>
+      <small data-zh="长按识别关注 · 或保存到相册" data-en="Long press to follow">长按识别关注 · 或保存到相册</small>
     </p>
   </div>
 </div>
 
-<!-- ============ 右下角悬浮 AI 客服 ============ -->
+<!-- ============ 右下角 AI 客服 ============ -->
 <div class="dock" id="chat-dock">
   <button class="dock-fab" id="chat-fab" type="button" aria-label="打开 AI 助手">
     <span class="dock-fab-badge">AI</span>
-    <svg class="dock-fab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
       <line x1="9" y1="11" x2="9.01" y2="11"/>
       <line x1="13" y1="11" x2="13.01" y2="11"/>
       <line x1="17" y1="11" x2="17.01" y2="11"/>
     </svg>
-    <span class="dock-fab-tooltip" data-zh="问问 AI 陈晨" data-en="Ask AI Chen">问问 AI 陈晨</span>
   </button>
 
   <aside class="dock-panel" id="chat-panel" aria-hidden="true">
     <header class="dock-panel-head">
       <div class="dock-panel-title">
-        <div class="dock-panel-avatar">刘</div>
+        <div class="dock-panel-avatar"><img src="avatar.jpg" alt="" /></div>
         <div>
           <strong data-zh="陈晨 · AI 分身" data-en="Chen · AI Clone">陈晨 · AI 分身</strong>
           <span data-zh="以我的口吻 · 回答你" data-en="In my tone · For you">以我的口吻 · 回答你</span>
@@ -1351,7 +1221,7 @@ img, svg { display: block; max-width: 100%; }
       <div class="chat-greeting">
         <p data-zh="你好👋 我是<strong>陈晨</strong>的 AI 分身。" data-en="Hi 👋 I'm <strong>Chen</strong>'s AI clone.">你好👋 我是<strong>陈晨</strong>的 AI 分身。</p>
         <p data-zh="关于产品、AI 项目、合作机会都可以问我。" data-en="Ask me about products, AI projects, collaborations.">关于产品、AI 项目、合作机会都可以问我。</p>
-        <p style="margin-top:8px;font-size:11.5px;color:var(--ink-mute);" data-zh="⚠ 当前是本地预览版,需启动后端 + 填 DeepSeek Key 才能真正聊天。" data-en="⚠ Local preview mode. Start backend + DeepSeek key to chat.">⚠ 当前是本地预览版,需启动后端 + 填 DeepSeek Key 才能真正聊天。</p>
+        <p style="margin-top:8px;font-size:11.5px;color:var(--ink-mute);" data-zh="⚠ 当前是预览版,真聊天需启动后端 + DeepSeek Key。" data-en="⚠ Preview mode. Real chat needs backend + DeepSeek key.">⚠ 当前是预览版,真聊天需启动后端 + DeepSeek Key。</p>
       </div>
     </div>
 
@@ -1365,37 +1235,151 @@ img, svg { display: block; max-width: 100%; }
 </div>
 
 <script>
-// ========== 二维码模态 (微信 / 公众号 共用一套逻辑) ==========
+// ========== 鼠标跟随光斑 ==========
 (function () {
-  function bindModal({ triggerId, modalId, qrTriggerId, qrImgId, qrPlaceholderId, uploadId, storeKey }) {
+  if (window.innerWidth < 1024) return;  // 移动端跳过
+  const spot = document.getElementById('cursor-spotlight');
+  if (!spot) return;
+
+  let visible = false;
+  let hideTimer = null;
+
+  document.addEventListener('mousemove', e => {
+    spot.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+    if (!visible) {
+      spot.classList.add('is-visible');
+      visible = true;
+    }
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      spot.classList.remove('is-visible');
+      visible = false;
+    }, 2500);
+  });
+
+  document.addEventListener('mouseleave', () => {
+    spot.classList.remove('is-visible');
+    visible = false;
+  });
+})();
+
+// ========== 滚动联动左侧导航 ==========
+(function () {
+  const sections = document.querySelectorAll('main.right-pane .section[id]');
+  const navLinks = document.querySelectorAll('.side-nav a[data-target]');
+  if (!sections.length || !navLinks.length) return;
+
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => {
+            link.classList.toggle('is-active', link.dataset.target === id);
+          });
+        }
+      });
+    },
+    { rootMargin: '-30% 0px -55% 0px', threshold: 0 }
+  );
+  sections.forEach(s => observer.observe(s));
+})();
+
+// ========== 平滑滚动到锚点 ==========
+(function () {
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 40;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+})();
+
+// ========== 入场动画 ==========
+(function () {
+  const targets = document.querySelectorAll('.section, .exp-item, .proj-card');
+  targets.forEach(el => el.classList.add('reveal'));
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+  targets.forEach(el => io.observe(el));
+})();
+
+// ========== 中英文切换 ==========
+(function () {
+  const LANG_KEY = 'lcc_lang';
+  const btn = document.getElementById('lang-toggle');
+  const label = document.getElementById('lang-label');
+  let lang = localStorage.getItem(LANG_KEY) || 'zh';
+
+  function apply() {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    document.querySelectorAll('[data-zh]').forEach(el => {
+      const txt = el.getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
+      if (txt !== null) {
+        if (txt.includes('<')) el.innerHTML = txt;
+        else el.textContent = txt;
+      }
+    });
+    label.textContent = lang === 'zh' ? 'English' : '中文';
+    const input = document.getElementById('chat-input');
+    if (input) input.placeholder = lang === 'zh' ? '输入消息后回车...' : 'Type message & Enter...';
+  }
+
+  btn.addEventListener('click', () => {
+    lang = lang === 'zh' ? 'en' : 'zh';
+    localStorage.setItem(LANG_KEY, lang);
+    apply();
+  });
+
+  apply();
+})();
+
+// ========== 微信 / 公众号 Modal ==========
+(function () {
+  function bindModal({ triggers, modalId, qrTriggerId, qrImgId, qrPlaceholderId, uploadId, storeKey }) {
     const modal = document.getElementById(modalId);
-    const trigger = document.getElementById(triggerId);
     const qrTrigger = document.getElementById(qrTriggerId);
     const qrImg = document.getElementById(qrImgId);
-    const qrPlaceholder = document.getElementById(qrPlaceholderId);
+    const qrPlaceholder = qrPlaceholderId ? document.getElementById(qrPlaceholderId) : null;
     const upload = document.getElementById(uploadId);
-    if (!modal || !trigger) return;
+    if (!modal) return;
 
     function open() { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); }
     function close() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); }
 
-    trigger.addEventListener('click', open);
-    modal.querySelectorAll('[data-modal-close]').forEach(el => {
-      el.addEventListener('click', close);
+    triggers.forEach(id => {
+      const t = document.getElementById(id);
+      if (t) t.addEventListener('click', open);
     });
+    modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', close));
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
     });
 
-    // 从 localStorage 恢复
+    if (!qrTrigger || !upload) return;
+
     const saved = localStorage.getItem(storeKey);
-    if (saved) {
+    if (saved && qrImg) {
       qrImg.src = saved;
       qrImg.style.display = 'block';
-      qrPlaceholder.style.display = 'none';
+      if (qrPlaceholder) qrPlaceholder.style.display = 'none';
     }
 
-    // 点击/拖拽二维码 → 上传
     qrTrigger.addEventListener('click', () => upload.click());
     ['dragenter', 'dragover'].forEach(ev => qrTrigger.addEventListener(ev, e => {
       e.preventDefault(); e.stopPropagation();
@@ -1433,10 +1417,12 @@ img, svg { display: block; max-width: 100%; }
           const h = tempImg.naturalHeight * ratio;
           ctx.drawImage(tempImg, (size - w) / 2, (size - h) / 2, w, h);
           const optimized = canvas.toDataURL('image/jpeg', 0.92);
-          qrImg.src = optimized;
-          qrImg.style.display = 'block';
-          qrPlaceholder.style.display = 'none';
-          try { localStorage.setItem(storeKey, optimized); } catch (err) { console.warn('QR too large', err); }
+          if (qrImg) {
+            qrImg.src = optimized;
+            qrImg.style.display = 'block';
+          }
+          if (qrPlaceholder) qrPlaceholder.style.display = 'none';
+          try { localStorage.setItem(storeKey, optimized); } catch (err) { console.warn(err); }
         };
         tempImg.src = reader.result;
       };
@@ -1445,194 +1431,37 @@ img, svg { display: block; max-width: 100%; }
   }
 
   bindModal({
-    triggerId: 'wechat-trigger',
+    triggers: ['wechat-trigger', 'wechat-trigger-2'],
     modalId: 'wechat-modal',
     qrTriggerId: 'wechat-qr-trigger',
     qrImgId: 'wechat-qr-img',
-    qrPlaceholderId: 'wechat-qr-placeholder',
+    qrPlaceholderId: null,
     uploadId: 'wechat-qr-upload',
-    storeKey: 'lcc_wechat_qr_v2',
+    storeKey: 'lcc_wechat_qr_v3',
   });
 
   bindModal({
-    triggerId: 'mp-trigger',
+    triggers: ['mp-trigger'],
     modalId: 'mp-modal',
     qrTriggerId: 'mp-qr-trigger',
     qrImgId: 'mp-qr-img',
     qrPlaceholderId: 'mp-qr-placeholder',
     uploadId: 'mp-qr-upload',
-    storeKey: 'lcc_mp_qr_v2',
+    storeKey: 'lcc_mp_qr_v3',
   });
 })();
 
-// ========== 头像上传 (点击 + 拖拽) ==========
-(function () {
-  const KEY = 'lcc_avatar_v3';
-  const img = document.getElementById('avatar-img');
-  const svg = document.getElementById('avatar-svg');
-  const upload = document.getElementById('avatar-upload');
-  const container = document.getElementById('avatar-container');
-  if (!img || !upload || !container) return;
-
-  // 从 localStorage 恢复
-  const saved = localStorage.getItem(KEY);
-  if (saved) {
-    img.src = saved;
-    img.style.display = 'block';
-    svg.style.display = 'none';
-  }
-
-  // 点击 → 触发文件选择
-  container.addEventListener('click', () => upload.click());
-
-  // 拖拽事件
-  ['dragenter', 'dragover'].forEach(ev => {
-    container.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      container.classList.add('is-dragover');
-    });
-  });
-  ['dragleave', 'drop'].forEach(ev => {
-    container.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      container.classList.remove('is-dragover');
-    });
-  });
-  container.addEventListener('drop', e => {
-    const file = e.dataTransfer.files[0];
-    if (file) handleFile(file);
-  });
-
-  upload.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (file) handleFile(file);
-  });
-
-  function handleFile(file) {
-    if (!file.type.startsWith('image/')) {
-      alert('请选择图片文件');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      // 用 canvas 居中裁切 + 缩放到 512x512 高清
-      const tempImg = new Image();
-      tempImg.onload = () => {
-        const size = 512;
-        const canvas = document.createElement('canvas');
-        canvas.width = canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        const sw = tempImg.naturalWidth, sh = tempImg.naturalHeight;
-        const s = Math.min(sw, sh);
-        // 居中裁切 (略偏上, 突出人脸)
-        const sx = (sw - s) / 2;
-        const sy = Math.max(0, (sh - s) / 2 - s * 0.05);
-        ctx.drawImage(tempImg, sx, sy, s, s, 0, 0, size, size);
-        const optimized = canvas.toDataURL('image/jpeg', 0.92);
-        img.src = optimized;
-        img.style.display = 'block';
-        svg.style.display = 'none';
-        try {
-          localStorage.setItem(KEY, optimized);
-        } catch (err) {
-          console.warn('Avatar too large for localStorage, will not persist', err);
-        }
-      };
-      tempImg.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
-})();
-
-// ========== 中英文切换 ==========
-(function () {
-  const LANG_KEY = 'lcc_lang';
-  const btn = document.getElementById('lang-toggle');
-  const label = document.getElementById('lang-label');
-  let lang = localStorage.getItem(LANG_KEY) || 'zh';
-
-  function apply() {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    // 英文 → 深色, 中文 → 浅色
-    document.documentElement.setAttribute('data-theme', lang === 'en' ? 'dark' : 'light');
-    document.querySelectorAll('[data-zh]').forEach(el => {
-      const txt = el.getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
-      if (txt !== null) {
-        // 保留 strong / br 标签
-        if (txt.includes('<')) el.innerHTML = txt;
-        else el.textContent = txt;
-      }
-    });
-    label.textContent = lang === 'zh' ? 'English' : '中文';
-    // placeholder
-    const input = document.getElementById('chat-input');
-    if (input) input.placeholder = lang === 'zh' ? '输入消息后回车...' : 'Type message & Enter...';
-  }
-
-  btn.addEventListener('click', () => {
-    lang = lang === 'zh' ? 'en' : 'zh';
-    localStorage.setItem(LANG_KEY, lang);
-    apply();
-  });
-
-  apply();
-})();
-
-// ========== 顶层交互 ==========
-(function () {
-  // 滚动加细线背景
-  const topbar = document.getElementById('topbar');
-  if (topbar) {
-    window.addEventListener('scroll', () => {
-      topbar.classList.toggle('is-scrolled', window.scrollY > 24);
-    }, { passive: true });
-  }
-
-  // 入场动画
-  const targets = document.querySelectorAll('.section, .card, .timeline-item, .contact-icon-box');
-  targets.forEach(el => el.classList.add('reveal'));
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
-    targets.forEach(el => io.observe(el));
-  } else {
-    targets.forEach(el => el.classList.add('is-visible'));
-  }
-
-  // 平滑滚动
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const href = a.getAttribute('href');
-      if (!href || href === '#') return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.scrollY - 60;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
-})();
-
-// ========== AI 客服 (本地降级版) ==========
+// ========== AI 客服 (本地预览版) ==========
 (function () {
   const dock = document.getElementById('chat-dock');
   const fab = document.getElementById('chat-fab');
   const closeBtn = document.getElementById('chat-close');
   const chatForm = document.getElementById('chat-form');
   const body = document.getElementById('chat-body');
+  if (!dock || !fab) return;
 
-  function toggle() { dock.classList.toggle('is-open'); }
-  function close() { dock.classList.remove('is-open'); }
-  fab.addEventListener('click', toggle);
-  closeBtn.addEventListener('click', close);
+  fab.addEventListener('click', () => dock.classList.toggle('is-open'));
+  closeBtn.addEventListener('click', () => dock.classList.remove('is-open'));
 
   function appendBubble(role, text) {
     const div = document.createElement('div');
@@ -1643,29 +1472,24 @@ img, svg { display: block; max-width: 100%; }
     return div;
   }
 
-  function demoReply(question) {
-    appendBubble('user', question);
-    setTimeout(() => {
-      const lang = localStorage.getItem('lcc_lang') || 'zh';
-      const msg = lang === 'zh'
-        ? '⚠ 这是本地预览模式,AI 还没接上。要让我真正回答,需要运行后端 (npm start) 并配置 DeepSeek API Key。'
-        : '⚠ This is local preview mode. To enable AI, run the backend (npm start) with a DeepSeek API key.';
-      const bubble = appendBubble('assistant', msg);
-      bubble.classList.add('is-error');
-    }, 500);
-  }
-
   chatForm.addEventListener('submit', e => {
     e.preventDefault();
     const input = document.getElementById('chat-input');
     const q = input.value.trim();
     if (!q) return;
     input.value = '';
-    demoReply(q);
+    appendBubble('user', q);
+    setTimeout(() => {
+      const lang = localStorage.getItem('lcc_lang') || 'zh';
+      const msg = lang === 'zh'
+        ? '⚠ 本地预览版,AI 还没接上。要让我真正回答,需要启动后端 + DeepSeek API Key。'
+        : '⚠ Preview mode. To enable real AI, run backend with a DeepSeek API key.';
+      appendBubble('assistant', msg).classList.add('is-error');
+    }, 400);
   });
 
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') dock.classList.remove('is-open');
   });
 })();
 </script>
