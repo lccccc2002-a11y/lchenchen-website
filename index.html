@@ -217,11 +217,7 @@ img, svg { display: block; max-width: 100%; }
   overflow: hidden;
   position: relative;
   z-index: 1;
-  cursor: pointer;
   box-shadow: inset 0 0 18px rgba(0,0,0,0.65), inset 0 1px 0 rgba(244,226,176,0.08);
-}
-.hero-avatar-inner.is-dragover {
-  box-shadow: inset 0 0 0 3px var(--brand), inset 0 0 18px rgba(0,0,0,0.65);
 }
 .hero-avatar-inner svg.avatar-svg,
 .hero-avatar-inner img.avatar-img {
@@ -233,27 +229,6 @@ img, svg { display: block; max-width: 100%; }
   object-position: center 30%;
   image-rendering: -webkit-optimize-contrast;
 }
-.avatar-upload-hint {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; gap: 4px;
-  align-items: center; justify-content: center;
-  background: rgba(8, 5, 4, 0.7);
-  color: #f4e2b0;
-  font-family: 'Fraunces', 'Iowan Old Style', serif;
-  font-style: italic;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  z-index: 2;
-  border-radius: 50%;
-  pointer-events: none;
-  text-align: center;
-}
-.avatar-upload-hint svg { width: 18px; height: 18px; opacity: 0.9; }
-.hero-avatar:hover .avatar-upload-hint,
-.hero-avatar-inner.is-dragover .avatar-upload-hint { opacity: 1; }
-/* 在线状态绿点已移除 — 避免遮挡头像 */
 
 .hero-title {
   font-size: clamp(32px, 5vw, 44px);
@@ -995,12 +970,7 @@ img, svg { display: block; max-width: 100%; }
                 font-style="italic" font-weight="400" font-size="10"
                 fill="url(#gold-soft)" letter-spacing="0.35em">L · C · C</text>
         </svg>
-        <div class="avatar-upload-hint">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <span data-zh="点击 / 拖拽更换" data-en="Click or drop">点击 / 拖拽更换</span>
-        </div>
       </div>
-      <input type="file" id="avatar-upload" accept="image/*" style="display:none" />
     </div>
     <h1 class="hero-title">
       <span data-zh="你好，我是" data-en="Hello, I'm">你好，我是</span>
@@ -1256,24 +1226,11 @@ img, svg { display: block; max-width: 100%; }
     <h3 class="modal-title" data-zh="扫一扫加我微信" data-en="Scan to add WeChat">扫一扫加我微信</h3>
     <p class="modal-subtitle" data-zh="Long press · or click to upload" data-en="Long press · or click to upload">Long press · or click to upload</p>
 
-    <div class="wechat-qr-wrap" id="wechat-qr-trigger">
+    <div class="wechat-qr-wrap">
       <div class="wechat-qr-inner">
-        <img id="wechat-qr-img" src="wechat-qr.jpg" alt="微信二维码" />
-        <div class="wechat-qr-placeholder" id="wechat-qr-placeholder" style="display:none;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1"/>
-            <rect x="14" y="3" width="7" height="7" rx="1"/>
-            <rect x="3" y="14" width="7" height="7" rx="1"/>
-            <rect x="6" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="17" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="6" y="17" width="1" height="1" fill="currentColor"/>
-            <path d="M14 14h2v2h-2zM18 14h3M14 18h2v3M18 18h3v3" stroke-linecap="round"/>
-          </svg>
-          <p data-zh="<strong>点击上传</strong>你的微信二维码<br/>(本地保存,不上云)" data-en="<strong>Click to upload</strong> your WeChat QR<br/>(stored locally only)"><strong>点击上传</strong>你的微信二维码<br/>(本地保存,不上云)</p>
-        </div>
+        <img src="wechat-qr.jpg" alt="微信二维码" />
       </div>
     </div>
-    <input type="file" id="wechat-qr-upload" accept="image/*" style="display:none" />
 
     <p class="wechat-tip">
       <span data-zh="微信号:" data-en="WeChat ID:">微信号:</span>
@@ -1293,24 +1250,20 @@ img, svg { display: block; max-width: 100%; }
     <h3 class="modal-title" data-zh="扫码关注我的公众号" data-en="Scan to follow">扫码关注我的公众号</h3>
     <p class="modal-subtitle" data-zh="陈晨的 AI 笔记 · 每周 AI 产品观察" data-en="Chen's AI Notes · Weekly AI insights">陈晨的 AI 笔记 · 每周 AI 产品观察</p>
 
-    <div class="wechat-qr-wrap" id="mp-qr-trigger">
-      <div class="wechat-qr-inner">
-        <img id="mp-qr-img" alt="公众号二维码" style="display:none;" />
-        <div class="wechat-qr-placeholder" id="mp-qr-placeholder">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="7" height="7" rx="1"/>
-            <rect x="14" y="3" width="7" height="7" rx="1"/>
-            <rect x="3" y="14" width="7" height="7" rx="1"/>
-            <rect x="6" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="17" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="6" y="17" width="1" height="1" fill="currentColor"/>
-            <path d="M14 14h2v2h-2zM18 14h3M14 18h2v3M18 18h3v3" stroke-linecap="round"/>
-          </svg>
-          <p data-zh="<strong>点击上传</strong>公众号二维码<br/>(本地保存,不上云)" data-en="<strong>Click to upload</strong> Official QR<br/>(stored locally only)"><strong>点击上传</strong>公众号二维码<br/>(本地保存,不上云)</p>
-        </div>
+    <div class="wechat-qr-wrap">
+      <div class="wechat-qr-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--ink-mute);text-align:center;padding:20px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px;opacity:0.4;">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="6" y="6" width="1" height="1" fill="currentColor"/>
+          <rect x="17" y="6" width="1" height="1" fill="currentColor"/>
+          <rect x="6" y="17" width="1" height="1" fill="currentColor"/>
+          <path d="M14 14h2v2h-2zM18 14h3M14 18h2v3M18 18h3v3" stroke-linecap="round"/>
+        </svg>
+        <span style="font-size:12px;letter-spacing:0.08em;" data-zh="公众号二维码即将上线" data-en="QR coming soon">公众号二维码即将上线</span>
       </div>
     </div>
-    <input type="file" id="mp-qr-upload" accept="image/*" style="display:none" />
 
     <p class="wechat-tip">
       <span data-zh="公众号:" data-en="Official Account:">公众号:</span>
@@ -1365,186 +1318,25 @@ img, svg { display: block; max-width: 100%; }
 </div>
 
 <script>
-// ========== 二维码模态 (微信 / 公众号 共用一套逻辑) ==========
+// ========== 二维码模态 (微信 / 公众号) — 仅 open/close, 不可上传 ==========
 (function () {
-  function bindModal({ triggerId, modalId, qrTriggerId, qrImgId, qrPlaceholderId, uploadId, storeKey }) {
+  function bindModal(triggerId, modalId) {
     const modal = document.getElementById(modalId);
     const trigger = document.getElementById(triggerId);
-    const qrTrigger = document.getElementById(qrTriggerId);
-    const qrImg = document.getElementById(qrImgId);
-    const qrPlaceholder = document.getElementById(qrPlaceholderId);
-    const upload = document.getElementById(uploadId);
     if (!modal || !trigger) return;
-
-    function open() { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); }
-    function close() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); }
-
+    const open = () => { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); };
+    const close = () => { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); };
     trigger.addEventListener('click', open);
-    modal.querySelectorAll('[data-modal-close]').forEach(el => {
-      el.addEventListener('click', close);
-    });
+    modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', close));
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
     });
-
-    // 从 localStorage 恢复
-    const saved = localStorage.getItem(storeKey);
-    if (saved) {
-      qrImg.src = saved;
-      qrImg.style.display = 'block';
-      qrPlaceholder.style.display = 'none';
-    }
-
-    // 点击/拖拽二维码 → 上传
-    qrTrigger.addEventListener('click', () => upload.click());
-    ['dragenter', 'dragover'].forEach(ev => qrTrigger.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      qrTrigger.classList.add('is-dragover');
-    }));
-    ['dragleave', 'drop'].forEach(ev => qrTrigger.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      qrTrigger.classList.remove('is-dragover');
-    }));
-    qrTrigger.addEventListener('drop', e => {
-      const file = e.dataTransfer.files[0];
-      if (file) processFile(file);
-    });
-    upload.addEventListener('change', e => {
-      const file = e.target.files[0];
-      if (file) processFile(file);
-    });
-
-    function processFile(file) {
-      if (!file.type.startsWith('image/')) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        const tempImg = new Image();
-        tempImg.onload = () => {
-          const size = 512;
-          const canvas = document.createElement('canvas');
-          canvas.width = canvas.height = size;
-          const ctx = canvas.getContext('2d');
-          ctx.imageSmoothingEnabled = true;
-          ctx.imageSmoothingQuality = 'high';
-          ctx.fillStyle = '#fff';
-          ctx.fillRect(0, 0, size, size);
-          const ratio = Math.min(size / tempImg.naturalWidth, size / tempImg.naturalHeight);
-          const w = tempImg.naturalWidth * ratio;
-          const h = tempImg.naturalHeight * ratio;
-          ctx.drawImage(tempImg, (size - w) / 2, (size - h) / 2, w, h);
-          const optimized = canvas.toDataURL('image/jpeg', 0.92);
-          qrImg.src = optimized;
-          qrImg.style.display = 'block';
-          qrPlaceholder.style.display = 'none';
-          try { localStorage.setItem(storeKey, optimized); } catch (err) { console.warn('QR too large', err); }
-        };
-        tempImg.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
   }
-
-  bindModal({
-    triggerId: 'wechat-trigger',
-    modalId: 'wechat-modal',
-    qrTriggerId: 'wechat-qr-trigger',
-    qrImgId: 'wechat-qr-img',
-    qrPlaceholderId: 'wechat-qr-placeholder',
-    uploadId: 'wechat-qr-upload',
-    storeKey: 'lcc_wechat_qr_v2',
-  });
-
-  bindModal({
-    triggerId: 'mp-trigger',
-    modalId: 'mp-modal',
-    qrTriggerId: 'mp-qr-trigger',
-    qrImgId: 'mp-qr-img',
-    qrPlaceholderId: 'mp-qr-placeholder',
-    uploadId: 'mp-qr-upload',
-    storeKey: 'lcc_mp_qr_v2',
-  });
+  bindModal('wechat-trigger', 'wechat-modal');
+  bindModal('mp-trigger', 'mp-modal');
 })();
 
-// ========== 头像上传 (点击 + 拖拽) ==========
-(function () {
-  const KEY = 'lcc_avatar_v3';
-  const img = document.getElementById('avatar-img');
-  const svg = document.getElementById('avatar-svg');
-  const upload = document.getElementById('avatar-upload');
-  const container = document.getElementById('avatar-container');
-  if (!img || !upload || !container) return;
-
-  // 从 localStorage 恢复
-  const saved = localStorage.getItem(KEY);
-  if (saved) {
-    img.src = saved;
-    img.style.display = 'block';
-    svg.style.display = 'none';
-  }
-
-  // 点击 → 触发文件选择
-  container.addEventListener('click', () => upload.click());
-
-  // 拖拽事件
-  ['dragenter', 'dragover'].forEach(ev => {
-    container.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      container.classList.add('is-dragover');
-    });
-  });
-  ['dragleave', 'drop'].forEach(ev => {
-    container.addEventListener(ev, e => {
-      e.preventDefault(); e.stopPropagation();
-      container.classList.remove('is-dragover');
-    });
-  });
-  container.addEventListener('drop', e => {
-    const file = e.dataTransfer.files[0];
-    if (file) handleFile(file);
-  });
-
-  upload.addEventListener('change', e => {
-    const file = e.target.files[0];
-    if (file) handleFile(file);
-  });
-
-  function handleFile(file) {
-    if (!file.type.startsWith('image/')) {
-      alert('请选择图片文件');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      // 用 canvas 居中裁切 + 缩放到 512x512 高清
-      const tempImg = new Image();
-      tempImg.onload = () => {
-        const size = 512;
-        const canvas = document.createElement('canvas');
-        canvas.width = canvas.height = size;
-        const ctx = canvas.getContext('2d');
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-        const sw = tempImg.naturalWidth, sh = tempImg.naturalHeight;
-        const s = Math.min(sw, sh);
-        // 居中裁切 (略偏上, 突出人脸)
-        const sx = (sw - s) / 2;
-        const sy = Math.max(0, (sh - s) / 2 - s * 0.05);
-        ctx.drawImage(tempImg, sx, sy, s, s, 0, 0, size, size);
-        const optimized = canvas.toDataURL('image/jpeg', 0.92);
-        img.src = optimized;
-        img.style.display = 'block';
-        svg.style.display = 'none';
-        try {
-          localStorage.setItem(KEY, optimized);
-        } catch (err) {
-          console.warn('Avatar too large for localStorage, will not persist', err);
-        }
-      };
-      tempImg.src = reader.result;
-    };
-    reader.readAsDataURL(file);
-  }
-})();
+// 头像 / 二维码上传逻辑已移除 — 全部写死, 不允许访客修改
 
 // ========== 中英文切换 ==========
 (function () {
