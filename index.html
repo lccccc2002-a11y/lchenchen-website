@@ -181,7 +181,22 @@ img, svg { display: block; max-width: 100%; }
   padding: 140px var(--pad-x) 80px;
   max-width: var(--max-w); margin: 0 auto;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+.hero > *:not(.hero-particles) {
+  position: relative;
+  z-index: 1;
+}
+[data-theme="dark"] .hero-particles { opacity: 0.7; }
 .hero-avatar {
   width: 132px; height: 132px;
   margin: 0 auto 32px;
@@ -936,6 +951,7 @@ img, svg { display: block; max-width: 100%; }
 
   <!-- ============ Hero ============ -->
   <section class="hero" id="hero">
+    <canvas class="hero-particles" id="hero-particles" aria-hidden="true"></canvas>
     <div class="hero-avatar" id="hero-avatar">
       <div class="hero-avatar-inner" id="avatar-container">
         <img id="avatar-img" class="avatar-img" src="avatar.jpg" alt="刘陈晨头像" />
@@ -1667,6 +1683,209 @@ img, svg { display: block; max-width: 100%; }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') close();
   });
+})();
+</script>
+
+<!-- ========== Antigravity 粒子环 (纯 Three.js, 等效 React Bits 组件) ========== -->
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js';
+
+(function () {
+  const container = document.getElementById('hero-particles');
+  const heroSection = document.getElementById('hero');
+  if (!container || !heroSection) return;
+
+  // 检查 WebGL 支持
+  try {
+    const test = document.createElement('canvas').getContext('webgl');
+    if (!test) return;
+  } catch (e) { return; }
+
+  // 检查用户是否偏好减少动画 (无障碍)
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const isMobile = window.innerWidth < 768;
+
+  const P = {
+    count: isMobile ? 150 : 300,
+    magnetRadius: 6,
+    ringRadius: 7,
+    waveSpeed: 0.4,
+    waveAmplitude: 1,
+    particleSize: 1.5,
+    lerpSpeed: 0.05,
+    color: 0x8b5cf6,
+    autoAnimate: true,
+    particleVariance: 1,
+    rotationSpeed: 0.15,
+    depthFactor: 1,
+    pulseSpeed: 3,
+    fieldStrength: 10,
+  };
+
+  const scene = new THREE.Scene();
+  const aspect = container.clientWidth / container.clientHeight;
+  const camera = new THREE.PerspectiveCamera(35, aspect || 1, 1, 1000);
+  camera.position.z = 50;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas: container,
+    alpha: true,
+    antialias: !isMobile,
+    powerPreference: 'low-power',
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(container.clientWidth, container.clientHeight, false);
+
+  // 计算 3D 单位的 viewport (跟 R3F useThree().viewport 一致)
+  function getViewport() {
+    const distance = camera.position.z;
+    const vFOV = (camera.fov * Math.PI) / 180;
+    const height = 2 * Math.tan(vFOV / 2) * distance;
+    const width = height * camera.aspect;
+    return { width, height };
+  }
+
+  const geometry = new THREE.CapsuleGeometry(0.1, 0.4, 4, 8);
+  const material = new THREE.MeshBasicMaterial({ color: P.color });
+  const mesh = new THREE.InstancedMesh(geometry, material, P.count);
+  scene.add(mesh);
+
+  let v = getViewport();
+  const particles = [];
+  for (let i = 0; i < P.count; i++) {
+    const x = (Math.random() - 0.5) * v.width;
+    const y = (Math.random() - 0.5) * v.height;
+    const z = (Math.random() - 0.5) * 20;
+    particles.push({
+      t: Math.random() * 100,
+      speed: 0.01 + Math.random() / 200,
+      mx: x, my: y, mz: z,
+      cx: x, cy: y, cz: z,
+      randomRadiusOffset: (Math.random() - 0.5) * 2,
+    });
+  }
+
+  // 监听 hero 区鼠标 (canvas 是 pointer-events:none, 所以挂到 section 上)
+  const mouse = { x: 0, y: 0 };
+  const lastMousePos = { x: 0, y: 0 };
+  let lastMouseMoveTime = 0;
+  const virtualMouse = { x: 0, y: 0 };
+
+  heroSection.addEventListener('mousemove', (e) => {
+    const rect = heroSection.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+  });
+  heroSection.addEventListener('touchmove', (e) => {
+    if (!e.touches[0]) return;
+    const rect = heroSection.getBoundingClientRect();
+    mouse.x = ((e.touches[0].clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.touches[0].clientY - rect.top) / rect.height) * 2 + 1;
+  }, { passive: true });
+
+  // 滚出 hero 区时暂停渲染 (省电省 GPU)
+  let isVisible = true;
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { threshold: 0 });
+    io.observe(heroSection);
+  }
+
+  const dummy = new THREE.Object3D();
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    if (!isVisible) return;
+
+    const time = clock.getElapsedTime();
+
+    const dx = mouse.x - lastMousePos.x;
+    const dy = mouse.y - lastMousePos.y;
+    if (Math.sqrt(dx*dx + dy*dy) > 0.001) {
+      lastMouseMoveTime = Date.now();
+      lastMousePos.x = mouse.x;
+      lastMousePos.y = mouse.y;
+    }
+
+    let destX = (mouse.x * v.width) / 2;
+    let destY = (mouse.y * v.height) / 2;
+
+    if (P.autoAnimate && Date.now() - lastMouseMoveTime > 2000) {
+      destX = Math.sin(time * 0.5) * (v.width / 4);
+      destY = Math.cos(time * 0.5 * 2) * (v.height / 4);
+    }
+
+    virtualMouse.x += (destX - virtualMouse.x) * 0.05;
+    virtualMouse.y += (destY - virtualMouse.y) * 0.05;
+
+    const targetX = virtualMouse.x;
+    const targetY = virtualMouse.y;
+    const globalRotation = time * P.rotationSpeed;
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+      p.t += p.speed / 2;
+      const t = p.t;
+
+      const projF = 1 - p.cz / 50;
+      const ptx = targetX * projF;
+      const pty = targetY * projF;
+
+      const ddx = p.mx - ptx;
+      const ddy = p.my - pty;
+      const dist = Math.sqrt(ddx*ddx + ddy*ddy);
+
+      let tx = p.mx, ty = p.my, tz = p.mz * P.depthFactor;
+
+      if (dist < P.magnetRadius) {
+        const angle = Math.atan2(ddy, ddx) + globalRotation;
+        const wave = Math.sin(t * P.waveSpeed + angle) * (0.5 * P.waveAmplitude);
+        const deviation = p.randomRadiusOffset * (5 / (P.fieldStrength + 0.1));
+        const r = P.ringRadius + wave + deviation;
+        tx = ptx + r * Math.cos(angle);
+        ty = pty + r * Math.sin(angle);
+        tz = p.mz * P.depthFactor + Math.sin(t) * (P.waveAmplitude * P.depthFactor);
+      }
+
+      p.cx += (tx - p.cx) * P.lerpSpeed;
+      p.cy += (ty - p.cy) * P.lerpSpeed;
+      p.cz += (tz - p.cz) * P.lerpSpeed;
+
+      dummy.position.set(p.cx, p.cy, p.cz);
+      dummy.lookAt(ptx, pty, p.cz);
+      dummy.rotateX(Math.PI / 2);
+
+      const cdx = p.cx - ptx;
+      const cdy = p.cy - pty;
+      const currentDist = Math.sqrt(cdx*cdx + cdy*cdy);
+      const distFromRing = Math.abs(currentDist - P.ringRadius);
+      let scaleFactor = Math.max(0, Math.min(1, 1 - distFromRing / 10));
+      const finalScale = scaleFactor * (0.8 + Math.sin(t * P.pulseSpeed) * 0.2 * P.particleVariance) * P.particleSize;
+      dummy.scale.set(finalScale, finalScale, finalScale);
+      dummy.updateMatrix();
+      mesh.setMatrixAt(i, dummy.matrix);
+    }
+
+    mesh.instanceMatrix.needsUpdate = true;
+    renderer.render(scene, camera);
+  }
+
+  // 响应式
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      renderer.setSize(container.clientWidth, container.clientHeight, false);
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      v = getViewport();
+    }, 150);
+  });
+
+  animate();
 })();
 </script>
 
