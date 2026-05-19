@@ -1,1210 +1,1972 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="刘陈晨 · AI 产品经理 · 大模型应用、Agent 设计、智能交互" />
-<title>刘陈晨 · AI Product Manager</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="刘陈晨 · AI 产品经理 · 大模型应用、Agent 设计、智能交互" />
+  <title>刘陈晨 · AI Product Manager</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+SC:wght@200;300;400;500&display=swap" rel="stylesheet" />
-
-<style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Great+Vibes&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
 /* ============================================================
-   lchenchen.com — 干净现代风格 (Lain-Ego 模板)
+   lchenchen.com — Editorial B/W (Seesaw-inspired)
+   纯黑白灰，Space Mono 标签 + Space Grotesk 正文，无阴影 / 无渐变
    ============================================================ */
+
 :root {
-  --bg: #f7f9fc;
-  --bg-grad-1: #eef4ff;
-  --bg-grad-2: #f7f9fc;
-  --card: #ffffff;
-  --card-hover: #fbfcff;
-  --ink: #1a1f36;
-  --ink-soft: #4b5563;
-  --ink-faint: #6b7280;
-  --ink-mute: #9ca3af;
-  --line: #e5e7eb;
-  --line-soft: #f0f2f5;
-  --brand: #2563eb;
-  --brand-soft: #dbeafe;
-  --brand-hover: #1d4ed8;
-  --accent: #3b82f6;
-  --tag-bg: #eff6ff;
-  --tag-ink: #2563eb;
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.10);
-  --shadow-fab: 0 8px 24px rgba(37, 99, 235, 0.45);
-  --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --font: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --bg: #FAFAF7;
+  --bg-2: #F2F1EC;
+  --paper: #FFFFFF;
+  --ink: #111111;
+  --ink-soft: #555555;
+  --ink-faint: #888888;
+  --ink-mute: #B8B6B0;
+  --line: #E5E3DC;
+  --line-strong: #111111;
+
+  --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  --font-zh: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  --font-text: var(--font-sans), var(--font-zh);
+
   --max-w: 1080px;
-  --pad-x: clamp(20px, 5vw, 48px);
-  --theme-tx: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* ===== 深色模式 (英文版自动切换) ===== */
-[data-theme="dark"] {
-  --bg: #0a0e1a;
-  --bg-grad-1: #131933;
-  --bg-grad-2: #0a0e1a;
-  --card: #141a2e;
-  --card-hover: #1a2138;
-  --ink: #e6e8f0;
-  --ink-soft: #a8b0c4;
-  --ink-faint: #7a8299;
-  --ink-mute: #555c75;
-  --line: #252b40;
-  --line-soft: #1a2038;
-  --brand: #6b9bf7;
-  --brand-soft: #1d2745;
-  --brand-hover: #8db5fa;
-  --accent: #8b5cf6;
-  --tag-bg: #1d2745;
-  --tag-ink: #93b4f5;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
-  --shadow-fab: 0 8px 24px rgba(107, 155, 247, 0.45);
-}
-[data-theme="dark"] .topbar { background: rgba(10, 14, 26, 0.75); }
-[data-theme="dark"] .topbar.is-scrolled { background: rgba(20, 26, 46, 0.92); }
-[data-theme="dark"] .card-thumb { background: linear-gradient(135deg, #1a2138 0%, #2a1f3a 100%); }
-[data-theme="dark"] .chat-bubble.is-error { background: #3a1818; color: #fca5a5; border-color: #5a2828; }
-[data-theme="dark"] .footer { background: rgba(20, 26, 46, 0.5); }
-[data-theme="dark"] .hero-avatar::after { border-color: var(--bg); }
-[data-theme="dark"] .dock-fab-badge { border-color: var(--bg); }
-
-html, body, .card, .stack-item, .topbar, .lang-toggle, .icon-btn, .dock-panel, .dock-fab,
-.contact-circle, .articles-group, .dock-panel-input, .footer, .hero-avatar-inner, .card-thumb {
-  transition: background var(--theme-tx), color var(--theme-tx), border-color var(--theme-tx), box-shadow var(--theme-tx);
+  --pad-x: clamp(24px, 6vw, 64px);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
 html { scroll-behavior: smooth; }
+
 html, body {
   background: var(--bg);
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% 0%, var(--bg-grad-1) 0%, transparent 70%),
-    linear-gradient(180deg, var(--bg-grad-2) 0%, var(--bg) 100%);
-  background-attachment: fixed;
   color: var(--ink);
-  font-family: var(--font);
-  font-weight: 400; font-size: 15px; line-height: 1.7;
+  font-family: var(--font-sans), var(--font-zh);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-body { min-height: 100vh; overflow-x: hidden; }
+
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+main, header, footer, .dock { position: relative; z-index: 1; }
+
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; }
 img, svg { display: block; max-width: 100%; }
 
 /* ============================================================
-   顶部导航
+   顶部导航 — 纯净，无 frosted glass
    ============================================================ */
 .topbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-  background: rgba(247, 249, 252, 0.7);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: transparent;
+  transition: background 0.3s ease, border-color 0.3s ease;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease, background 0.3s ease;
 }
 .topbar.is-scrolled {
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--bg);
   border-bottom-color: var(--line);
 }
 .topbar-inner {
-  max-width: var(--max-w); margin: 0 auto;
-  padding: 14px var(--pad-x);
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 18px var(--pad-x);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 36px;
 }
 .brand {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-weight: 700; font-size: 15px; color: var(--ink);
-  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink);
 }
-.brand-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-  animation: brand-pulse 2.4s ease-in-out infinite;
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1;
 }
-@keyframes brand-pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); }
-  50% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.05); }
+.brand-text {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: 0.04em;
 }
-
 .nav {
-  display: flex; gap: 28px;
-  font-size: 14px; color: var(--ink-soft);
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
 }
 .nav a {
-  position: relative; padding: 4px 0;
-  font-weight: 500; transition: color 0.2s ease;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.2s ease;
 }
-.nav a:hover { color: var(--brand); }
 .nav a::after {
-  content: ''; position: absolute; left: 0; bottom: -2px;
-  width: 0; height: 2px; background: var(--brand);
-  transition: width 0.3s ease;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--ink);
+  transition: width 0.2s ease;
 }
-.nav a:hover::after, .nav a.is-active::after { width: 100%; }
+.nav a:hover { color: var(--ink); }
+.nav a:hover::after { width: 100%; }
 
-.topbar-tools {
-  display: inline-flex; align-items: center; gap: 10px;
+.topbar-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.topbar-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 .lang-toggle {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; background: var(--card);
-  border: 1px solid var(--line); border-radius: 999px;
-  font-size: 12.5px; font-weight: 600; color: var(--ink-soft);
-  transition: all 0.2s ease;
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--ink);
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
-.lang-toggle:hover { color: var(--brand); border-color: var(--brand); }
-.lang-toggle svg { width: 14px; height: 14px; }
-.icon-btn {
-  width: 32px; height: 32px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--card); border: 1px solid var(--line); border-radius: 50%;
-  color: var(--ink-soft); transition: all 0.2s ease;
-}
-.icon-btn:hover { color: var(--brand); border-color: var(--brand); transform: rotate(45deg); }
-
-/* ============================================================
-   Hero
-   ============================================================ */
-.hero {
-  padding: 140px var(--pad-x) 80px;
-  max-width: var(--max-w); margin: 0 auto;
-  text-align: center;
-}
-.hero-avatar {
-  width: 132px; height: 132px;
-  margin: 0 auto 32px;
-  position: relative;
-  border-radius: 50%;
-  background:
-    conic-gradient(from 180deg at 50% 50%,
-      #f4e2b0 0deg,
-      #c8a468 60deg,
-      #8a6a30 130deg,
-      #d4b370 200deg,
-      #f4e2b0 270deg,
-      #9a7a3e 330deg,
-      #f4e2b0 360deg);
-  padding: 2px;
-  box-shadow:
-    0 20px 50px rgba(154, 124, 64, 0.35),
-    0 0 0 1px rgba(244, 226, 176, 0.2),
-    inset 0 0 0 1px rgba(0,0,0,0.1);
-}
-.hero-avatar::before {
-  content: ''; position: absolute;
-  inset: 2px; border-radius: 50%;
-  background: #08050a;
-  z-index: 0;
-}
-.hero-avatar-inner {
-  width: 100%; height: 100%;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 28%, #1f1610 0%, #0a0604 70%, #050302 100%);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-  box-shadow: inset 0 0 18px rgba(0,0,0,0.65), inset 0 1px 0 rgba(244,226,176,0.08);
-}
-.hero-avatar-inner svg.avatar-svg,
-.hero-avatar-inner img.avatar-img {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center 30%;
-  image-rendering: -webkit-optimize-contrast;
-}
-
-.hero-title {
-  font-size: clamp(32px, 5vw, 44px);
-  font-weight: 700; color: var(--ink);
-  letter-spacing: -0.02em;
-  margin-bottom: 12px;
-  line-height: 1.2;
-}
-.hero-title .brand-text {
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero-role {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 14px;
-  background: var(--brand-soft);
-  border-radius: 999px;
-  font-size: 13px; font-weight: 600;
-  color: var(--brand);
-  margin-bottom: 24px;
-}
-.hero-role-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--brand);
-}
-.hero-desc {
-  font-size: 15px; line-height: 2;
-  color: var(--ink-soft);
-  max-width: 520px;
-  margin: 0 auto;
-}
-.hero-desc strong { color: var(--ink); font-weight: 600; }
-.hero-email {
-  margin-top: 8px;
-  font-family: 'Inter', monospace;
-  color: var(--ink-soft);
+.lang-toggle:hover {
+  background: var(--ink);
+  color: var(--bg);
 }
 
 /* ============================================================
-   Section 通用
+   通用 Section 容器
    ============================================================ */
 .section {
-  max-width: var(--max-w); margin: 0 auto;
-  padding: 60px var(--pad-x) 40px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 120px var(--pad-x) 100px;
+  position: relative;
 }
+
 .section-head {
-  text-align: center;
-  margin-bottom: 48px;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 56px;
+}
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.08em;
 }
 .section-title {
-  display: inline-block; position: relative;
-  font-size: 24px; font-weight: 700;
-  color: var(--ink); letter-spacing: -0.01em;
-  padding-bottom: 12px;
-}
-.section-title::after {
-  content: ''; position: absolute;
-  left: 50%; bottom: 0;
-  transform: translateX(-50%);
-  width: 40px; height: 3px;
-  background: var(--brand);
-  border-radius: 2px;
-}
-
-/* ============================================================
-   Cards Grid (Projects / Open Source)
-   ============================================================ */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.card {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 22px;
-  display: flex; flex-direction: column;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  position: relative;
-  overflow: hidden;
-}
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--brand-soft);
-}
-.card-thumb {
-  width: calc(100% + 44px);
-  margin: -22px -22px 18px;
-  height: 160px;
-  background: linear-gradient(135deg, #e9efff 0%, #f3e8ff 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 56px;
-  position: relative;
-}
-.card-thumb::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(255,255,255,0.4) 100%);
-}
-.card-icon {
-  width: 36px; height: 36px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--brand-soft); color: var(--brand);
-  border-radius: 10px; margin-bottom: 14px;
-  font-weight: 600;
-}
-.card-row-top {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  margin-bottom: 14px;
-}
-.card-fork-icon {
-  width: 18px; height: 18px;
-  color: var(--ink-mute);
-}
-.card-title {
-  font-size: 16px; font-weight: 700;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ink);
-  margin-bottom: 8px;
-  letter-spacing: -0.01em;
 }
-.card-desc {
-  font-size: 13.5px; line-height: 1.75;
+.section-rule {
+  height: 1px;
+  background: var(--line);
+}
+
+.section-lead {
+  font-family: var(--font-sans);
+  font-size: 14px;
   color: var(--ink-soft);
-  margin-bottom: 16px;
-  flex: 1;
+  line-height: 1.8;
+  max-width: 620px;
+  margin-bottom: 40px;
 }
-.card-tags {
-  list-style: none;
-  display: flex; flex-wrap: wrap; gap: 6px;
-  margin-bottom: 14px;
-}
-.card-tags li {
-  font-size: 11px; font-weight: 500;
-  padding: 3px 9px;
-  background: var(--tag-bg); color: var(--tag-ink);
-  border-radius: 6px;
-}
-.card-link {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 600;
-  color: var(--brand);
-  padding-top: 12px;
-  border-top: 1px solid var(--line-soft);
-  transition: gap 0.2s ease;
-}
-.card-link:hover { gap: 10px; }
 
 /* ============================================================
-   Timeline
+   Hero — 极简：日期戳 + 大名字 + tagline + 单链接
    ============================================================ */
-.timeline {
-  max-width: 720px; margin: 0 auto;
-  padding-left: 24px;
+.hero {
+  min-height: 92vh;
+  padding-top: 0;
+  padding-bottom: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.hero-inner {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 140px var(--pad-x) 40px;
+  text-align: left;
   position: relative;
 }
-.timeline::before {
-  content: ''; position: absolute;
-  left: 5px; top: 8px; bottom: 8px;
-  width: 1px; background: var(--line);
+
+.hero-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  margin-bottom: 36px;
 }
-.timeline-item {
-  position: relative; padding: 0 0 32px 32px;
+.hero-meta-line {
+  width: 28px;
+  height: 1px;
+  background: var(--ink-faint);
 }
-.timeline-item::before {
-  content: ''; position: absolute;
-  left: -24px; top: 6px;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: var(--card);
-  border: 2px solid var(--brand);
-  box-shadow: 0 0 0 4px var(--brand-soft);
+
+.hero-name {
+  margin-bottom: 24px;
 }
-.timeline-date {
-  font-size: 12px; font-weight: 600;
-  color: var(--brand);
-  margin-bottom: 4px;
-  letter-spacing: 0.04em;
+.hero-name-zh {
+  display: block;
+  font-family: var(--font-zh), var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(40px, 7.5vw, 80px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 12px;
 }
-.timeline-title {
-  font-size: 16px; font-weight: 600;
-  color: var(--ink); margin-bottom: 6px;
-}
-.timeline-desc {
-  font-size: 13.5px; line-height: 1.8;
+.hero-name-en {
+  display: block;
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(16px, 2vw, 20px);
+  letter-spacing: 0.06em;
   color: var(--ink-soft);
 }
 
-/* ============================================================
-   Stack (Tech Stack 4 columns)
-   ============================================================ */
-.stack-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
-.stack-col {
-  padding-left: 12px;
-  border-left: 3px solid var(--brand);
-}
-.stack-col-title {
-  font-size: 14px; font-weight: 700;
+.hero-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--ink);
-  margin-bottom: 14px;
+  margin-bottom: 32px;
+  padding: 4px 10px;
+  border: 1px solid var(--ink);
 }
-.stack-list {
-  list-style: none;
-  display: flex; flex-direction: column; gap: 8px;
-}
-.stack-item {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 12px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  font-size: 12.5px; font-weight: 500;
+.hero-role-dot { display: none; }
+
+.hero-tagline {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.85;
   color: var(--ink-soft);
-  transition: all 0.2s ease;
-}
-.stack-item:hover {
-  border-color: var(--brand);
-  color: var(--brand);
-  transform: translateX(2px);
-}
-.stack-icon {
-  width: 14px; height: 14px;
-  color: var(--brand);
+  margin-bottom: 56px;
+  letter-spacing: 0;
+  max-width: 620px;
 }
 
-/* ============================================================
-   Articles
-   ============================================================ */
-.articles-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+/* Hero 嵌入式 AI 输入框 */
+.hero-chat {
+  max-width: 560px;
+  margin: 0 0 72px;
+  text-align: left;
 }
-.articles-group {
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
+.hero-chat-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
-.articles-group-head {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 15px; font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 16px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line-soft);
-}
-.articles-group-head .icon {
-  width: 18px; height: 18px; color: var(--brand);
-}
-.article-list { list-style: none; }
-.article-list a {
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px dashed var(--line-soft);
-  font-size: 13.5px; color: var(--ink-soft);
-  transition: color 0.2s ease, padding 0.2s ease;
-}
-.article-list li:last-child a { border-bottom: none; }
-.article-list a:hover { color: var(--brand); padding-left: 4px; }
-.article-arrow {
-  color: var(--ink-mute);
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-.article-list a:hover .article-arrow {
-  transform: translate(2px, -2px);
-  color: var(--brand);
-}
-
-/* ============================================================
-   Contact / 联系我
-   ============================================================ */
-.contact-icons {
-  display: flex; justify-content: center; gap: 36px;
-  flex-wrap: wrap;
-}
-.contact-icon-box {
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  text-align: center;
-  transition: transform 0.25s ease;
-}
-.contact-icon-box:hover { transform: translateY(-4px); }
-.contact-circle {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: var(--card);
-  border: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--brand);
-  font-size: 22px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.25s ease;
-}
-.contact-icon-box:hover .contact-circle {
-  background: var(--brand);
-  color: white;
-  border-color: var(--brand);
-  box-shadow: var(--shadow-md);
-}
-.contact-label {
-  font-size: 13px; font-weight: 600;
+.hero-chat-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ink);
 }
-.contact-hint {
+.hero-chat-hint {
+  font-family: var(--font-sans), var(--font-zh);
   font-size: 11.5px;
   color: var(--ink-faint);
+  letter-spacing: 0;
+}
+.hero-chat-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: stretch;
+  border-bottom: 1px solid var(--ink);
+  transition: border-color 0.2s ease;
+}
+.hero-chat-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 15px;
+  color: var(--ink);
+  padding: 12px 4px;
+}
+.hero-chat-input::placeholder {
+  color: var(--ink-mute);
+  font-family: var(--font-sans);
+}
+.hero-chat-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.hero-chat-send:hover { transform: translateX(2px); }
+.hero-chat-send:disabled { opacity: 0.4; cursor: wait; }
+
+.hero-scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.hero-scroll-line {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--ink-faint);
+}
+
+/* ============================================================
+   About — 缩小肖像，纯文字克制
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.about-portrait-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.about-portrait-frame::before { display: none; }
+.about-portrait-placeholder {
+  font-family: var(--font-zh), var(--font-sans);
+  font-size: 64px;
+  font-weight: 300;
+  color: var(--ink);
+}
+.about-portrait-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  text-align: left;
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
+.about-portrait-caption em {
+  font-style: normal;
+  color: var(--ink-faint);
+  font-size: 10.5px;
+  display: block;
+  margin-top: 2px;
+}
+
+.about-body { padding-top: 4px; }
+.about-lead {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.about-text {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+.about-stat { display: flex; flex-direction: column; gap: 6px; }
+.about-stat-num {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.about-stat-num em {
+  font-style: normal;
+  font-size: 22px;
+  color: var(--ink-faint);
+}
+.about-stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+.about-stat-label em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  color: var(--ink-faint);
+}
+
+/* ============================================================
+   Skills — 列表，无卡片，仅细线分隔
+   ============================================================ */
+.skills-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.skill-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  padding: 24px 20px 24px 4px;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.skill-item:nth-child(odd) { border-right: 1px solid var(--line); padding-right: 24px; }
+.skill-item:nth-child(even) { padding-left: 24px; }
+.skill-index {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 12px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  padding-top: 2px;
+}
+.skill-body h3 {
+  font-family: var(--font-sans), var(--font-zh);
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.skill-body p {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   Projects — 列表式：日期戳 + 标题 + 描述 + 标签
+   ============================================================ */
+.projects-list {
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.project-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 40px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.project-time {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 12px;
+  color: var(--ink-faint);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+.project-time-from {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+.project-time-dash {
+  margin: 4px 0;
+  color: var(--ink-mute);
+}
+.project-time-to {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.project-name {
+  font-family: var(--font-sans), var(--font-zh);
+  font-weight: 500;
+  font-size: 19px;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.project-desc {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  max-width: 580px;
+}
+.project-tags {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.project-tags li {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+}
+
+/* ============================================================
+   Works — 极简卡片：无阴影、无 hover lift、细线
+   ============================================================ */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.work-card {
+  background: transparent;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+  transition: background 0.2s ease;
+}
+.work-card:hover { background: var(--bg-2); }
+.work-card-num {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+}
+.work-card-title {
+  font-family: var(--font-sans), var(--font-zh);
+  font-weight: 500;
+  font-size: 17px;
+  color: var(--ink);
+}
+.work-card-desc {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  flex: 1;
+}
+.work-card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  text-transform: uppercase;
+}
+.work-card-empty .work-card-title { color: var(--ink-mute); }
+
+/* ============================================================
+   Articles — 列表，细线分隔，文字链接
+   ============================================================ */
+.articles-groups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+.articles-group-title {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ink);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink);
+}
+.articles-list { list-style: none; }
+.article-item a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 14px;
+  color: var(--ink-soft);
+  transition: color 0.2s ease, padding 0.2s ease;
+}
+.article-item a:hover {
+  color: var(--ink);
+  padding-left: 6px;
+}
+.article-arrow {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.article-item a:hover .article-arrow {
+  transform: translate(2px, -2px);
+  color: var(--ink);
+}
+
+/* ============================================================
+   Contact — 极简网格，无背景填充
+   ============================================================ */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.contact-card {
+  background: transparent;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 180px;
+  transition: background 0.2s ease;
+}
+a.contact-card:hover { background: var(--bg-2); }
+.contact-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.contact-value {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-top: 4px;
+  word-break: break-all;
+}
+.contact-hint {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-top: auto;
+}
+.contact-qr {
+  margin: 6px 0;
+  width: 90px;
+  height: 90px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-qr-placeholder {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  color: var(--ink-mute);
+  text-align: center;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  text-transform: uppercase;
 }
 
 /* ============================================================
    Footer
    ============================================================ */
 .footer {
+  border-top: 1px solid var(--line);
+  margin-top: 80px;
+}
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
   padding: 32px var(--pad-x);
-  text-align: center;
-  font-size: 13px; color: var(--ink-faint);
-  border-top: 1px solid var(--line-soft);
-  margin-top: 60px;
-  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
-.footer a { color: var(--brand); font-weight: 500; }
-.footer a:hover { text-decoration: underline; }
 
 /* ============================================================
-   微信二维码模态弹窗
-   ============================================================ */
-.modal {
-  position: fixed; inset: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-.modal.is-open { opacity: 1; pointer-events: auto; }
-.modal-overlay {
-  position: absolute; inset: 0;
-  background: rgba(8, 12, 24, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.modal-card {
-  position: relative;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  padding: 36px 40px 32px;
-  width: min(360px, calc(100vw - 48px));
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
-  transform: scale(0.92) translateY(20px);
-  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  text-align: center;
-}
-.modal.is-open .modal-card { transform: scale(1) translateY(0); }
-.modal-close {
-  position: absolute; top: 14px; right: 14px;
-  width: 32px; height: 32px;
-  background: var(--bg);
-  border: 1px solid var(--line); border-radius: 50%;
-  color: var(--ink-soft);
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: all 0.2s ease;
-}
-.modal-close:hover { color: var(--ink); border-color: var(--ink); transform: rotate(90deg); }
-.modal-title {
-  font-size: 17px; font-weight: 700; color: var(--ink);
-  margin-bottom: 4px; letter-spacing: 0.02em;
-}
-.modal-subtitle {
-  font-size: 12.5px; color: var(--ink-faint);
-  margin-bottom: 24px;
-  font-family: 'Fraunces', serif; font-style: italic;
-  letter-spacing: 0.08em;
-}
-.wechat-qr-wrap {
-  width: 220px; height: 220px;
-  margin: 0 auto 18px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #07c160 0%, #06ad56 100%);
-  padding: 12px;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.25s ease;
-}
-.wechat-qr-wrap:hover { transform: scale(1.02); }
-.wechat-qr-inner {
-  width: 100%; height: 100%;
-  background: white;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
-.wechat-qr-inner img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  display: block;
-}
-.wechat-qr-placeholder {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 8px;
-  color: #999;
-  text-align: center;
-  padding: 16px;
-}
-.wechat-qr-placeholder svg { width: 64px; height: 64px; color: #07c160; opacity: 0.4; }
-.wechat-qr-placeholder p {
-  font-size: 11.5px; line-height: 1.55;
-  color: #888;
-}
-.wechat-qr-placeholder strong {
-  color: #07c160;
-  font-weight: 600;
-}
-.wechat-tip {
-  font-size: 13px; color: var(--ink-soft);
-  line-height: 1.7;
-}
-.wechat-tip strong {
-  color: #07c160; font-weight: 600;
-  font-family: 'Inter', monospace;
-  letter-spacing: 0.04em;
-}
-.wechat-tip small {
-  display: block; margin-top: 6px;
-  font-size: 11px; color: var(--ink-faint);
-}
-
-[data-theme="dark"] .modal-overlay { background: rgba(0, 0, 0, 0.7); }
-
-/* ============================================================
-   AI 客服悬浮按钮 (显眼 + Pulse 动画)
+   Dock · 右下角悬浮 AI 客服 — 黑底白字小方块
    ============================================================ */
 .dock {
-  position: fixed; right: 28px; bottom: 28px; z-index: 100;
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 100;
 }
 .dock-fab {
-  position: relative;
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--bg);
   border: none;
-  color: white;
+  padding: 12px 16px;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-fab);
-  transition: transform 0.25s ease;
+  transition: opacity 0.2s ease;
 }
-.dock-fab:hover { transform: scale(1.08); }
-.dock-fab::before, .dock-fab::after {
-  content: ''; position: absolute; inset: -4px;
-  border-radius: 50%;
-  border: 2px solid var(--brand);
-  opacity: 0.6;
-  animation: ring-pulse 2.2s ease-out infinite;
-}
-.dock-fab::after { animation-delay: 1.1s; }
-@keyframes ring-pulse {
-  0% { transform: scale(1); opacity: 0.6; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-.dock-fab-icon { width: 28px; height: 28px; }
-.dock-fab-badge {
-  position: absolute; top: -2px; right: -2px;
-  min-width: 22px; height: 22px; padding: 0 6px;
-  background: #ef4444; color: white;
-  border-radius: 999px;
-  font-size: 11px; font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.5);
-  border: 2px solid var(--bg);
-  z-index: 2;
-}
-.dock-fab-tooltip {
-  position: absolute; right: 76px; top: 50%; transform: translateY(-50%);
-  background: var(--ink); color: white;
-  padding: 8px 14px; border-radius: 8px;
-  font-size: 12.5px; font-weight: 500;
-  white-space: nowrap;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.dock-fab-tooltip::after {
-  content: ''; position: absolute;
-  left: 100%; top: 50%; transform: translateY(-50%);
-  border: 6px solid transparent;
-  border-left-color: var(--ink);
-}
-.dock-fab:hover .dock-fab-tooltip {
-  opacity: 1; transform: translateY(-50%) translateX(-4px);
-}
-.dock.is-open .dock-fab::before, .dock.is-open .dock-fab::after { display: none; }
-.dock.is-open .dock-fab-badge { display: none; }
+.dock-fab:hover { opacity: 0.85; }
+.dock-fab svg { stroke: currentColor; width: 14px; height: 14px; }
 
-/* Chat Panel */
 .dock-panel {
-  position: absolute; right: 0; bottom: 80px;
+  position: absolute;
+  right: 0;
+  bottom: 56px;
   width: min(380px, calc(100vw - 56px));
   height: min(560px, calc(100vh - 140px));
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: var(--shadow-lg);
-  display: flex; flex-direction: column;
-  opacity: 0; transform: translateY(12px) scale(0.96);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(8px);
   pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  overflow: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .dock.is-open .dock-panel {
-  opacity: 1; transform: translateY(0) scale(1);
+  opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
 }
+.dock.is-open .dock-fab { background: var(--ink); }
+
 .dock-panel-head {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 16px 18px;
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
-  color: white;
+  border-bottom: 1px solid var(--line);
   flex-shrink: 0;
 }
-.dock-panel-title {
-  display: flex; align-items: center; gap: 10px;
+.dock-panel-title strong {
+  display: block;
+  font-family: var(--font-sans), var(--font-zh);
+  font-weight: 500;
+  font-size: 13.5px;
+  color: var(--ink);
 }
-.dock-panel-avatar {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 600;
+.dock-panel-title span {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
 }
-.dock-panel-title strong { display: block; font-size: 14px; font-weight: 600; }
-.dock-panel-title span { font-size: 11.5px; opacity: 0.8; }
-.dock-panel-close {
-  width: 28px; height: 28px;
-  background: rgba(255,255,255,0.2);
-  border: none; border-radius: 8px;
-  color: white;
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: background 0.2s ease;
+.dock-panel-tools { display: flex; gap: 6px; }
+.dock-panel-tools button {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
-.dock-panel-close:hover { background: rgba(255,255,255,0.3); }
+.dock-panel-tools button:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
 
 .dock-panel-body {
-  flex: 1; overflow-y: auto;
+  flex: 1;
+  overflow-y: auto;
   padding: 18px;
-  display: flex; flex-direction: column; gap: 12px;
-  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 .dock-panel-body::-webkit-scrollbar { width: 4px; }
-.dock-panel-body::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+.dock-panel-body::-webkit-scrollbar-thumb { background: var(--line); }
 
 .chat-greeting {
-  font-size: 13.5px; line-height: 1.75;
-  padding: 14px 16px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 13px;
+  line-height: 1.75;
   color: var(--ink-soft);
+  padding: 12px 14px;
+  background: var(--bg-2);
+  border-left: 2px solid var(--ink);
 }
-.chat-greeting strong { color: var(--ink); font-weight: 600; }
+.chat-greeting strong { color: var(--ink); font-weight: 500; }
+.chat-greeting p:not(:last-child) { margin-bottom: 4px; }
 
 .chat-bubble {
-  font-size: 13.5px; line-height: 1.75;
-  padding: 10px 14px;
-  max-width: 86%;
-  white-space: pre-wrap; word-break: break-word;
-  border-radius: 14px;
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 13.5px;
+  line-height: 1.75;
+  padding: 10px 12px;
+  max-width: 92%;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border-radius: 0;
 }
 .chat-bubble.is-user {
-  background: var(--brand); color: white;
+  background: var(--ink);
+  color: var(--bg);
   align-self: flex-end;
-  border-bottom-right-radius: 4px;
 }
 .chat-bubble.is-assistant {
-  background: var(--card); color: var(--ink);
-  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--ink);
   align-self: flex-start;
-  border-bottom-left-radius: 4px;
+  border: 1px solid var(--line);
+}
+.chat-bubble.is-thinking {
+  font-style: italic;
+  color: var(--ink-faint);
 }
 .chat-bubble.is-error {
-  background: #fef2f2;
-  color: #b91c1c;
-  border-color: #fecaca;
+  background: var(--bg-2);
+  color: var(--ink);
+  border-color: var(--ink);
 }
 
 .dock-panel-foot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
   padding: 12px 14px;
   border-top: 1px solid var(--line);
-  background: var(--card);
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 8px; align-items: center;
   flex-shrink: 0;
 }
 .dock-panel-input {
-  border: 1px solid var(--line); border-radius: 999px;
-  padding: 9px 14px;
-  background: var(--bg);
+  border: none;
+  background: transparent;
   outline: none;
-  font-family: inherit;
-  font-size: 13.5px; color: var(--ink);
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 14px;
+  color: var(--ink);
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--line);
   transition: border-color 0.2s ease;
 }
-.dock-panel-input:focus { border-color: var(--brand); }
+.dock-panel-input:focus { border-color: var(--ink); }
 .dock-panel-input::placeholder { color: var(--ink-mute); }
 .dock-panel-send {
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--brand) 0%, #8b5cf6 100%);
-  border: none; color: white;
-  display: inline-flex; align-items: center; justify-content: center;
-  transition: transform 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  color: var(--bg);
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
-.dock-panel-send:hover { transform: scale(1.08); }
+.dock-panel-send:hover { opacity: 0.85; }
+.dock-panel-send:disabled { opacity: 0.4; cursor: wait; }
 
 /* ============================================================
-   入场动画
+   入场动画 — 极轻
    ============================================================ */
 .reveal {
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.reveal.is-visible { opacity: 1; transform: translateY(0); }
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ============================================================
    响应式
    ============================================================ */
-@media (max-width: 860px) {
+@media (max-width: 960px) {
   .nav { display: none; }
-  .topbar-inner { gap: 12px; }
-  .hero { padding: 110px var(--pad-x) 60px; }
-  .cards-grid { grid-template-columns: 1fr; }
-  .stack-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .articles-grid { grid-template-columns: 1fr; }
-  .contact-icons { gap: 24px; }
+  .topbar-inner { grid-template-columns: auto 1fr; gap: 16px; }
+  .section { padding: 88px var(--pad-x) 72px; }
+  .section-head { margin-bottom: 36px; gap: 14px; grid-template-columns: auto 1fr; }
+  .section-head .section-rule { display: none; }
+  .hero-inner { padding-top: 120px; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-portrait { max-width: 160px; }
+
+  .skills-list { grid-template-columns: 1fr; }
+  .skill-item:nth-child(odd) { border-right: none; padding-right: 4px; }
+  .skill-item:nth-child(even) { padding-left: 4px; }
+
+  .project-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+  .project-time { flex-direction: row; gap: 8px; align-items: baseline; }
+  .project-time-from { font-size: 18px; }
+
+  .works-grid { grid-template-columns: 1fr 1fr; }
+  .articles-groups { grid-template-columns: 1fr; gap: 36px; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 480px) {
-  .hero-avatar { width: 96px; height: 96px; }
-  .hero-avatar-inner { font-size: 36px; }
-  .hero-title { font-size: 28px; }
-  .stack-grid { grid-template-columns: 1fr; }
+
+@media (max-width: 560px) {
+  .hero-name-zh { font-size: 44px; letter-spacing: 0.01em; }
+  .hero-tagline { font-size: 15px; }
+  .works-grid { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
   .dock { right: 16px; bottom: 16px; }
-  .dock-fab { width: 56px; height: 56px; }
-  .dock-fab-tooltip { display: none; }
+  .dock-fab { padding: 10px 14px; font-size: 10.5px; }
+  .dock-panel { width: calc(100vw - 32px); }
 }
+
+/* ============================================================
+   Hero · 联系方式横排 (替代旧 hero-chat)
+   ============================================================ */
+.hero-contact-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin: 0 0 72px;
+  align-items: baseline;
+}
+.hero-contact-link {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--ink);
+  transition: color 0.2s ease;
+}
+a.hero-contact-link:hover { color: var(--ink-soft); }
+.hero-contact-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.hero-contact-value {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ============================================================
+   Project · 仓库链接（作品集卡片内）
+   ============================================================ */
+.project-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2px;
+  transition: opacity 0.2s ease;
+}
+.project-link:hover { opacity: 0.6; }
+
+/* ============================================================
+   Timeline · 经历时间轴 — 极简列表
+   ============================================================ */
+.timeline {
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 40px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+}
+.timeline-title {
+  font-family: var(--font-sans), var(--font-zh);
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.timeline-desc {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  max-width: 580px;
+}
+
+/* ============================================================
+   Stack · 技术栈 — 4 列纯文本，无图标
+   ============================================================ */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.stack-col {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+.stack-col:hover { background: var(--bg-2); }
+.stack-col-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.stack-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stack-list li {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 13.5px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   Modal · 二维码弹窗
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.modal.is-open { display: flex; }
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.55);
+  cursor: pointer;
+}
+.modal-panel {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 32px 28px 28px;
+  width: min(360px, calc(100vw - 40px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--ink-faint);
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  line-height: 1;
+}
+.modal-close:hover { color: var(--ink); }
+.modal-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.modal-qr {
+  width: 240px;
+  height: 240px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.modal-qr img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.modal-qr-fallback {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+}
+.modal-tip {
+  font-family: var(--font-sans), var(--font-zh);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: center;
+  max-width: 280px;
+}
+
+/* ============================================================
+   Contact card 当 button 时的 reset
+   ============================================================ */
+.contact-card-button {
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* ============================================================
+   Skills（保留兼容，public/index 不再用，但 CSS 留着无害）
+   已在前面定义，这里不重复
+   ============================================================ */
+
+/* ============================================================
+   响应式增量
+   ============================================================ */
+@media (max-width: 960px) {
+  .timeline-item { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
+  .timeline-date { font-size: 12px; }
+  .stack-grid { grid-template-columns: 1fr 1fr; }
+  .hero-contact-line { gap: 24px; }
+}
+@media (max-width: 560px) {
+  .stack-grid { grid-template-columns: 1fr; }
+  .topbar-right { gap: 8px; }
+  .lang-toggle { font-size: 10.5px; padding: 4px 8px; }
+  .topbar-date { display: none; }
+  .modal-qr { width: 200px; height: 200px; }
+}
+
+/* ============================================================
+   ✨ 动画系统 — Hero 入场 + Scroll Reveal + Hover Micro
+   ============================================================ */
+
+/* 共用关键帧 */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes lineSweep {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+@keyframes charPop {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes fabPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* ---------- Hero 首屏入场 ---------- */
+.hero-meta {
+  opacity: 0;
+  animation: fadeLeft 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.05s forwards;
+}
+.hero-meta-line {
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: lineGrow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.25s forwards;
+}
+.hero-name-zh {
+  /* 字符 splitText 后接管，整体不再动画 */
+}
+.hero-name-zh .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(22px);
+  transition: transform 0.4s ease, color 0.3s ease;
+  animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+.hero-name-zh .char:hover {
+  animation: charPop 0.45s ease;
+  color: var(--ink-soft);
+}
+.hero-name-en {
+  opacity: 0;
+  animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.85s forwards;
+}
+.hero-role {
+  opacity: 0;
+  animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 1.0s forwards;
+}
+.hero-tagline {
+  opacity: 0;
+  animation: fadeUp 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) 1.15s forwards;
+}
+.hero-contact-line {
+  opacity: 0;
+  animation: fadeUp 0.75s cubic-bezier(0.2, 0.8, 0.2, 1) 1.35s forwards;
+}
+.hero-contact-link {
+  opacity: 0;
+  animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+.hero-contact-link:nth-of-type(1) { animation-delay: 1.4s; }
+.hero-contact-link:nth-of-type(2) { animation-delay: 1.5s; }
+.hero-contact-link:nth-of-type(3) { animation-delay: 1.6s; }
+.hero-scroll {
+  opacity: 0;
+  animation: fadeUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 1.75s forwards;
+}
+.hero-scroll-line {
+  position: relative;
+  overflow: hidden;
+}
+.hero-scroll-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  animation: lineSweep 2.8s ease-in-out infinite;
+  animation-delay: 2.2s;
+}
+
+/* ---------- AI 聊天悬浮按钮入场 ---------- */
+.dock {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1.9s forwards;
+}
+.dock-fab {
+  position: relative;
+}
+.dock-fab::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border: 1px solid var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, inset 0.3s ease;
+}
+.dock-fab:hover::after {
+  opacity: 0.35;
+  inset: -6px;
+}
+
+/* ---------- Reveal on scroll · 增强 ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* section-rule 横线滚动入场时画出来 */
+.section-rule {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s;
+}
+.section.is-visible .section-rule { transform: scaleX(1); }
+
+/* section-num 和 section-title 区块头分段入场 */
+.section .section-num,
+.section .section-title {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.section.is-visible .section-num { opacity: 1; transform: none; transition-delay: 0s; }
+.section.is-visible .section-title { opacity: 1; transform: none; transition-delay: 0.08s; }
+
+/* ---------- 列表条目 stagger（由 JS 注入 transition-delay）---------- */
+.project-row.reveal,
+.timeline-item.reveal,
+.article-item.reveal,
+.stack-col.reveal,
+.contact-card.reveal {
+  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- Hover 微动画 ---------- */
+.project-row {
+  transition: padding-left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s ease;
+}
+.project-row:hover { padding-left: 8px; }
+.timeline-item {
+  transition: padding-left 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.timeline-item:hover { padding-left: 6px; }
+.stack-list li {
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+.stack-col:hover .stack-list li { transform: translateX(2px); }
+.brand-mark {
+  transition: background 0.25s ease, color 0.25s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.brand:hover .brand-mark {
+  background: var(--ink);
+  color: var(--bg);
+  transform: rotate(-8deg);
+}
+
+/* ---------- 减弱动画偏好支持 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   ✦ Intro Overlay · 笔画书写入场动画
+   ============================================================ */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  animation: introFadeOut 0.8s cubic-bezier(0.5, 0, 0.7, 0.2) 3.1s forwards;
+}
+.intro-overlay.is-skipped {
+  animation: introFadeOut 0.35s ease forwards;
+}
+.intro-overlay.is-done {
+  display: none;
+}
+.intro-svg {
+  width: min(80vw, 1100px);
+  height: auto;
+  overflow: visible;
+}
+.intro-text {
+  /* 描边状态:花体笔画细 + 路径长 */
+  fill: transparent;
+  stroke: var(--ink);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* dasharray 设大以容纳花体长曲线路径 */
+  stroke-dasharray: 6000;
+  stroke-dashoffset: 6000;
+  animation:
+    introDraw 2.8s cubic-bezier(0.55, 0.05, 0.35, 1) 0.3s forwards,
+    introFill 0.5s ease 2.95s forwards;
+}
+.intro-skip {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  opacity: 0;
+  animation: fadeUp 0.5s ease 1.2s forwards;
+}
+
+@keyframes introDraw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes introFill {
+  to { fill: var(--ink); }
+}
+@keyframes introFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* 入场期间锁定主体滚动 */
+body.intro-playing {
+  overflow: hidden;
+}
+
+/* ---------- 主页面所有 Hero 入场动画延后 2.0s ----------
+   让笔画书写完成、幕布开始淡出时，主内容接力浮入
+   ============================================================ */
+:root {
+  --intro-delay: 3.1s;
+}
+
+/* 用 CSS variable + calc 重写所有 hero / dock 的 animation-delay */
+.hero-meta             { animation-delay: calc(0.05s + var(--intro-delay)) !important; }
+.hero-meta-line        { animation-delay: calc(0.25s + var(--intro-delay)) !important; }
+.hero-name-en          { animation-delay: calc(0.85s + var(--intro-delay)) !important; }
+.hero-role             { animation-delay: calc(1.0s  + var(--intro-delay)) !important; }
+.hero-tagline          { animation-delay: calc(1.15s + var(--intro-delay)) !important; }
+.hero-contact-line     { animation-delay: calc(1.35s + var(--intro-delay)) !important; }
+.hero-contact-link:nth-of-type(1) { animation-delay: calc(1.4s + var(--intro-delay)) !important; }
+.hero-contact-link:nth-of-type(2) { animation-delay: calc(1.5s + var(--intro-delay)) !important; }
+.hero-contact-link:nth-of-type(3) { animation-delay: calc(1.6s + var(--intro-delay)) !important; }
+.hero-scroll           { animation-delay: calc(1.75s + var(--intro-delay)) !important; }
+.hero-scroll-line::after { animation-delay: calc(2.2s + var(--intro-delay)) !important; }
+.dock                  { animation-delay: calc(1.9s + var(--intro-delay)) !important; }
+
+/* 已跳过 intro 时回到无延后 */
+body.intro-skipped { --intro-delay: 0s; }
+
+/* 减少动画偏好 (放后,确保覆盖) */
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay { animation: none !important; opacity: 0 !important; display: none !important; }
+  :root { --intro-delay: 0s; }
+}
+
+/* ============================================================
+   ✦ Scroll Ribbon · 滚动笔画延伸丝带
+   ============================================================ */
+.ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  overflow: visible;
+  display: block;
+}
+/* 入场结束后才显现 (intro 完成或跳过) */
+body.intro-done .ribbon,
+body.intro-skipped .ribbon {
+  opacity: 0.32;
+}
+.ribbon-path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* viewBox / d / stroke-dasharray / stroke-dashoffset 全由 JS 动态设置 */
+}
+
+/* 在内容文字背后,但在背景之上 */
+main, header, footer, .dock { z-index: 2; }
+.intro-overlay { z-index: 1000; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.intro-done .ribbon,
+  body.intro-skipped .ribbon { opacity: 0.4; }
+}
+
 </style>
 </head>
 <body>
+
+<!-- ============ 入场动画 · 笔画书写 ============ -->
+<div class="intro-overlay" id="intro-overlay" aria-hidden="true">
+  <svg class="intro-svg" viewBox="0 0 1200 360" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <text class="intro-text"
+          x="50%" y="58%"
+          text-anchor="middle"
+          dominant-baseline="central"
+          font-family="'Great Vibes', cursive"
+          font-size="280"
+          font-weight="400">liuchenchen</text>
+  </svg>
+  <div class="intro-skip" aria-hidden="true">
+    <span>Press ESC to skip</span>
+  </div>
+</div>
+
+<!-- ============ 滚动笔画丝带 (绝对定位贯穿全页,path 由 JS 动态生成) ============ -->
+<svg class="ribbon" id="ribbon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <path class="ribbon-path" id="ribbon-path" d="" />
+</svg>
 
 <!-- ============ 顶部导航 ============ -->
 <header class="topbar" id="topbar">
   <div class="topbar-inner">
     <a href="#hero" class="brand">
-      <span class="brand-dot"></span>
-      <span>刘陈晨 · LCC</span>
+      <span class="brand-mark">L</span>
+      <span class="brand-text">lchenchen.com</span>
     </a>
     <nav class="nav" aria-label="主导航">
       <a href="#projects" data-zh="个人项目" data-en="Projects">个人项目</a>
       <a href="#works" data-zh="作品集" data-en="Works">作品集</a>
-      <a href="#timeline" data-zh="时间轴" data-en="Timeline">时间轴</a>
+      <a href="#timeline" data-zh="经历" data-en="Timeline">经历</a>
       <a href="#stack" data-zh="技术栈" data-en="Stack">技术栈</a>
       <a href="#articles" data-zh="文章" data-en="Articles">文章</a>
-      <a href="#contact" data-zh="联系我" data-en="Contact">联系我</a>
+      <a href="#contact" data-zh="联系" data-en="Contact">联系</a>
     </nav>
-    <div class="topbar-tools">
+    <div class="topbar-right">
       <button class="lang-toggle" id="lang-toggle" type="button" aria-label="切换语言">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
         <span id="lang-label">English</span>
       </button>
+      <div class="topbar-date" id="topbar-date"></div>
     </div>
   </div>
 </header>
 
 <main>
 
-  <!-- ============ Hero ============ -->
-  <section class="hero" id="hero">
-    <div class="hero-avatar" id="hero-avatar">
-      <div class="hero-avatar-inner" id="avatar-container">
-        <img id="avatar-img" class="avatar-img" src="avatar.jpg" alt="刘陈晨头像" />
-        <svg class="avatar-svg" id="avatar-svg" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-label="刘陈晨 · 个人标识" style="display:none;">
-          <defs>
-            <linearGradient id="gold-shine" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#fdebb8"/>
-              <stop offset="35%" stop-color="#e8c882"/>
-              <stop offset="60%" stop-color="#b48a48"/>
-              <stop offset="100%" stop-color="#7a5828"/>
-            </linearGradient>
-            <linearGradient id="gold-soft" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#e8c882" stop-opacity="0.95"/>
-              <stop offset="100%" stop-color="#b48a48" stop-opacity="0.7"/>
-            </linearGradient>
-            <radialGradient id="inner-glow" cx="50%" cy="40%">
-              <stop offset="0%" stop-color="rgba(244, 226, 176, 0.12)"/>
-              <stop offset="70%" stop-color="rgba(0,0,0,0)"/>
-            </radialGradient>
-          </defs>
+  <!-- ============ Section 1 · Hero ============ -->
+  <section class="section hero" id="hero">
+    <div class="hero-inner">
+      <div class="hero-meta">
+        <span class="hero-meta-line"></span>
+        <span id="hero-date">— · —</span>
+      </div>
 
-          <!-- 内部柔光 -->
-          <rect width="240" height="240" fill="url(#inner-glow)"/>
+      <h1 class="hero-name">
+        <span class="hero-name-zh" data-zh="刘 陈 晨" data-en="Liu Chen Chen">刘 陈 晨</span>
+        <span class="hero-name-en" data-zh="Liu Chen Chen" data-en="Liu Chen Chen">Liu Chen Chen</span>
+      </h1>
 
-          <!-- 双层装饰圆环 -->
-          <circle cx="120" cy="120" r="106" fill="none" stroke="#9a7a3e" stroke-width="0.6" opacity="0.4"/>
-          <circle cx="120" cy="120" r="100" fill="none" stroke="#9a7a3e" stroke-width="0.3" opacity="0.22"/>
+      <div class="hero-role">
+        <span data-zh="AI 产品经理" data-en="AI Product Manager">AI 产品经理</span>
+      </div>
 
-          <!-- 顶部左右装饰线 -->
-          <line x1="78" y1="48" x2="102" y2="48" stroke="#9a7a3e" stroke-width="0.6" opacity="0.7"/>
-          <line x1="138" y1="48" x2="162" y2="48" stroke="#9a7a3e" stroke-width="0.6" opacity="0.7"/>
+      <p class="hero-tagline" data-zh="AI 产品爱好者,5+ 年产品经验,目前专注于<strong>大模型应用</strong>与 <strong>Agent 架构</strong>设计。<br />擅长把复杂技术转化为可用产品,在「克制」与「炫技」之间寻找平衡。<br />持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。" data-en="AI Product enthusiast with 5+ years of experience, currently focused on <strong>LLM applications</strong> and <strong>Agent architecture</strong> design.<br />Skilled at turning complex tech into usable products, finding balance between restraint and showmanship.<br />Sharing thoughts on 人人都是产品经理 and WeChat 陈晨的 AI 笔记.">
+        AI 产品爱好者,5+ 年产品经验,目前专注于<strong>大模型应用</strong>与 <strong>Agent 架构</strong>设计。<br />擅长把复杂技术转化为可用产品,在「克制」与「炫技」之间寻找平衡。<br />持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。
+      </p>
 
-          <!-- 顶部小标 -->
-          <text x="120" y="52" text-anchor="middle"
-                font-family="'Fraunces', 'Iowan Old Style', Georgia, serif"
-                font-style="italic" font-weight="400" font-size="10"
-                fill="url(#gold-soft)" letter-spacing="0.4em">EST · 2026</text>
+      <div class="hero-contact-line">
+        <a href="mailto:lccccc2002@gmail.com" class="hero-contact-link">
+          <span class="hero-contact-label">Email</span>
+          <span class="hero-contact-value">lccccc2002@gmail.com</span>
+        </a>
+        <span class="hero-contact-link">
+          <span class="hero-contact-label" data-zh="电话" data-en="Phone">电话</span>
+          <span class="hero-contact-value">+86 153 3615 0271</span>
+        </span>
+        <a href="https://github.com/lccccc2002-a11y" target="_blank" rel="noopener" class="hero-contact-link">
+          <span class="hero-contact-label">GitHub</span>
+          <span class="hero-contact-value">@lccccc2002-a11y ↗</span>
+        </a>
+      </div>
 
-          <!-- 主字"陈" (大字, 衬线, 金色渐变) -->
-          <text x="120" y="162" text-anchor="middle"
-                font-family="'Noto Serif SC', 'Songti SC', 'STSong', serif"
-                font-weight="300" font-size="116"
-                fill="url(#gold-shine)" letter-spacing="0">陈</text>
-
-          <!-- 主字微微高光描边 (上半部分) -->
-          <text x="120" y="162" text-anchor="middle"
-                font-family="'Noto Serif SC', 'Songti SC', 'STSong', serif"
-                font-weight="300" font-size="116"
-                fill="none" stroke="rgba(253, 235, 184, 0.25)" stroke-width="0.5">陈</text>
-
-          <!-- 底部装饰线 -->
-          <line x1="95" y1="194" x2="145" y2="194" stroke="#9a7a3e" stroke-width="0.5" opacity="0.55"/>
-
-          <!-- 底部小标 -->
-          <text x="120" y="208" text-anchor="middle"
-                font-family="'Fraunces', 'Iowan Old Style', Georgia, serif"
-                font-style="italic" font-weight="400" font-size="10"
-                fill="url(#gold-soft)" letter-spacing="0.35em">L · C · C</text>
-        </svg>
+      <div class="hero-scroll" aria-hidden="true">
+        <span>scroll</span>
+        <span class="hero-scroll-line"></span>
       </div>
     </div>
-    <h1 class="hero-title">
-      <span data-zh="你好，我是" data-en="Hello, I'm">你好，我是</span>
-      <span class="brand-text">刘陈晨</span>
-    </h1>
-    <div class="hero-role">
-      <span class="hero-role-dot"></span>
-      <span data-zh="AI 产品经理" data-en="AI Product Manager">AI 产品经理</span>
-    </div>
-    <p class="hero-desc" data-zh="AI 产品爱好者，5+ 年产品经验，目前专注于<strong>大模型应用</strong>与<strong>Agent 架构</strong>设计。<br />擅长把复杂技术转化为可用产品，在「克制」与「炫技」之间寻找平衡。<br />持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。" data-en="AI Product enthusiast with 5+ years of experience, currently focused on <strong>LLM applications</strong> and <strong>Agent architecture</strong> design.<br />Skilled at turning complex tech into usable products, finding balance between restraint and showmanship.<br />Sharing thoughts on 人人都是产品经理 and WeChat 陈晨的 AI 笔记.">
-      AI 产品爱好者，5+ 年产品经验，目前专注于<strong>大模型应用</strong>与<strong>Agent 架构</strong>设计。<br />
-      擅长把复杂技术转化为可用产品，在「克制」与「炫技」之间寻找平衡。<br />
-      持续在「人人都是产品经理」与公众号「陈晨的 AI 笔记」分享思考。
-    </p>
-    <p class="hero-email" data-zh="电话：15336150271" data-en="Phone: 15336150271">电话：15336150271</p>
   </section>
 
-  <!-- ============ 个人项目 ============ -->
+  <!-- ============ Section 2 · Projects (个人项目) ============ -->
   <section class="section" id="projects">
     <div class="section-head">
-      <h2 class="section-title" data-zh="个人项目" data-en="Projects">个人项目</h2>
+      <span class="section-num">01</span>
+      <h2 class="section-title" data-zh="个人项目 · Projects" data-en="01 · Projects">个人项目 · Projects</h2>
+      <span class="section-rule"></span>
     </div>
-    <div class="cards-grid">
-      <article class="card">
-        <div class="card-thumb">🤖</div>
-        <h3 class="card-title" data-zh="AI Agent 产品架构" data-en="AI Agent Product Architecture">AI Agent 产品架构</h3>
-        <p class="card-desc" data-zh="主导多智能体协作系统的产品设计与上线。负责任务编排、工具集成、用户反馈闭环与 Human-in-the-loop 机制。" data-en="Led the product design and launch of a multi-agent collaboration system. Responsible for task orchestration, tool integration, user feedback loop and HITL mechanism.">主导多智能体协作系统的产品设计与上线。负责任务编排、工具集成、用户反馈闭环与 Human-in-the-loop 机制。</p>
-        <ul class="card-tags">
-          <li>Agent</li><li>Tool Use</li><li>HITL</li><li>Multi-Agent</li>
-        </ul>
-        <a href="#" class="card-link" data-zh="查看详情 →" data-en="View Details →">查看详情 →</a>
-      </article>
 
-      <article class="card">
-        <div class="card-thumb">💬</div>
-        <h3 class="card-title" data-zh="大模型应用平台" data-en="LLM Application Platform">大模型应用平台</h3>
-        <p class="card-desc" data-zh="企业级 LLM 应用 0 到 1 产品规划。Prompt 资产化、知识库、应用编排与多租户权限设计。" data-en="Enterprise-level LLM application 0-to-1 product planning. Prompt-as-asset, knowledge base, application orchestration and multi-tenant permissions.">企业级 LLM 应用 0 到 1 产品规划。Prompt 资产化、知识库、应用编排与多租户权限设计。</p>
-        <ul class="card-tags">
-          <li>LLM</li><li>RAG</li><li>SaaS</li><li>Prompt</li>
-        </ul>
-        <a href="#" class="card-link" data-zh="查看详情 →" data-en="View Details →">查看详情 →</a>
-      </article>
-
-      <article class="card">
-        <div class="card-thumb">✨</div>
-        <h3 class="card-title" data-zh="智能交互体验设计" data-en="Conversational UX Design">智能交互体验设计</h3>
-        <p class="card-desc" data-zh="对话式 UI 与多模态交互范式探索。沉淀出一套可复用的设计原则与组件库，被多个团队复用。" data-en="Explored conversational UI and multimodal interaction paradigms. Built a reusable design system adopted by multiple teams.">对话式 UI 与多模态交互范式探索。沉淀出一套可复用的设计原则与组件库，被多个团队复用。</p>
-        <ul class="card-tags">
-          <li>UX</li><li>Multimodal</li><li>Design System</li>
-        </ul>
-        <a href="#" class="card-link" data-zh="查看详情 →" data-en="View Details →">查看详情 →</a>
-      </article>
-    </div>
+    <ol class="projects-list">
+      <li class="project-row">
+        <div class="project-time">
+          <span class="project-time-from">2024</span>
+          <span class="project-time-dash">—</span>
+          <span class="project-time-to" data-zh="至今" data-en="Now">至今</span>
+        </div>
+        <div class="project-info">
+          <h3 class="project-name" data-zh="AI Agent 产品架构" data-en="AI Agent Product Architecture">AI Agent 产品架构</h3>
+          <p class="project-desc" data-zh="主导多智能体协作系统的产品设计与上线。负责任务编排、工具集成、用户反馈闭环与 Human-in-the-loop 机制。" data-en="Led the product design and launch of a multi-agent collaboration system. Responsible for task orchestration, tool integration, user feedback loop and HITL mechanism.">主导多智能体协作系统的产品设计与上线。负责任务编排、工具集成、用户反馈闭环与 Human-in-the-loop 机制。</p>
+          <ul class="project-tags">
+            <li>Agent</li>
+            <li>Tool Use</li>
+            <li>HITL</li>
+          </ul>
+        </div>
+      </li>
+      <li class="project-row">
+        <div class="project-time">
+          <span class="project-time-from">2023</span>
+          <span class="project-time-dash">—</span>
+          <span class="project-time-to">2024</span>
+        </div>
+        <div class="project-info">
+          <h3 class="project-name" data-zh="大模型应用平台" data-en="LLM Application Platform">大模型应用平台</h3>
+          <p class="project-desc" data-zh="企业级 LLM 应用 0 到 1 产品规划。Prompt 资产化、知识库、应用编排与多租户权限设计。" data-en="Enterprise-level LLM application 0-to-1 product planning. Prompt-as-asset, knowledge base, application orchestration and multi-tenant permissions.">企业级 LLM 应用 0 到 1 产品规划。Prompt 资产化、知识库、应用编排与多租户权限设计。</p>
+          <ul class="project-tags">
+            <li>LLM</li>
+            <li>RAG</li>
+            <li>SaaS</li>
+          </ul>
+        </div>
+      </li>
+      <li class="project-row">
+        <div class="project-time">
+          <span class="project-time-from">2022</span>
+          <span class="project-time-dash">—</span>
+          <span class="project-time-to">2023</span>
+        </div>
+        <div class="project-info">
+          <h3 class="project-name" data-zh="智能交互体验设计" data-en="Conversational UX Design">智能交互体验设计</h3>
+          <p class="project-desc" data-zh="对话式 UI 与多模态交互范式探索。沉淀出一套可复用的设计原则与组件库,被多个团队复用。" data-en="Explored conversational UI and multimodal interaction paradigms. Built a reusable design system adopted by multiple teams.">对话式 UI 与多模态交互范式探索。沉淀出一套可复用的设计原则与组件库,被多个团队复用。</p>
+          <ul class="project-tags">
+            <li>UX</li>
+            <li>Multimodal</li>
+            <li>Design System</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <!-- ============ 作品集 ============ -->
+  <!-- ============ Section 3 · Works (作品集) ============ -->
   <section class="section" id="works">
     <div class="section-head">
-      <h2 class="section-title" data-zh="作品集" data-en="Works">作品集</h2>
+      <span class="section-num">02</span>
+      <h2 class="section-title" data-zh="作品集 · Works" data-en="02 · Works">作品集 · Works</h2>
+      <span class="section-rule"></span>
     </div>
-    <div class="cards-grid">
-      <article class="card">
-        <div class="card-row-top">
-          <div class="card-icon">01</div>
-          <svg class="card-fork-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6"/><path d="M9 6h6"/></svg>
-        </div>
-        <h3 class="card-title">Spec Studio</h3>
-        <p class="card-desc" data-zh="把<strong>客户原始信号</strong> (用户访谈 / 工单 / 评论) 拖进来,AI <strong>两阶段处理</strong>:先抽取痛点,再生成结构化 PRD (含 user story、验收标准、优先级)。支持多文件批量、内联编辑、选区精改、一键导出 <code>.docx</code>/<code>.md</code>。我做 AI PM 的「梦中情器」之一。" data-en="Drop in <strong>raw customer signals</strong> (interviews / tickets / reviews) → AI <strong>two-stage pipeline</strong>: extract pain points, then generate a structured PRD (user stories, acceptance criteria, priority). Multi-file ingest, inline edit, selection refine, export to <code>.docx</code>/<code>.md</code>.">把<strong>客户原始信号</strong> (用户访谈 / 工单 / 评论) 拖进来,AI <strong>两阶段处理</strong>:先抽取痛点,再生成结构化 PRD (含 user story、验收标准、优先级)。支持多文件批量、内联编辑、选区精改、一键导出 <code>.docx</code>/<code>.md</code>。我做 AI PM 的「梦中情器」之一。</p>
-        <ul class="card-tags"><li>Next.js</li><li>FastAPI</li><li>DeepSeek</li><li>Neon PG</li><li>SQLAlchemy</li><li>shadcn</li></ul>
-        <a href="https://github.com/lccccc2002-a11y/sonar-spec-studio" target="_blank" rel="noopener" class="card-link" data-zh="代码仓库 →" data-en="Repository →">代码仓库 →</a>
-      </article>
 
-      <article class="card">
-        <div class="card-row-top">
-          <div class="card-icon">02</div>
-          <svg class="card-fork-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6"/><path d="M9 6h6"/></svg>
-        </div>
-        <h3 class="card-title">Agentic Website Builder</h3>
-        <p class="card-desc" data-zh="把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。" data-en="Feed brand description to AI, generate a style-consistent site in 30s. <strong>Plan-first editing</strong>: AI proposes changes first, user confirms, then a <strong>targeted patch</strong> only modifies specified regions — style never drifts. One-click ZIP export.">把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。</p>
-        <ul class="card-tags"><li>React</li><li>Hono</li><li>DeepSeek</li><li>Tool Use</li><li>SSE</li><li>Drizzle</li></ul>
-        <a href="https://github.com/lccccc2002-a11y/agentic-website-builder" target="_blank" rel="noopener" class="card-link" data-zh="代码仓库 →" data-en="Repository →">代码仓库 →</a>
-      </article>
+    <p class="section-lead" data-zh="副业 / 探索 / 个人创作。所有代码开源,欢迎 PR。" data-en="Side projects / experiments / personal creations. All open source — PRs welcome.">副业 / 探索 / 个人创作。所有代码开源,欢迎 PR。</p>
 
-      <article class="card">
-        <div class="card-row-top">
-          <div class="card-icon">03</div>
-          <svg class="card-fork-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v6"/><path d="M9 6h6"/></svg>
+    <ol class="projects-list works-list">
+      <li class="project-row">
+        <div class="project-time">
+          <span class="project-time-from">001</span>
+          <span class="project-time-to">2025</span>
         </div>
-        <h3 class="card-title">智记 · Zhiji</h3>
-        <p class="card-desc" data-zh="把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,DeepSeek/Dify 解析,Supabase 多端同步,iOS/Android 添加主屏即装即用。「少点交互、多点结构」。" data-en="Turn a <strong>casual one-liner</strong> into structured schedule with AI — auto-extract time, priority, type. <strong>Single-file HTML</strong>, zero deps. DeepSeek/Dify parsing, Supabase sync, installable as PWA on iOS/Android. <em>«Less interaction, more structure»</em>.">把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,DeepSeek/Dify 解析,Supabase 多端同步,iOS/Android 添加主屏即装即用。「少点交互、多点结构」。</p>
-        <ul class="card-tags"><li>HTML</li><li>DeepSeek</li><li>Dify</li><li>Supabase</li><li>PWA</li><li>Single-file</li></ul>
-        <a href="https://github.com/lccccc2002-a11y/zhiji-public" target="_blank" rel="noopener" class="card-link" data-zh="代码仓库 →" data-en="Repository →">代码仓库 →</a>
-      </article>
-    </div>
+        <div class="project-info">
+          <h3 class="project-name">Spec Studio</h3>
+          <p class="project-desc" data-zh="把<strong>客户原始信号</strong>(用户访谈 / 工单 / 评论)拖进来,AI <strong>两阶段处理</strong>:先抽取痛点,再生成结构化 PRD(含 user story、验收标准、优先级)。支持多文件批量、内联编辑、选区精改、一键导出 .docx / .md。我做 AI PM 的「梦中情器」之一。" data-en="Drop in <strong>raw customer signals</strong> (interviews / tickets / reviews) → AI <strong>two-stage pipeline</strong>: extract pain points, then generate a structured PRD (user stories, acceptance criteria, priority). Multi-file ingest, inline edit, selection refine, export to .docx / .md.">把<strong>客户原始信号</strong>(用户访谈 / 工单 / 评论)拖进来,AI <strong>两阶段处理</strong>:先抽取痛点,再生成结构化 PRD(含 user story、验收标准、优先级)。支持多文件批量、内联编辑、选区精改、一键导出 .docx / .md。我做 AI PM 的「梦中情器」之一。</p>
+          <ul class="project-tags">
+            <li>Next.js</li>
+            <li>FastAPI</li>
+            <li>DeepSeek</li>
+            <li>Neon PG</li>
+            <li>SQLAlchemy</li>
+            <li>shadcn</li>
+          </ul>
+          <a href="https://github.com/lccccc2002-a11y/sonar-spec-studio" target="_blank" rel="noopener" class="project-link" data-zh="代码仓库 ↗" data-en="Repository ↗">代码仓库 ↗</a>
+        </div>
+      </li>
+      <li class="project-row">
+        <div class="project-time">
+          <span class="project-time-from">002</span>
+          <span class="project-time-to">2025</span>
+        </div>
+        <div class="project-info">
+          <h3 class="project-name">Agentic Website Builder</h3>
+          <p class="project-desc" data-zh="把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。" data-en="Feed brand description to AI, generate a style-consistent site in 30s. <strong>Plan-first editing</strong>: AI proposes changes first, user confirms, then a <strong>targeted patch</strong> only modifies specified regions — style never drifts. One-click ZIP export.">把品牌描述一句话喂给 AI,30 秒生成风格一致的整站。<strong>Plan-first 编辑</strong>:改之前先出计划等用户确认,再用<strong>靶向 Patch</strong>只改指定区域,风格不跑偏。一键导出 ZIP。</p>
+          <ul class="project-tags">
+            <li>React</li>
+            <li>Hono</li>
+            <li>DeepSeek</li>
+            <li>Tool Use</li>
+            <li>SSE</li>
+            <li>Drizzle</li>
+          </ul>
+          <a href="https://github.com/lccccc2002-a11y/agentic-website-builder" target="_blank" rel="noopener" class="project-link" data-zh="代码仓库 ↗" data-en="Repository ↗">代码仓库 ↗</a>
+        </div>
+      </li>
+      <li class="project-row">
+        <div class="project-time">
+          <span class="project-time-from">003</span>
+          <span class="project-time-to">2025</span>
+        </div>
+        <div class="project-info">
+          <h3 class="project-name" data-zh="智记 · Zhiji" data-en="Zhiji · 智记">智记 · Zhiji</h3>
+          <p class="project-desc" data-zh="把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,DeepSeek / Dify 解析,Supabase 多端同步,iOS / Android 添加主屏即装即用。「少点交互、多点结构」。" data-en="Turn a <strong>casual one-liner</strong> into structured schedule with AI — auto-extract time, priority, type. <strong>Single-file HTML</strong>, zero deps. DeepSeek / Dify parsing, Supabase sync, installable as PWA on iOS / Android. «Less interaction, more structure».">把<strong>随手记的一句话</strong>用 AI 自动解析成结构化日程 —— 时间、优先级、类型自动抽取。<strong>单文件 HTML</strong> 零依赖,DeepSeek / Dify 解析,Supabase 多端同步,iOS / Android 添加主屏即装即用。「少点交互、多点结构」。</p>
+          <ul class="project-tags">
+            <li>HTML</li>
+            <li>DeepSeek</li>
+            <li>Dify</li>
+            <li>Supabase</li>
+            <li>PWA</li>
+            <li>Single-file</li>
+          </ul>
+          <a href="https://github.com/lccccc2002-a11y/zhiji-public" target="_blank" rel="noopener" class="project-link" data-zh="代码仓库 ↗" data-en="Repository ↗">代码仓库 ↗</a>
+        </div>
+      </li>
+    </ol>
   </section>
 
-  <!-- ============ 经历时间轴 ============ -->
+  <!-- ============ Section 4 · Timeline (经历时间轴) ============ -->
   <section class="section" id="timeline">
     <div class="section-head">
-      <h2 class="section-title" data-zh="经历时间轴" data-en="Timeline">经历时间轴</h2>
+      <span class="section-num">03</span>
+      <h2 class="section-title" data-zh="经历 · Timeline" data-en="03 · Timeline">经历 · Timeline</h2>
+      <span class="section-rule"></span>
     </div>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-date">2024 — 至今</div>
-        <h4 class="timeline-title" data-zh="主导 AI Agent 产品架构" data-en="Leading AI Agent Product Architecture">主导 AI Agent 产品架构</h4>
+
+    <ol class="timeline">
+      <li class="timeline-item">
+        <div class="timeline-date">2024 — <span data-zh="至今" data-en="Now">至今</span></div>
+        <h3 class="timeline-title" data-zh="主导 AI Agent 产品架构" data-en="Leading AI Agent Product Architecture">主导 AI Agent 产品架构</h3>
         <p class="timeline-desc" data-zh="负责多智能体协作系统的产品设计与上线,推动 HITL 机制落地。" data-en="Responsible for multi-agent collaboration system product design and launch, driving HITL implementation.">负责多智能体协作系统的产品设计与上线,推动 HITL 机制落地。</p>
-      </div>
-      <div class="timeline-item">
+      </li>
+      <li class="timeline-item">
         <div class="timeline-date">2023 — 2024</div>
-        <h4 class="timeline-title" data-zh="大模型应用平台 0 到 1" data-en="LLM Platform from 0 to 1">大模型应用平台 0 到 1</h4>
+        <h3 class="timeline-title" data-zh="大模型应用平台 0 到 1" data-en="LLM Platform from 0 to 1">大模型应用平台 0 到 1</h3>
         <p class="timeline-desc" data-zh="企业级 LLM 应用产品规划:Prompt 资产化、知识库、应用编排、多租户权限。" data-en="Enterprise LLM application product planning: prompt-as-asset, knowledge base, orchestration, multi-tenancy.">企业级 LLM 应用产品规划:Prompt 资产化、知识库、应用编排、多租户权限。</p>
-      </div>
-      <div class="timeline-item">
+      </li>
+      <li class="timeline-item">
         <div class="timeline-date">2022 — 2023</div>
-        <h4 class="timeline-title" data-zh="智能交互体验设计" data-en="Conversational UX Exploration">智能交互体验设计</h4>
+        <h3 class="timeline-title" data-zh="智能交互体验设计" data-en="Conversational UX Exploration">智能交互体验设计</h3>
         <p class="timeline-desc" data-zh="对话式 UI 与多模态交互范式探索,沉淀出可复用的设计原则与组件库。" data-en="Explored conversational UI and multimodal interaction, built a reusable design system.">对话式 UI 与多模态交互范式探索,沉淀出可复用的设计原则与组件库。</p>
-      </div>
-      <div class="timeline-item">
+      </li>
+      <li class="timeline-item">
         <div class="timeline-date">2020 — 2022</div>
-        <h4 class="timeline-title" data-zh="入行 AI 产品" data-en="Entered AI Product Field">入行 AI 产品</h4>
+        <h3 class="timeline-title" data-zh="入行 AI 产品" data-en="Entered AI Product Field">入行 AI 产品</h3>
         <p class="timeline-desc" data-zh="从传统产品转向 AI 方向,系统学习机器学习基础、Prompt 工程、模型评估。" data-en="Transitioned from traditional product to AI, systematically learning ML basics, prompt engineering, model evaluation.">从传统产品转向 AI 方向,系统学习机器学习基础、Prompt 工程、模型评估。</p>
-      </div>
-    </div>
+      </li>
+    </ol>
   </section>
 
-  <!-- ============ 技术栈 ============ -->
+  <!-- ============ Section 5 · Stack (技术栈) ============ -->
   <section class="section" id="stack">
     <div class="section-head">
-      <h2 class="section-title" data-zh="技术栈" data-en="Tech Stack">技术栈</h2>
+      <span class="section-num">04</span>
+      <h2 class="section-title" data-zh="技术栈 · Stack" data-en="04 · Stack">技术栈 · Stack</h2>
+      <span class="section-rule"></span>
     </div>
+
     <div class="stack-grid">
       <div class="stack-col">
         <div class="stack-col-title" data-zh="产品规划" data-en="Product">产品规划</div>
         <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> PRD</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg> 用户研究</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 17V9"/><path d="M12 17V5"/><path d="M17 17v-6"/></svg> 数据驱动</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg> 商业化</li>
+          <li>PRD</li>
+          <li data-zh="用户研究" data-en="User Research">用户研究</li>
+          <li data-zh="数据驱动" data-en="Data-Informed">数据驱动</li>
+          <li data-zh="商业化" data-en="Monetization">商业化</li>
         </ul>
       </div>
       <div class="stack-col">
         <div class="stack-col-title" data-zh="大模型应用" data-en="LLM">大模型应用</div>
         <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg> LLM</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> RAG</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg> Prompt</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> 评估</li>
+          <li>LLM</li>
+          <li>RAG</li>
+          <li>Prompt</li>
+          <li data-zh="模型评估" data-en="Evaluation">模型评估</li>
         </ul>
       </div>
       <div class="stack-col">
         <div class="stack-col-title" data-zh="Agent 与交互" data-en="Agent & UX">Agent 与交互</div>
         <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg> Agent</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Tool Use</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 对话式 UI</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> HITL</li>
+          <li>Agent</li>
+          <li>Tool Use</li>
+          <li data-zh="对话式 UI" data-en="Conversational UI">对话式 UI</li>
+          <li>HITL</li>
         </ul>
       </div>
       <div class="stack-col">
         <div class="stack-col-title" data-zh="工具与协作" data-en="Tools">工具与协作</div>
         <ul class="stack-list">
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Figma</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> Notion</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Cursor</li>
-          <li class="stack-item"><svg class="stack-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg> Git</li>
+          <li>Figma</li>
+          <li>Notion</li>
+          <li>Cursor</li>
+          <li>Git</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ============ 文章 ============ -->
+  <!-- ============ Section 6 · Articles (文章) ============ -->
   <section class="section" id="articles">
     <div class="section-head">
-      <h2 class="section-title" data-zh="文章分享" data-en="Articles">文章分享</h2>
+      <span class="section-num">05</span>
+      <h2 class="section-title" data-zh="文章 · Articles" data-en="05 · Articles">文章 · Articles</h2>
+      <span class="section-rule"></span>
     </div>
-    <div class="articles-grid">
+
+    <div class="articles-groups">
       <div class="articles-group">
-        <div class="articles-group-head">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          <span>人人都是产品经理</span>
-        </div>
-        <ul class="article-list">
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 文章标题一" data-en="To be added · Article 1">待补充 · 文章标题一</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 文章标题二" data-en="To be added · Article 2">待补充 · 文章标题二</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 文章标题三" data-en="To be added · Article 3">待补充 · 文章标题三</span><span class="article-arrow">↗</span></a></li>
+        <h3 class="articles-group-title" data-zh="人人都是产品经理" data-en="人人都是产品经理 · PM Blog">人人都是产品经理</h3>
+        <ul class="articles-list">
+          <li class="article-item">
+            <a href="#" target="_blank" rel="noopener">
+              <span class="article-title" data-zh="待补充 · 文章标题一" data-en="To be added · Article 1">待补充 · 文章标题一</span>
+              <span class="article-arrow">↗</span>
+            </a>
+          </li>
+          <li class="article-item">
+            <a href="#" target="_blank" rel="noopener">
+              <span class="article-title" data-zh="待补充 · 文章标题二" data-en="To be added · Article 2">待补充 · 文章标题二</span>
+              <span class="article-arrow">↗</span>
+            </a>
+          </li>
+          <li class="article-item">
+            <a href="#" target="_blank" rel="noopener">
+              <span class="article-title" data-zh="待补充 · 文章标题三" data-en="To be added · Article 3">待补充 · 文章标题三</span>
+              <span class="article-arrow">↗</span>
+            </a>
+          </li>
         </ul>
       </div>
+
       <div class="articles-group">
-        <div class="articles-group-head">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          <span>公众号「陈晨的 AI 笔记」</span>
-        </div>
-        <ul class="article-list">
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 公众号文章一" data-en="To be added · WeChat Post 1">待补充 · 公众号文章一</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 公众号文章二" data-en="To be added · WeChat Post 2">待补充 · 公众号文章二</span><span class="article-arrow">↗</span></a></li>
-          <li><a href="#" target="_blank" rel="noopener"><span data-zh="待补充 · 公众号文章三" data-en="To be added · WeChat Post 3">待补充 · 公众号文章三</span><span class="article-arrow">↗</span></a></li>
+        <h3 class="articles-group-title" data-zh="公众号「陈晨的 AI 笔记」" data-en="WeChat · 陈晨的 AI 笔记">公众号「陈晨的 AI 笔记」</h3>
+        <ul class="articles-list">
+          <li class="article-item">
+            <a href="#" target="_blank" rel="noopener">
+              <span class="article-title" data-zh="待补充 · 公众号文章一" data-en="To be added · WeChat Post 1">待补充 · 公众号文章一</span>
+              <span class="article-arrow">↗</span>
+            </a>
+          </li>
+          <li class="article-item">
+            <a href="#" target="_blank" rel="noopener">
+              <span class="article-title" data-zh="待补充 · 公众号文章二" data-en="To be added · WeChat Post 2">待补充 · 公众号文章二</span>
+              <span class="article-arrow">↗</span>
+            </a>
+          </li>
+          <li class="article-item">
+            <a href="#" target="_blank" rel="noopener">
+              <span class="article-title" data-zh="待补充 · 公众号文章三" data-en="To be added · WeChat Post 3">待补充 · 公众号文章三</span>
+              <span class="article-arrow">↗</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- ============ 联系我 ============ -->
+  <!-- ============ Section 7 · Contact (联系) ============ -->
   <section class="section" id="contact">
     <div class="section-head">
-      <h2 class="section-title" data-zh="联系我" data-en="Contact">联系我</h2>
+      <span class="section-num">06</span>
+      <h2 class="section-title" data-zh="联系 · Contact" data-en="06 · Contact">联系 · Contact</h2>
+      <span class="section-rule"></span>
     </div>
-    <div class="contact-icons">
-      <button class="contact-icon-box" id="wechat-trigger" type="button" style="background:none;border:none;font:inherit;cursor:pointer;">
-        <div class="contact-circle" style="color:#07c160;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><circle cx="9" cy="11" r="0.5" fill="currentColor"/><circle cx="15" cy="11" r="0.5" fill="currentColor"/></svg>
-        </div>
-        <span class="contact-label" data-zh="微信" data-en="WeChat">微信</span>
-        <span class="contact-hint" data-zh="点击查看二维码" data-en="Tap for QR">点击查看二维码</span>
-      </button>
-      <button class="contact-icon-box" id="mp-trigger" type="button" style="background:none;border:none;font:inherit;cursor:pointer;">
-        <div class="contact-circle" style="color:#07c160;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="11" r="0.6" fill="currentColor"/><circle cx="13" cy="11" r="0.6" fill="currentColor"/><circle cx="17" cy="11" r="0.6" fill="currentColor"/></svg>
-        </div>
-        <span class="contact-label" data-zh="公众号" data-en="WeChat Official">公众号</span>
-        <span class="contact-hint" data-zh="点击查看二维码" data-en="Tap for QR">点击查看二维码</span>
-      </button>
-      <a class="contact-icon-box" href="https://github.com/lccccc2002-a11y" target="_blank" rel="noopener">
-        <div class="contact-circle" style="color:#1a1a1a;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-        </div>
-        <span class="contact-label">GitHub</span>
-        <span class="contact-hint">@lccccc2002-a11y</span>
-      </a>
-      <a class="contact-icon-box" href="mailto:lccccc2002@gmail.com">
-        <div class="contact-circle" style="color:#ea4335;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
+
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:lccccc2002@gmail.com">
         <span class="contact-label">Email</span>
-        <span class="contact-hint">lccccc2002@gmail.com</span>
+        <span class="contact-value">lccccc2002@gmail.com</span>
+        <span class="contact-hint" data-zh="最快回复方式 ↗" data-en="Fastest reply ↗">最快回复方式 ↗</span>
+      </a>
+      <button class="contact-card contact-card-button" id="wechat-trigger" type="button">
+        <span class="contact-label" data-zh="微信 · WeChat" data-en="WeChat">微信 · WeChat</span>
+        <span class="contact-value" data-zh="点击查看二维码" data-en="Tap for QR code">点击查看二维码</span>
+        <span class="contact-hint" data-zh="说明来意,通过更快" data-en="Mention intent for faster accept">说明来意,通过更快</span>
+      </button>
+      <button class="contact-card contact-card-button" id="mp-trigger" type="button">
+        <span class="contact-label" data-zh="公众号 · Official" data-en="WeChat Official">公众号 · Official</span>
+        <span class="contact-value" data-zh="陈晨的 AI 笔记" data-en="陈晨的 AI 笔记">陈晨的 AI 笔记</span>
+        <span class="contact-hint" data-zh="点击查看二维码" data-en="Tap for QR code">点击查看二维码</span>
+      </button>
+      <a class="contact-card" href="https://github.com/lccccc2002-a11y" target="_blank" rel="noopener">
+        <span class="contact-label">GitHub</span>
+        <span class="contact-value">@lccccc2002-a11y</span>
+        <span class="contact-hint" data-zh="所有代码开源 ↗" data-en="All open source ↗">所有代码开源 ↗</span>
       </a>
     </div>
   </section>
@@ -1212,255 +1974,685 @@ img, svg { display: block; max-width: 100%; }
 </main>
 
 <footer class="footer">
-  <span>© 2026 lchenchen.com · </span>
-  <a href="#hero" data-zh="刘陈晨 · AI 产品经理" data-en="Liu Chen Chen · AI PM">刘陈晨 · AI 产品经理</a>
+  <div class="footer-inner">
+    <span>© <span id="footer-year"></span> lchenchen.com</span>
+    <span data-zh="编辑部黑白 · 持续生长" data-en="Editorial B/W · Always Growing">编辑部黑白 · 持续生长</span>
+  </div>
 </footer>
 
 <!-- ============ 微信二维码模态 ============ -->
 <div class="modal" id="wechat-modal" aria-hidden="true">
-  <div class="modal-overlay" data-modal-close></div>
-  <div class="modal-card">
-    <button class="modal-close" data-modal-close type="button" aria-label="关闭">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
-    </button>
-    <h3 class="modal-title" data-zh="扫一扫加我微信" data-en="Scan to add WeChat">扫一扫加我微信</h3>
-    <p class="modal-subtitle" data-zh="Long press · or click to upload" data-en="Long press · or click to upload">Long press · or click to upload</p>
-
-    <div class="wechat-qr-wrap">
-      <div class="wechat-qr-inner">
-        <img src="wechat-qr.jpg" alt="微信二维码" />
-      </div>
+  <div class="modal-backdrop" data-modal-close></div>
+  <div class="modal-panel">
+    <button class="modal-close" type="button" data-modal-close aria-label="关闭">×</button>
+    <div class="modal-label" data-zh="微信 · WeChat" data-en="WeChat">微信 · WeChat</div>
+    <div class="modal-qr">
+      <img src="wechat-qr.jpg" alt="微信二维码" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="modal-qr-fallback" style="display:none;" data-zh="QR · 待添加" data-en="QR · TBA">QR · 待添加</div>
     </div>
-
-    <p class="wechat-tip">
-      <span data-zh="微信号:" data-en="WeChat ID:">微信号:</span>
-      <strong>15336150271</strong>
-      <small data-zh="长按二维码识别添加 · 或保存到相册" data-en="Long press to recognize · or save image">长按二维码识别添加 · 或保存到相册</small>
-    </p>
+    <p class="modal-tip" data-zh="扫码加我微信,说明来意通过更快。" data-en="Scan to add me on WeChat. Mention your intent for faster accept.">扫码加我微信,说明来意通过更快。</p>
   </div>
 </div>
 
 <!-- ============ 公众号二维码模态 ============ -->
 <div class="modal" id="mp-modal" aria-hidden="true">
-  <div class="modal-overlay" data-modal-close></div>
-  <div class="modal-card">
-    <button class="modal-close" data-modal-close type="button" aria-label="关闭">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
-    </button>
-    <h3 class="modal-title" data-zh="扫码关注我的公众号" data-en="Scan to follow">扫码关注我的公众号</h3>
-    <p class="modal-subtitle" data-zh="陈晨的 AI 笔记 · 每周 AI 产品观察" data-en="Chen's AI Notes · Weekly AI insights">陈晨的 AI 笔记 · 每周 AI 产品观察</p>
-
-    <div class="wechat-qr-wrap">
-      <div class="wechat-qr-inner" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--ink-mute);text-align:center;padding:20px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="width:48px;height:48px;opacity:0.4;">
-          <rect x="3" y="3" width="7" height="7" rx="1"/>
-          <rect x="14" y="3" width="7" height="7" rx="1"/>
-          <rect x="3" y="14" width="7" height="7" rx="1"/>
-          <rect x="6" y="6" width="1" height="1" fill="currentColor"/>
-          <rect x="17" y="6" width="1" height="1" fill="currentColor"/>
-          <rect x="6" y="17" width="1" height="1" fill="currentColor"/>
-          <path d="M14 14h2v2h-2zM18 14h3M14 18h2v3M18 18h3v3" stroke-linecap="round"/>
-        </svg>
-        <span style="font-size:12px;letter-spacing:0.08em;" data-zh="公众号二维码即将上线" data-en="QR coming soon">公众号二维码即将上线</span>
-      </div>
+  <div class="modal-backdrop" data-modal-close></div>
+  <div class="modal-panel">
+    <button class="modal-close" type="button" data-modal-close aria-label="关闭">×</button>
+    <div class="modal-label" data-zh="公众号「陈晨的 AI 笔记」" data-en="WeChat Official · 陈晨的 AI 笔记">公众号「陈晨的 AI 笔记」</div>
+    <div class="modal-qr">
+      <div class="modal-qr-fallback" data-zh="QR · 待添加" data-en="QR · TBA">QR · 待添加</div>
     </div>
-
-    <p class="wechat-tip">
-      <span data-zh="公众号:" data-en="Official Account:">公众号:</span>
-      <strong>陈晨的 AI 笔记</strong>
-      <small data-zh="长按二维码识别关注 · 或保存到相册" data-en="Long press to recognize · or save image">长按二维码识别关注 · 或保存到相册</small>
-    </p>
+    <p class="modal-tip" data-zh="关注公众号,持续看到我的 AI 产品思考。" data-en="Follow for ongoing thoughts on AI products.">关注公众号,持续看到我的 AI 产品思考。</p>
   </div>
 </div>
 
 <!-- ============ 右下角悬浮 AI 客服 ============ -->
-<div class="dock" id="chat-dock">
+<div class="dock" id="chat-dock" aria-live="polite">
   <button class="dock-fab" id="chat-fab" type="button" aria-label="打开 AI 助手">
-    <span class="dock-fab-badge">AI</span>
-    <svg class="dock-fab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-      <line x1="9" y1="11" x2="9.01" y2="11"/>
-      <line x1="13" y1="11" x2="13.01" y2="11"/>
-      <line x1="17" y1="11" x2="17.01" y2="11"/>
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12z" />
     </svg>
-    <span class="dock-fab-tooltip" data-zh="问问 AI 陈晨" data-en="Ask AI Chen">问问 AI 陈晨</span>
+    <span data-zh="Ask AI" data-en="Ask AI">Ask AI</span>
   </button>
 
   <aside class="dock-panel" id="chat-panel" aria-hidden="true">
     <header class="dock-panel-head">
       <div class="dock-panel-title">
-        <div class="dock-panel-avatar">刘</div>
-        <div>
-          <strong data-zh="陈晨 · AI 分身" data-en="Chen · AI Clone">陈晨 · AI 分身</strong>
-          <span data-zh="以我的口吻 · 回答你" data-en="In my tone · For you">以我的口吻 · 回答你</span>
-        </div>
+        <strong data-zh="陈晨 · AI 分身" data-en="Chen Chen · AI Twin">陈晨 · AI 分身</strong>
+        <span data-zh="基于真实简历回答" data-en="Powered by real résumé">基于真实简历回答</span>
       </div>
-      <button class="dock-panel-close" id="chat-close" type="button" aria-label="关闭">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
-      </button>
+      <div class="dock-panel-tools">
+        <button id="chat-clear" type="button" aria-label="清空对话" title="清空对话">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+        </button>
+        <button id="chat-close" type="button" aria-label="关闭">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+        </button>
+      </div>
     </header>
 
     <div class="dock-panel-body" id="chat-body">
       <div class="chat-greeting">
-        <p data-zh="你好👋 我是<strong>陈晨</strong>的 AI 分身。" data-en="Hi 👋 I'm <strong>Chen</strong>'s AI clone.">你好👋 我是<strong>陈晨</strong>的 AI 分身。</p>
-        <p data-zh="关于产品、AI 项目、合作机会都可以问我。" data-en="Ask me about products, AI projects, collaborations.">关于产品、AI 项目、合作机会都可以问我。</p>
-        <p style="margin-top:8px;font-size:11.5px;color:var(--ink-mute);" data-zh="⚠ 当前是本地预览版,需启动后端 + 填 DeepSeek Key 才能真正聊天。" data-en="⚠ Local preview mode. Start backend + DeepSeek key to chat.">⚠ 当前是本地预览版,需启动后端 + 填 DeepSeek Key 才能真正聊天。</p>
+        <p data-zh="你好,我是<strong>陈晨</strong>的 AI 分身。" data-en="Hi, I'm <strong>Chen Chen</strong>'s AI twin.">你好,我是<strong>陈晨</strong>的 AI 分身。</p>
+        <p data-zh="关于经历、项目、合作机会,都可以问我。" data-en="Ask about experience, projects, or collaboration.">关于经历、项目、合作机会,都可以问我。</p>
       </div>
     </div>
 
     <form class="dock-panel-foot" id="chat-form" autocomplete="off">
-      <input id="chat-input" class="dock-panel-input" type="text" placeholder="输入消息后回车..." maxlength="500" />
+      <input
+        id="chat-input"
+        class="dock-panel-input"
+        type="text"
+        placeholder="输入消息后回车 ——"
+        maxlength="500"
+      />
       <button class="dock-panel-send" type="submit" aria-label="发送">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
       </button>
     </form>
   </aside>
 </div>
 
 <script>
-// ========== 二维码模态 (微信 / 公众号) — 仅 open/close, 不可上传 ==========
+// lchenchen.com — 顶层交互 (导航、滚动、入场动画、日期、双语、模态)
+
 (function () {
-  function bindModal(triggerId, modalId) {
-    const modal = document.getElementById(modalId);
-    const trigger = document.getElementById(triggerId);
-    if (!modal || !trigger) return;
-    const open = () => { modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); };
-    const close = () => { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); };
-    trigger.addEventListener('click', open);
-    modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', close));
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  'use strict';
+
+  // ---------- 顶部日期 + Hero 日期戳 ----------
+  function updateDate() {
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+    const top = document.getElementById('topbar-date');
+    if (top) top.textContent = `${yyyy}.${mm}.${dd} · ${weekdays[now.getDay()]}`;
+
+    // Seesaw 风格的日期戳：5.19.2026
+    const hero = document.getElementById('hero-date');
+    if (hero) hero.textContent = `${now.getMonth() + 1}.${now.getDate()}.${yyyy}`;
+  }
+
+  // ---------- Footer 年份 ----------
+  function updateFooterYear() {
+    const el = document.getElementById('footer-year');
+    if (el) el.textContent = new Date().getFullYear();
+  }
+
+  // ---------- 滚动时给顶栏加背景 ----------
+  function setupTopbarScroll() {
+    const topbar = document.getElementById('topbar');
+    if (!topbar) return;
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          topbar.classList.toggle('is-scrolled', window.scrollY > 24);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // ---------- Hero 大名字 splitText (逐字淡入 + hover 弹) ----------
+  // immediate=true 时跳过入场动画 (用于双语切换后)
+  function splitHeroName(immediate) {
+    const el = document.querySelector('.hero-name-zh');
+    if (!el) return;
+    const text = el.textContent.trim();
+    el.textContent = '';
+    let charIndex = 0;
+    for (const ch of text) {
+      const span = document.createElement('span');
+      // 空格保留不动
+      if (ch === ' ' || ch === ' ') {
+        span.innerHTML = '&nbsp;';
+        span.style.display = 'inline-block';
+      } else {
+        span.className = 'char';
+        span.textContent = ch;
+        if (immediate) {
+          // 切语言后:立即显示,不重播入场
+          span.style.opacity = '1';
+          span.style.transform = 'none';
+          span.style.animation = 'none';
+        } else {
+          // 首次:错位入场,每个字 60ms,基础延迟 0.45s
+          span.style.animationDelay = (0.45 + charIndex * 0.06) + 's';
+        }
+        charIndex++;
+      }
+      el.appendChild(span);
+    }
+  }
+
+  // ---------- Section reveal + 列表 stagger 动画 ----------
+  function setupRevealOnScroll() {
+    // section 整体 + section-head 子元素动画
+    const sections = document.querySelectorAll('.section');
+    sections.forEach((s) => s.classList.add('reveal'));
+
+    // 列表条目类:进入 section 后按 index stagger 60-80ms
+    const stagger = (root, selector, baseDelay = 0, step = 70) => {
+      root.querySelectorAll(selector).forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (baseDelay + i * step) + 'ms';
+      });
+    };
+    document.querySelectorAll('.projects-list, .works-list').forEach((list) => {
+      stagger(list, '.project-row', 200, 110);
+    });
+    document.querySelectorAll('.timeline').forEach((list) => {
+      stagger(list, '.timeline-item', 200, 90);
+    });
+    document.querySelectorAll('.stack-grid').forEach((list) => {
+      stagger(list, '.stack-col', 200, 100);
+    });
+    document.querySelectorAll('.contact-grid').forEach((list) => {
+      stagger(list, '.contact-card', 200, 80);
+    });
+    document.querySelectorAll('.articles-list').forEach((list) => {
+      stagger(list, '.article-item', 150, 70);
+    });
+
+    const targets = document.querySelectorAll('.reveal');
+
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach((el) => el.classList.add('is-visible'));
+      sections.forEach((s) => s.classList.add('is-visible'));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+    );
+
+    targets.forEach((el) => io.observe(el));
+  }
+
+  // ---------- 平滑滚动到锚点 ----------
+  function setupAnchorScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 60;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
     });
   }
-  bindModal('wechat-trigger', 'wechat-modal');
-  bindModal('mp-trigger', 'mp-modal');
-})();
 
-// 头像 / 二维码上传逻辑已移除 — 全部写死, 不允许访客修改
+  // ---------- 中英双语切换 ----------
+  function setupLangToggle() {
+    const LANG_KEY = 'lcc_lang_v2';
+    const btn = document.getElementById('lang-toggle');
+    const label = document.getElementById('lang-label');
+    if (!btn) return;
 
-// ========== 中英文切换 ==========
-(function () {
-  const LANG_KEY = 'lcc_lang';
-  const btn = document.getElementById('lang-toggle');
-  const label = document.getElementById('lang-label');
-  let lang = localStorage.getItem(LANG_KEY) || 'zh';
+    let lang = localStorage.getItem(LANG_KEY) || 'zh';
 
-  function apply() {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    // 英文 → 深色, 中文 → 浅色
-    document.documentElement.setAttribute('data-theme', lang === 'en' ? 'dark' : 'light');
-    document.querySelectorAll('[data-zh]').forEach(el => {
-      const txt = el.getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
-      if (txt !== null) {
-        // 保留 strong / br 标签
+    function apply() {
+      document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-zh]').forEach((el) => {
+        const txt = el.getAttribute(lang === 'zh' ? 'data-zh' : 'data-en');
+        if (txt === null) return;
+        // 保留 strong / br / em 标签
         if (txt.includes('<')) el.innerHTML = txt;
         else el.textContent = txt;
-      }
-    });
-    label.textContent = lang === 'zh' ? 'English' : '中文';
-    // placeholder
-    const input = document.getElementById('chat-input');
-    if (input) input.placeholder = lang === 'zh' ? '输入消息后回车...' : 'Type message & Enter...';
-  }
-
-  btn.addEventListener('click', () => {
-    lang = lang === 'zh' ? 'en' : 'zh';
-    localStorage.setItem(LANG_KEY, lang);
-    apply();
-  });
-
-  apply();
-})();
-
-// ========== 顶层交互 ==========
-(function () {
-  // 滚动加细线背景
-  const topbar = document.getElementById('topbar');
-  if (topbar) {
-    window.addEventListener('scroll', () => {
-      topbar.classList.toggle('is-scrolled', window.scrollY > 24);
-    }, { passive: true });
-  }
-
-  // 入场动画
-  const targets = document.querySelectorAll('.section, .card, .timeline-item, .contact-icon-box');
-  targets.forEach(el => el.classList.add('reveal'));
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
       });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
-    targets.forEach(el => io.observe(el));
-  } else {
-    targets.forEach(el => el.classList.add('is-visible'));
+      if (label) label.textContent = lang === 'zh' ? 'English' : '中文';
+      // 聊天输入框 placeholder
+      const input = document.getElementById('chat-input');
+      if (input) input.placeholder = lang === 'zh' ? '输入消息后回车 ——' : 'Type message and Enter ——';
+      // 重新拆名字字符 (apply 把 textContent 替换为新文本,要再 split)
+      splitHeroName(true);
+    }
+
+    btn.addEventListener('click', () => {
+      lang = lang === 'zh' ? 'en' : 'zh';
+      localStorage.setItem(LANG_KEY, lang);
+      apply();
+    });
+
+    apply();
   }
 
-  // 平滑滚动
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const href = a.getAttribute('href');
-      if (!href || href === '#') return;
-      const target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.scrollY - 60;
-      window.scrollTo({ top, behavior: 'smooth' });
-    });
-  });
+  // ---------- 二维码模态 ----------
+  function setupModals() {
+    function bindModal(triggerId, modalId) {
+      const modal = document.getElementById(modalId);
+      const trigger = document.getElementById(triggerId);
+      if (!modal || !trigger) return;
+      const open = () => {
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+      };
+      const close = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+      };
+      trigger.addEventListener('click', open);
+      modal.querySelectorAll('[data-modal-close]').forEach((el) => el.addEventListener('click', close));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+      });
+    }
+    bindModal('wechat-trigger', 'wechat-modal');
+    bindModal('mp-trigger', 'mp-modal');
+  }
+
+  // ---------- 滚动笔画丝带 · scroll-linked SVG path ----------
+  function setupRibbon() {
+    const svg = document.getElementById('ribbon');
+    const path = document.getElementById('ribbon-path');
+    if (!svg || !path) return;
+
+    // 入场结束后露多少 (花体 n 尾巴的"笔锋延续"段)
+    const INITIAL_PORTION = 0.05;
+    let totalLength = 0;
+
+    // 根据文档真实尺寸生成 6 段 S 形 path
+    function buildPath() {
+      const W = window.innerWidth;
+      const H = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+        window.innerHeight
+      );
+
+      // 同步 SVG viewBox 和高度,避免变形
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.setAttribute('width', W);
+      svg.setAttribute('height', H);
+      svg.style.height = H + 'px';
+
+      // 6 段 S 弯,左右摇摆的固定 x 序列 (相对宽度百分比)
+      const xs = [0.85, 0.15, 0.80, 0.20, 0.75, 0.25, 0.50];
+      const segs = xs.length - 1;
+      const stepY = H / segs;
+
+      let d = `M ${(W * xs[0]).toFixed(1)} 0`;
+      for (let i = 1; i <= segs; i++) {
+        const x0 = W * xs[i - 1];
+        const x1 = W * xs[i];
+        const y0 = (i - 1) * stepY;
+        const y1 = i * stepY;
+        // cubic Bezier:控制点位于段中段两侧,产生顺滑 S 弯
+        const cp1x = x0 + (x1 - x0) * 0.25;
+        const cp1y = y0 + stepY * 0.45;
+        const cp2x = x1 - (x1 - x0) * 0.25;
+        const cp2y = y0 + stepY * 0.70;
+        d += ` C ${cp1x.toFixed(1)} ${cp1y.toFixed(1)}, ${cp2x.toFixed(1)} ${cp2y.toFixed(1)}, ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+      }
+      path.setAttribute('d', d);
+
+      // 重新测量
+      totalLength = path.getTotalLength();
+      path.style.strokeDasharray = totalLength;
+      update();
+    }
+
+    let ticking = false;
+    function update() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
+      const visiblePortion = INITIAL_PORTION + progress * (1 - INITIAL_PORTION);
+      path.style.strokeDashoffset = totalLength * (1 - visiblePortion);
+      ticking = false;
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+
+    let resizeTimer;
+    function onResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(buildPath, 150);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+    // 字体加载会改变 layout 高度
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(buildPath);
+    }
+    // intro 结束 + 主内容入场完成后再算一次 (此时 layout 稳定)
+    setTimeout(buildPath, 4200);
+
+    buildPath();
+  }
+
+  // ---------- 入场动画 · 笔画书写层 ----------
+  function setupIntro() {
+    const overlay = document.getElementById('intro-overlay');
+    if (!overlay) return;
+
+    document.body.classList.add('intro-playing');
+
+    // 入场总时长 (花体 CSS keyframes + 淡出): 笔画 2.8s + 填充 0.5s + 淡出 0.8s = 约 3.9s
+    const INTRO_TOTAL_MS = 3950;
+
+    let cleaned = false;
+    function cleanup(skipped) {
+      if (cleaned) return;
+      cleaned = true;
+      document.body.classList.remove('intro-playing');
+      overlay.classList.add('is-done');
+      // 让 ribbon 可以淡入显现:无论自动收尾还是跳过都加 intro-done
+      document.body.classList.add('intro-done');
+      if (skipped) document.body.classList.add('intro-skipped');
+    }
+
+    function skip() {
+      if (cleaned) return;
+      overlay.classList.add('is-skipped');
+      document.body.classList.add('intro-skipped');
+      // 等 0.35s 淡出完
+      setTimeout(() => cleanup(true), 360);
+    }
+
+    // 自动收尾
+    setTimeout(() => cleanup(false), INTRO_TOTAL_MS);
+
+    // 点击 / ESC / 任意键 (除了功能键) 跳过
+    overlay.addEventListener('click', skip);
+    document.addEventListener(
+      'keydown',
+      (e) => {
+        if (cleaned) return;
+        if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') skip();
+      },
+      { once: false }
+    );
+  }
+
+  // ---------- 初始化 ----------
+  function init() {
+    updateDate();
+    updateFooterYear();
+    setupIntro();             // 入场:笔画书写遮罩
+    setupTopbarScroll();
+    setupAnchorScroll();
+    setupLangToggle();        // 先应用语言 (会重写 hero-name-zh 文本)
+    splitHeroName(false);     // 再 split 字符,带入场动画
+    setupRevealOnScroll();
+    setupModals();
+    setupRibbon();            // 滚动笔画延伸丝带
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 
-// ========== AI 客服 (本地降级版) ==========
+</script>
+<script>
+// lchenchen.com — AI 客服 (Hero 嵌入 + 右下角 Dock 双入口)
 (function () {
+  'use strict';
+
+  const STORAGE_KEY = 'lcc_chat_history_v1';
+  const MAX_HISTORY = 40;
+
   const dock = document.getElementById('chat-dock');
   const fab = document.getElementById('chat-fab');
-  const closeBtn = document.getElementById('chat-close');
-  const chatForm = document.getElementById('chat-form');
+  const panel = document.getElementById('chat-panel');
   const body = document.getElementById('chat-body');
+  const form = document.getElementById('chat-form');
+  const input = document.getElementById('chat-input');
+  const closeBtn = document.getElementById('chat-close');
+  const clearBtn = document.getElementById('chat-clear');
 
-  function toggle() { dock.classList.toggle('is-open'); }
-  function close() { dock.classList.remove('is-open'); }
-  fab.addEventListener('click', toggle);
-  closeBtn.addEventListener('click', close);
+  const heroForm = document.getElementById('hero-chat-form');
+  const heroInput = document.getElementById('hero-chat-input');
 
-  function appendBubble(role, text) {
+  if (!dock || !panel || !body) return;
+
+  /** 内存中的消息数组 [{ role, content }] */
+  let messages = loadHistory();
+  let busy = false;
+  let currentBubble = null;
+  let abortController = null;
+
+  // ---------- 持久化 ----------
+  function loadHistory() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr.slice(-MAX_HISTORY) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveHistory() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.slice(-MAX_HISTORY)));
+    } catch {
+      /* quota or disabled */
+    }
+  }
+
+  function clearHistory() {
+    messages = [];
+    saveHistory();
+    body.innerHTML = `
+      <div class="chat-greeting">
+        <p>你好,我是<strong>陈晨</strong>的 AI 分身。</p>
+        <p>关于产品、AI 项目、合作机会,都可以问我。</p>
+      </div>`;
+  }
+
+  // ---------- UI ----------
+  function openDock() {
+    dock.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    setTimeout(() => input?.focus(), 150);
+  }
+
+  function closeDock() {
+    dock.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+  }
+
+  function appendBubble(role, content) {
     const div = document.createElement('div');
     div.className = `chat-bubble is-${role}`;
-    div.textContent = text;
+    div.textContent = content;
     body.appendChild(div);
     body.scrollTop = body.scrollHeight;
     return div;
   }
 
-  function demoReply(question) {
-    appendBubble('user', question);
-    setTimeout(() => {
-      const lang = localStorage.getItem('lcc_lang') || 'zh';
-      const msg = lang === 'zh'
-        ? '⚠ 这是本地预览模式,AI 还没接上。要让我真正回答,需要运行后端 (npm start) 并配置 DeepSeek API Key。'
-        : '⚠ This is local preview mode. To enable AI, run the backend (npm start) with a DeepSeek API key.';
-      const bubble = appendBubble('assistant', msg);
-      bubble.classList.add('is-error');
-    }, 500);
+  function renderHistory() {
+    // 清掉除 greeting 之外的内容
+    const greeting = body.querySelector('.chat-greeting');
+    body.innerHTML = '';
+    if (messages.length === 0 && greeting) {
+      body.appendChild(greeting);
+      return;
+    }
+    messages.forEach((m) => appendBubble(m.role, m.content));
   }
 
-  chatForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const input = document.getElementById('chat-input');
-    const q = input.value.trim();
-    if (!q) return;
-    input.value = '';
-    demoReply(q);
+  function setBusy(on) {
+    busy = on;
+    if (form) {
+      const sendBtn = form.querySelector('.dock-panel-send');
+      if (sendBtn) sendBtn.disabled = on;
+      if (input) input.disabled = on;
+    }
+    if (heroForm) {
+      const sendBtn = heroForm.querySelector('.hero-chat-send');
+      if (sendBtn) sendBtn.disabled = on;
+    }
+  }
+
+  // ---------- 调 API ----------
+  async function ask(question) {
+    if (busy || !question.trim()) return;
+    setBusy(true);
+
+    // 用户消息上屏
+    messages.push({ role: 'user', content: question });
+    appendBubble('user', question);
+
+    // 占位 AI 气泡
+    currentBubble = appendBubble('assistant', '');
+    currentBubble.classList.add('is-thinking');
+    currentBubble.textContent = '思考中…';
+
+    abortController = new AbortController();
+
+    let assistantText = '';
+    try {
+      const resp = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: messages.slice(-MAX_HISTORY) }),
+        signal: abortController.signal,
+      });
+
+      if (!resp.ok) {
+        const errData = await resp.json().catch(() => ({}));
+        throw new Error(errData.error || `服务器返回 ${resp.status}`);
+      }
+      if (!resp.body) throw new Error('没有响应流');
+
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+
+      currentBubble.classList.remove('is-thinking');
+      currentBubble.textContent = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        // 解析 SSE: 以双换行分隔事件
+        let idx;
+        while ((idx = buffer.indexOf('\n\n')) !== -1) {
+          const rawEvent = buffer.slice(0, idx);
+          buffer = buffer.slice(idx + 2);
+          const lines = rawEvent.split('\n');
+          for (const line of lines) {
+            if (!line.startsWith('data:')) continue;
+            const payload = line.slice(5).trim();
+            if (!payload) continue;
+            try {
+              const evt = JSON.parse(payload);
+              if (evt.type === 'delta' && evt.content) {
+                assistantText += evt.content;
+                currentBubble.textContent = assistantText;
+                body.scrollTop = body.scrollHeight;
+              } else if (evt.type === 'error') {
+                throw new Error(evt.message || '服务异常');
+              }
+            } catch (parseErr) {
+              if (parseErr.message && !parseErr.message.includes('JSON')) {
+                throw parseErr;
+              }
+            }
+          }
+        }
+      }
+
+      // 保存
+      if (assistantText) {
+        messages.push({ role: 'assistant', content: assistantText });
+        saveHistory();
+      } else {
+        currentBubble.textContent = '(没有收到回复内容)';
+        currentBubble.classList.add('is-error');
+      }
+    } catch (err) {
+      console.error('[chat] error:', err);
+      if (currentBubble) {
+        currentBubble.classList.remove('is-thinking');
+        currentBubble.classList.add('is-error');
+        const msg = err.name === 'AbortError' ? '已取消' : (err.message || '出错了,请稍后再试');
+        currentBubble.textContent = `⚠ ${msg}`;
+      }
+      // 出错时回滚用户消息
+      if (messages[messages.length - 1]?.role === 'user') {
+        messages.pop();
+      }
+    } finally {
+      setBusy(false);
+      currentBubble = null;
+      abortController = null;
+    }
+  }
+
+  // ---------- 事件绑定 ----------
+  if (fab) fab.addEventListener('click', () => {
+    if (dock.classList.contains('is-open')) closeDock();
+    else openDock();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeDock);
+  if (clearBtn) clearBtn.addEventListener('click', () => {
+    if (busy) return;
+    if (confirm('确定清空对话历史?')) clearHistory();
   });
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') close();
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (!q) return;
+      input.value = '';
+      ask(q);
+    });
+  }
+
+  if (heroForm && heroInput) {
+    heroForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = heroInput.value.trim();
+      if (!q) return;
+      heroInput.value = '';
+      openDock();
+      ask(q);
+    });
+  }
+
+  // ESC 关闭面板
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && dock.classList.contains('is-open')) closeDock();
   });
+
+  // ---------- 启动:渲染历史 ----------
+  renderHistory();
 })();
-</script>
 
+</script>
 </body>
 </html>
