@@ -297,14 +297,14 @@ strong { font-weight: 600; color: var(--ink); }
   font-weight: 600;
 }
 
-/* Hero 联系横排 → Notion page properties 风 */
+/* Hero 联系横排 → Notion page properties 风 (只保留底部单线) */
 .hero-contact-line {
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin-bottom: 36px;
-  padding: 12px 0;
-  border-top: 1px solid var(--line);
+  padding: 0 0 16px;
+  border-top: none;
   border-bottom: 1px solid var(--line);
   max-width: 640px;
 }
@@ -352,23 +352,24 @@ a.hero-contact-link:hover { background: var(--bg-hover); }
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  border-top: none;
+  gap: 0;
+  border-top: 1px solid var(--line);
 }
 .project-row {
   display: grid;
   grid-template-columns: 56px 1fr;
   gap: 14px;
-  padding: 14px 16px;
-  background: var(--bg-block);
-  border-radius: 6px;
-  border: 1px solid var(--line-soft);
+  padding: 18px 4px;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--line);
   align-items: start;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: padding 0.2s ease, background 0.2s ease;
 }
 .project-row:hover {
-  background: var(--bg-hover);
-  border-color: var(--line);
+  background: transparent;
+  padding-left: 10px;
 }
 
 /* 左侧编号 → 改成 Notion 大 emoji */
@@ -468,25 +469,26 @@ a.hero-contact-link:hover { background: var(--bg-hover); }
    Stack — Notion inline tag groups
    ============================================================ */
 .stack-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: none;
 }
 .stack-col {
-  background: var(--bg-block);
-  border: 1px solid var(--line-soft);
-  border-right: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
-  border-radius: 6px;
-  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 16px 4px;
   display: grid;
   grid-template-columns: 180px 1fr;
   gap: 16px;
   align-items: center;
   min-height: auto;
+  transition: padding 0.2s ease;
 }
-.stack-col:hover { background: var(--bg-hover); }
+.stack-col:hover { background: transparent; padding-left: 10px; }
 .stack-col-title {
   font-family: var(--font-sans), var(--font-zh);
   font-size: 14px;
@@ -527,34 +529,36 @@ a.hero-contact-link:hover { background: var(--bg-hover); }
    Contact — Notion callout block 风
    ============================================================ */
 .contact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  border: none;
-}
-.contact-card {
-  background: var(--bg-block);
-  border: 1px solid var(--line-soft);
-  border-right: 1px solid var(--line-soft);
-  border-bottom: 1px solid var(--line-soft);
-  border-radius: 6px;
-  padding: 14px 16px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: none;
+}
+.contact-card {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  padding: 14px 4px;
+  display: grid;
+  grid-template-columns: 28px 200px 1fr;
+  gap: 12px;
+  align-items: center;
   min-height: auto;
-  transition: background 0.15s ease;
+  transition: padding 0.2s ease;
   position: relative;
 }
-a.contact-card:hover, button.contact-card:hover { background: var(--bg-hover); }
-/* 角落 emoji 装饰 */
+a.contact-card:hover, button.contact-card:hover {
+  background: transparent;
+  padding-left: 10px;
+}
+/* 行内 emoji,放在最前 (替代角落装饰) */
 .contact-card::before {
-  position: absolute;
-  top: 12px;
-  right: 14px;
-  font-size: 22px;
+  position: static;
+  font-size: 18px;
   line-height: 1;
-  opacity: 0.7;
+  opacity: 0.85;
 }
 .contact-card:nth-child(1)::before { content: '✉️'; }
 .contact-card:nth-child(2)::before { content: '💬'; }
@@ -562,7 +566,7 @@ a.contact-card:hover, button.contact-card:hover { background: var(--bg-hover); }
 .contact-card:nth-child(4)::before { content: '💻'; }
 .contact-label {
   font-family: var(--font-sans);
-  font-size: 11.5px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
@@ -570,17 +574,13 @@ a.contact-card:hover, button.contact-card:hover { background: var(--bg-hover); }
 }
 .contact-value {
   font-family: var(--font-sans), var(--font-zh);
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 400;
   color: var(--ink);
-  margin-top: 2px;
   word-break: break-all;
 }
 .contact-hint {
-  font-family: var(--font-sans), var(--font-zh);
-  font-size: 12.5px;
-  color: var(--ink-soft);
-  margin-top: auto;
+  display: none;
 }
 
 /* Contact card 当 button 时 reset */
@@ -938,6 +938,33 @@ a.contact-card:hover, button.contact-card:hover { background: var(--bg-hover); }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================
+   ✨ 滑动进入入场 — 柔和现代 web app 风
+   ============================================================ */
+
+/* topbar 从顶部滑下 */
+.topbar {
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.3, 1), background 0.3s ease, border-color 0.3s ease;
+}
+body.is-loaded .topbar { transform: translateY(0); }
+
+/* Hero 内每个 block 初始隐藏,等 is-loaded 错位浮入 */
+.hero-meta,
+.hero-name,
+.hero-role,
+.hero-tagline,
+.hero-contact-line {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.3, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+body.is-loaded .hero-meta { opacity: 1; transform: none; transition-delay: 0.1s; }
+body.is-loaded .hero-name { opacity: 1; transform: none; transition-delay: 0.2s; }
+body.is-loaded .hero-role { opacity: 1; transform: none; transition-delay: 0.3s; }
+body.is-loaded .hero-tagline { opacity: 1; transform: none; transition-delay: 0.4s; }
+body.is-loaded .hero-contact-line { opacity: 1; transform: none; transition-delay: 0.5s; }
 
 </style>
 </head>
@@ -1570,16 +1597,23 @@ a.contact-card:hover, button.contact-card:hover { background: var(--bg-hover); }
     );
   }
 
-  // ---------- 初始化 (Notion 风格:无戏剧化入场,无 ribbon) ----------
+  // ---------- 初始化 (Notion 风格:柔和滑动入场) ----------
   function init() {
     updateDate();
     updateFooterYear();
-    document.body.classList.add('intro-done'); // 让依赖此 class 的元素直接显现
+    document.body.classList.add('intro-done');
     setupTopbarScroll();
     setupAnchorScroll();
     setupLangToggle();        // 应用初始语言 (含 hero-name 文本)
     setupRevealOnScroll();
     setupModals();
+
+    // 触发入场动画:双 RAF 确保浏览器渲染初始 hidden 状态后再加 class
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.body.classList.add('is-loaded');
+      });
+    });
   }
 
   if (document.readyState === 'loading') {
